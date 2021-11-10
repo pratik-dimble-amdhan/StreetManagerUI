@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog showHeader="true" title="{i18n>completeJointing}">
+		<f:SimpleForm editable="false" layout="ResponsiveGridLayout">
+			<Label text="{i18n>actualJointing}"></Label>
+			<DatePicker id="idactualJointDate" displayFormat="d MMM y" change="onChangeJointingDate"></DatePicker>
+		</f:SimpleForm>
+		<beginButton>
+			<Button text="{i18n>cancel}" press="onPressCancelActualJointing"/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>confirm}" press="onPressConfirmActualJointing"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

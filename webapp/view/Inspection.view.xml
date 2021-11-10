@@ -1,0 +1,276 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+	controllerName="project1.controller.Inspection" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Shell id="shell">
+		<App>
+			<pages>
+				<Page id="idInspectionPage" title="Inspection">
+					<customHeader>
+						<Bar class="pageHeaderBGcolor">
+							<contentLeft>
+								<core:Icon src="sap-icon://nav-back" size="20px" color="#ffffff" press=".onNavBack(true)"/>
+								<core:Icon src="sap-icon://home" size="20px" color="#ffffff" press="onHome">
+									<core:layoutData>
+										<FlexItemData growFactor="1"/>
+									</core:layoutData>
+								</core:Icon>
+							</contentLeft>
+							<contentMiddle>
+								<Title text="{i18n>Ukpn_Title}" level="H2" class="titleColor"/>
+							</contentMiddle>
+							<contentRight>
+								<Text textAlign="Right" class="titleColor" text="{UserProfileModel>/givenName} {UserProfileModel>/surname} &#13; {UserProfileModel>/assignedRoles}"/>
+								<core:Icon size="30px" src="sap-icon://customer"/>
+							</contentRight>
+						</Bar>
+					</customHeader>
+					<subHeader>
+						<Toolbar class="smallHeader">
+							<Title text="Inspection" level="H1" textAlign="Left" class="secondTitle"/>
+							<ToolbarSpacer/>
+						</Toolbar>
+					</subHeader>
+					<content>
+						<Toolbar height="20px"></Toolbar>
+						<Toolbar>
+							<Text text="{i18n>inspection_details}"/>
+							<ToolbarSpacer></ToolbarSpacer>
+							<Button id="idEditDetails" text="{i18n>BtnEdit_Details}" type="Emphasized" press="onPressEditDetails" class="sapUiSmallMarginEnd"
+							visible="{ parts: ['i18n>IM-Editor'], formatter:'.formatter.checkRoles'}"/>
+							<Text text="Inspection Status:"/>
+							<Text id="idInspectionStatusText" text="{parts: ['InsModel>/status/0/status'], formatter: '.formatter.formatInspectionStatus'}"/>
+							<Button id="idBtnStatus" text="Change status"  press="onPressChangeStatus" ></Button>
+						</Toolbar>
+						<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="2" labelSpanM="2" labelSpanS="12"
+							adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+							singleContainerFullSize="false" visible="{visibleModel>/EditView}">
+							<f:content>
+								<Label text="Working Group"/>
+								<Input id="idInput" placeholder="Search working groups" showSuggestion="true" suggest="handleSuggest" suggestionItems="{SuggestModel>/}"
+									suggestionItemSelected="onsuggestionItemSelected" liveChange="handleWorkinggroup">
+									<suggestionItems>
+										<core:Item key="{SuggestModel>workingGroupId}" text="{SuggestModel>groupName}"/>
+									</suggestionItems>
+									<layoutData>
+										<l:GridData span="XL3 L4 M4 S12"/>
+									</layoutData>
+								</Input>
+								<Button id="idPrimaryContractor" text="Set as primary contractor" press="onPressPrimaryContractor">
+									<layoutData>
+										<l:GridData span="XL3 L2 M3 S12"/>
+									</layoutData>
+								</Button>
+								<Button id="idSecondaryContractor" enabled="true" text="Set as secondary contractor" press="onPressSecondaryContractor">
+									<layoutData>
+										<l:GridData span="XL3 L2 M3 S12"/>
+									</layoutData>
+								</Button>
+								<Label text="Inspection Coordinator"/>
+								<ComboBox id="idInspectionCoordinatorCBox" items="{InsModel>/InspectionCoordinator}" placeholder="Please Select"
+									selectionChange="onInspectionCoordinator">
+									<core:ListItem key="{InsModel>complianceTeam}" text="{InsModel>complianceTeam}"/>
+									<layoutData>
+										<l:GridData span="XL3 L4 M4 S12"/>
+									</layoutData>
+								</ComboBox>
+								<Label text="Inspection ID"/>
+								<Text text="{InsModel>/inspectionId}"/>
+								<Label text="Inspection Date and Time"/>
+								<Text text="{path:'InsModel>/startDate', formatter:'.formatter.DateFormat'}"/>
+								<Label text="Inspector "/>
+								<Text text="{InsModel>/inspectorName}"/>
+								<Label text="Inspection Type "/>
+								<Text text="{InsModel>/inspectionTypeValue}"/>
+								<Label text="Inspection category "/>
+								<Text text="{InsModel>/categoryValue}"/>
+								<Label text=" Inspection outcome "/>
+								<Text text="{InsModel>/outcomeValue}"/>
+								<Label text=" Due date and time "/>
+								<DateTimePicker id="idDuedatetime" displayFormat="dd MMM y, HH:mm:ss" change="handleDateChange">
+									<layoutData>
+										<l:GridData span="XL3 L4 M4 S12"/>
+									</layoutData>
+								</DateTimePicker>
+								<Label text="Site comments "/>
+								<TextArea editable="false" value="{InsModel>/comments}">
+									<layoutData>
+										<l:GridData span="XL3 L4 M4 S12"/>
+									</layoutData>
+								</TextArea>
+								<Label text=""/>
+								<UploadCollection id="InspectionAttachmentsEdit" class="sapUiTinyMargin" instantUpload="false" items="{InspectionAttachmentsModel>/}"
+									fileType="doc,docx,pdf,jpeg,jpg,png,bmp,tiff" maximumFileSize="10" fileSizeExceed="onFileSizeExceed">
+									<UploadCollectionItem ariaLabelForPicture="{InspectionAttachmentsModel>mProperties/ariaLabelForPicture}"
+										fileName="{InspectionAttachmentsModel>mProperties/fileName}" enableEdit="false" enableDelete="false" visibleDelete="false"
+										visibleEdit="false" url="{InspectionAttachmentsModel>mProperties/url}"/>
+									<layoutData>
+										<l:GridData span="XL6 L6 M6 S12"/>
+									</layoutData>
+								</UploadCollection>
+								<Label text="Related permit"/>
+								<Text text="{InsModel>/workReferenceNumber}"/>
+								<Label text="Position"/>
+								<Text text="{InsModel>/coordinates}"/>
+								<Label text="Location"/>
+								<Text text="{InsModel>/locationDecription}"/>								
+								<Label text="Street"/>
+								<Text text="{InsModel>/street}"/>
+								<Label text="{i18n>authority}"/>
+								<Text text="{InsModel>/Authority}"/>
+								<Label text="Works type"/>
+								<Text text="{parts: ['InsModel>/workType'], formatter: '.formatter.formatWorkType'}"/>							
+								<Label text="Description"/>
+								<Text text="{InsModel>/workDescription}"/>
+								<Label text="Works status"/>
+								<Text text="{InsModel>/workStatusValue}"/>
+								<Label text="Duration"/>
+								<Text text="{InsModel>/duration}"/>
+								<Label text="Traffic management type "/>
+								<Text text="{InsModel>/trafficManagementTypeValue}"/>
+								<Label text="Footway closure"/>
+								<Text text="{'InsModel>/closeFootwayValue}"/>
+								<Label/>
+								<Button id="idAddWorkCommentbtn" text="{i18n>Add_work_comment}" width="200px" type="Ghost" press="onAddWorksComment"></Button>
+								<Label text="{i18n>internal_notes}"/>
+								<List id="idNotes" items="{InsModel>/notes}">
+									<items>
+										<StandardListItem title="{InsModel>createdBy}" description="{InsModel>note}" wrapping="true"/>
+									</items>
+								</List>
+								<Label text="{i18n>add_new_internal_notes}"/>
+								<TextArea id="idInternalNotes" value="{InsModel>/Notes}"></TextArea>
+								<Toolbar>
+									<Label text="Failure reasons"/>
+								</Toolbar>
+								<List items="{InsModel>/failureReasons}">
+									<CustomListItem>
+										<VBox>
+											<Text text="{InsModel>failureReason}"/>
+										</VBox>
+									</CustomListItem>
+								</List>
+							</f:content>
+						</f:SimpleForm>
+						<VBox visible="{visibleModel>/DisplayView}">
+							<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="2" labelSpanM="2" labelSpanS="12"
+								adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+								singleContainerFullSize="false">
+								<f:content>
+									<Label text="{i18n>Workinggroup}"/>
+									<Text text="{InsModel>/workingGroup}"/>
+									<Label text="{i18n>Inspectioncoordinator}"/>
+									<Text text="{InsModel>/inspectionCoordinator}"/>
+									<Label text="{i18n>InspectionID}"/>
+									<Text text="{InsModel>/inspectionId}"/>
+									<Label text="{i18n>Inspectiondateandtime}"/>
+									<Text text="{path:'InsModel>/startDate', formatter:'.formatter.DateFormat'}"/>
+									<Label text="{i18n>Inspector}"/>
+									<Text text="{InsModel>/inspectorName}"/>
+									<Label text="{i18n>Inspectiontype}"/>
+									<Text text="{InsModel>/inspectionTypeValue}"/>
+									<Label text="{i18n>Inspectioncategory}"/>
+									<Text text="{InsModel>/categoryValue}"/>
+									<Label text="{i18n>Inspectionoutcome}"/>
+									<Text text="{InsModel>/outcomeValue}"/>
+									<Label text="{i18n>Duedateandtime}"/>
+									<Text text="{path:'InsModel>/dueDate', formatter:'.formatter.DateFormat'}"/>
+									<Label text="{i18n>Sitecomments}"/>
+									<Text text="{InsModel>/comments}"/>
+									<Label text=""/>
+									<UploadCollection id="InspectionAttachmentsView" class="sapUiTinyMargin" instantUpload="false" items="{InspectionAttachmentsModel>/}"
+										fileType="doc,docx,pdf,jpeg,jpg,png,bmp,tiff" maximumFileSize="10" fileSizeExceed="onFileSizeExceed" uploadButtonInvisible="true">
+										<UploadCollectionItem ariaLabelForPicture="{InspectionAttachmentsModel>mProperties/ariaLabelForPicture}"
+											fileName="{InspectionAttachmentsModel>mProperties/fileName}" enableEdit="false" enableDelete="false" visibleDelete="false"
+											visibleEdit="false" url="{InspectionAttachmentsModel>mProperties/url}"/>
+										<layoutData>
+											<l:GridData span="XL6 L6 M6 S12"/>
+										</layoutData>
+									</UploadCollection>
+									<Label text="{i18n>Relatedpermit}"/>
+									<Text text="{InsModel>/workReferenceNumber}"/>
+									<Label text="{i18n>Relatedpermitposition}"/>
+									<Text text="{InsModel>/coordinates}"/>
+									<Label text="{i18n>Location}"/>
+									<Text text="{InsModel>/locationDecription}"/>									
+									<Label text="{i18n>Street}"/>
+									<Text text="{InsModel>/street}"/>
+									<Label text="{i18n>authority}"/>
+									<Text text="{InsModel>/Authority}"/>
+									<Label text="{i18n>Workstype}"/>
+									<Text text="{parts: ['InsModel>/workType'], formatter: '.formatter.formatWorkType'}"/>									
+									<Label text="{i18n>Description}"/>
+									<Text text="{InsModel>/workDescription}"/>
+									<Label text="{i18n>Worksstatus}"/>
+									<Text text="{InsModel>/workStatusValue}"/>
+									<Label text="{i18n>Duration}"/>
+									<Text text="{InsModel>/duration}"/>
+									<Label text="{i18n>Internalnotes}"/>
+									<List items="{InsModel>/notes}">
+										<items>
+											<StandardListItem title="{InsModel>createdBy}" description="{InsModel>note}"/>
+										</items>
+									</List>
+									<Toolbar class="InsToolbar">
+										<Title text="{i18n>Failurereasons}" level="H1" textAlign="Left"></Title>
+									</Toolbar>
+									<List items="{InsModel>/failureReasons}">
+										<CustomListItem>
+											<VBox>
+												<Text text="{InsModel>failureReason}"/>
+											</VBox>
+										</CustomListItem>
+									</List>
+									<Label/>
+								</f:content>
+							</f:SimpleForm>
+							<Toolbar class="InsToolbar">
+								<Title text="{i18n>Inspectiontasks}" level="H1" textAlign="Left"></Title>
+							</Toolbar>
+							<Table id="idInpectiontasksTable" items="{InsTasks>/}" noDataText="{i18n>InsTasknoDataText}" alternateRowColors="true"
+								sticky="HeaderToolbar,ColumnHeaders" itemPress="onInpectiontasksTablerowselected">
+								<columns>
+									<Column minScreenWidth="Tablet" demandPopin="true">
+										<Label text="{i18n>Tasktype}" design="Bold"/>
+									</Column>
+									<Column minScreenWidth="Tablet" demandPopin="true">
+										<Label text="{i18n>TaskDeadline}" wrapping="true" design="Bold"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Label text="{i18n>assignTo}" wrapping="true" design="Bold"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Label text="{i18n>TaskStatus}" wrapping="true" design="Bold"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem type="Navigation">
+										<cells>
+											<Text text="{InsTasks>taskType}"/>
+											<Text text="{path:'InsTasks>taskDeadline', formatter:'.formatter.DateFormatMoment'}"/>
+											<Text text="{InsTasks>workingGroupName}"/>
+											<Text text="{InsTasks>status}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+							<HBox id="idInspectionBtnTask" alignContent="End" alignItems="End" justifyContent="End">
+								<Button id="idBtnAddnew" text="{i18n>AddnewTask}" type="Emphasized" press="onPressAddnewTask"
+								visible="{ parts: ['i18n>IM-Editor'], formatter:'.formatter.checkRoles'}"
+								enabled="{= ${InsModel>/status}.toUpperCase() !== 'CLOSED'}"/>
+							</HBox>
+							<HBox id="idInspectionAddTaskBox" width="100%"></HBox>
+						</VBox>
+					</content>
+					<footer >
+						<OverflowToolbar visible="{visibleModel>/EditView}">
+							<content>
+								<ToolbarSpacer></ToolbarSpacer>
+								<Button text="{i18n>savedetails}"  press=".onSaveandSendDetails($event,'false')"/>
+								<Button text="{i18n>save_details}" press=".onSaveandSendDetails($event,'true')" type="Emphasized"/>
+							</content>
+						</OverflowToolbar>
+					</footer>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>

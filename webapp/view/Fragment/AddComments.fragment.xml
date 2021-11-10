@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog contentWidth="500px" contentHeight="250px" showHeader="true" title="{= ${newCommentModel>/type} === 'EXTERNAL' ? ${i18n>addWorkComment} : ${i18n>addInternalNote} }">
+		<content>
+			<VBox width="100%">
+				<HBox visible="{= ${newCommentModel>/type} === 'EXTERNAL' }" class="sapUiSmallMarginTop">
+					<Label text="{i18n>topic}" width="100px" class="sapUiSmallMarginBegin sapUiSmallMarginTop"/>
+					<ComboBox width="280px" items="{topicsModel>/}" selectedKey="{newCommentModel>/topic}"
+						placeholder="{i18n>please_select}">
+						<core:ListItem key="{topicsModel>displayText}" text="{topicsModel>displayText}"/>
+					</ComboBox>
+				</HBox>
+				<HBox class="sapUiSmallMarginTop">
+					<Label text="{i18n>Comments}" width="100px" class="sapUiSmallMarginBegin sapUiSmallMarginTop"/>
+					<TextArea maxLength="1500" height="120px" width="280px" value="{newCommentModel>/content}"/>
+				</HBox>
+				<HBox>
+					<Label text="" width="100px" class="sapUiSmallMarginBegin"/>
+					<Text text="{i18n>Maximum_1500_characters}"/>
+				</HBox>
+			</VBox>
+		</content>
+		<beginButton>
+			<Button text="{i18n>BtnCancel}" type="Ghost" press="onPressCancelAddComment"/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>BtnSave}" press="onSaveComment"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

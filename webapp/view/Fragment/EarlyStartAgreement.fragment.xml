@@ -1,0 +1,59 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog showHeader="true" title="Early Start Agreement Details">
+		<content>
+			<l:VerticalLayout class="sapUiContentPadding">
+				<!--<Title text="Location details will go here, here, here, here, here, here"/>-->
+				<Title text="{i18n>LocationDetails} {oModel>/LocationAgreement}"/>
+				<VBox>
+					<Label text="Has early start been approved"/>
+					<SegmentedButton id="idDialogSegbtn" selectedKey="{oModel>/ApplicationDetails/selectedAgreebutton}" selectedItem="none" selectionChange="onSelectionChangeSegbutton">
+						<items>
+							<SegmentedButtonItem text="{i18n>yes}" key="yes"/>
+							<SegmentedButtonItem text="{i18n>no}" key="no"/>
+						</items>
+					</SegmentedButton>
+				</VBox>
+				<f:Form id="idEarlyStartAgreementDialog" editable="false">
+					<f:layout>
+						<f:ColumnLayout columnsM="1" columnsL="1" columnsXL="1"/>
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer id="idFormEarltAggrmnt1" visible="false">
+							<f:formElements>
+								<f:FormElement label="Approval Details">
+									<f:fields>
+										<TextArea id="idPreApprovalDetails" liveChange="onChangePreApprovalDetails" value="{oModel>/preApprovalDetails}"/>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+						<f:FormContainer id="idFormEarltAggrmnt2" visible="false">
+							<f:formElements>
+								<f:FormElement label="Approval Authoriser">
+									<f:fields>
+										<Input id="idPreApprovalAuthoriser" liveChange="onChangePreApprovalAuthoriser" value="{oModel>/preApprovalAuthoriser}"/>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+						<f:FormContainer id="idFormEarltAggrmnt3" visible="false">
+							<f:formElements>
+								<f:FormElement label="Early Start Reason">
+									<f:fields>
+										<TextArea id="idEarlyStartReason" liveChange="onChangeEarlyStartReason" value="{oModel>/earlyStartReason}"/>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+			</l:VerticalLayout>
+		</content>
+		<beginButton>
+			<Button text="Cancel" type="Reject" press="onPressCancelEarlyAgreement"/>
+		</beginButton>
+		<endButton>
+			<Button text="Save" type="Emphasized" press="onSaveEarlyAgreement"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

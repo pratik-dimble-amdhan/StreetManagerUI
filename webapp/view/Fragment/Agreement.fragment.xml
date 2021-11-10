@@ -1,0 +1,52 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog showHeader="true" title="Agreement Details">
+		<content>
+			<f:Form id="FormDisplayColumn_oneGroup234" editable="false">
+				<f:title>
+					<core:Title text="Agreement Details"/>
+				</f:title>
+				<f:layout>
+					<f:ColumnLayout columnsM="2" columnsL="2" columnsXL="2"/>
+				</f:layout>
+				<f:toolbar>
+					<!--<Text text="Agreement Details"/>-->
+					<Text text="Location details will go here, here, here, here, here, here"/>
+				</f:toolbar>
+				<f:formContainers>
+					<f:FormContainer>
+						<f:formElements>
+							<f:FormElement label="Agreement type">
+								<f:fields>
+									<ComboBox loadItems="handleLoadItems">
+										<core:ListItem key="{key}" text="{text}"/>
+									</ComboBox>
+								</f:fields>
+							</f:FormElement> 
+							<f:FormElement label="Agreement reference">
+								<f:fields>
+									<Input/>
+								</f:fields>
+							</f:FormElement>
+							<f:FormElement label="Agreement contact">
+								<f:fields>
+									<Input/>
+								</f:fields>
+							</f:FormElement>
+							<f:FormElement label="Agreement date">
+								<f:fields>
+									<DatePicker placeholder="Enter Date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
+								</f:fields>
+							</f:FormElement>
+						</f:formElements>
+					</f:FormContainer>
+				</f:formContainers>
+			</f:Form>
+		</content>
+		<beginButton>
+			<Button text="Cancel" type="Reject" press="onPressCancel"/>
+		</beginButton>
+		<endButton>
+			<Button text="Save" type="Accept" press="onpressSave"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

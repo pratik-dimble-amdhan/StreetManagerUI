@@ -1,0 +1,119 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<VBox class="sapUiSmallMargin InspectionformBorder" width="100%">
+		<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="2" labelSpanL="2" labelSpanM="2" labelSpanS="12"
+			adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+			singleContainerFullSize="false" visible="{= ${InspectionTaskModel>/editMode} || ${InspectionTaskModel>/viewUpdate}}">
+			<f:toolbar>
+				<Toolbar>
+					<Title text="{= ${InspectionTaskModel>/inspectionTaskId} ? ${i18n>InspectionEdittask} : ${i18n>InspectionCreatetask} }" level="H4"
+						titleStyle="H4"/>
+					<ToolbarSpacer/>
+					<ComboBox id="idStatusSelect" items="{InspectionTaskModel>/TaskStatus}" visible="{InspectionTaskModel>/editMode}"
+						placeholder="Please Select"
+						enabled="{= !${InspectionTaskModel>/isContractor} || !${InspectionTaskModel>/editMode} || ${InspectionTaskModel>/taskType} === 'Fee Agreement'}">
+						<items>
+							<core:Item key="{InspectionTaskModel>key}" text="{InspectionTaskModel>displayText}"/>
+						</items>
+					</ComboBox>
+				</Toolbar>
+			</f:toolbar>
+			<f:content>
+				<Label text="{i18n>Tasktype}"/>
+				<ComboBox id="idInspectionTasktype" items="{InspectionTaskModel>/taskTypeList}" placeholder="Please Select"
+					selectionChange="onselectInspectionTasktype" selectedKey="{InspectionTaskModel>/taskTypeId}" enabled="{=!${InspectionTaskModel>/editMode}}">
+					<core:ListItem key="{InspectionTaskModel>defaultComment}" text="{InspectionTaskModel>taskType}"/>
+				</ComboBox>
+				<Label text="{i18n>TaskDeadline}"/>
+				<DateTimePicker id="idInspectionDTP" dateValue="{InspectionTaskModel>/Taskdeadline}" displayFormat="d MMM y, HH:mm:ss"
+					change="onInspectiontaskdatechange" enabled="{= !${InspectionTaskModel>/isContractor} || !${InspectionTaskModel>/editMode}}">
+					<layoutData>
+						<l:GridData span="XL3 L3 M3 S12"/>
+					</layoutData>
+				</DateTimePicker>
+				<Label visible="{=!${InspectionTaskModel>/editMode}}" text="{i18n>assignTo}"/>
+				<ComboBox visible="{=!${InspectionTaskModel>/editMode}}" id="idSendtomultiInput" width="100%"
+					items="{ path: 'SuggestModel>/', sorter: { path: 'groupName' } }" selectedKey="{InspectionTaskModel>/workingGroupId}"
+					enabled="{= !${InspectionTaskModel>/isContractor} || !${InspectionTaskModel>/editMode}}" selectionChange="_validInspectionTaskform">
+					<core:Item key="{SuggestModel>workingGroupId}" text="{SuggestModel>groupName}"/>
+				</ComboBox>
+				<Label visible="{InspectionTaskModel>/editMode}" text="{i18n>assignTo}"/>
+				<Text visible="{InspectionTaskModel>/editMode}" text="{InspectionTaskModel>/workingGroupName}"/>
+				<Label text="{i18n>TaskComments}" visible="{=!${InspectionTaskModel>/editMode}}"/>
+				<TextArea id="idInspectionTaskComments" visible="{=!${InspectionTaskModel>/editMode}}"
+					enabled="{= !${InspectionTaskModel>/isContractor} || !${InspectionTaskModel>/editMode}}" 
+					value="{InspectionTaskModel>/Taskcomments}" change="_validInspectionTaskform"/>
+				<Label visible="{InspectionTaskModel>/editMode}" text="{i18n>TaskComments}"/>
+				<List visible="{InspectionTaskModel>/editMode}" items="{InspectionTaskModel>/taskComments}">
+					<items>
+						<CustomListItem>
+							<VBox>
+								<Text text="{InspectionTaskModel>createdBy}"/>
+							</VBox>
+						</CustomListItem>
+					</items>
+				</List>
+				<Label text="{i18n>TaskAttachments}"/>
+				<UploadCollection id="idUploadCollectionEdit" class="sapUiTinyMargin" instantUpload="false" items="{AttachmentsModel>/attachments}"
+					fileType="doc,docx,pdf,jpeg,jpg,png,bmp,tiff" maximumFileSize="10" fileSizeExceed="onFileSizeExceed">
+					<UploadCollectionItem ariaLabelForPicture="{AttachmentsModel>mProperties/ariaLabelForPicture}"
+						fileName="{AttachmentsModel>mProperties/fileName}" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false"
+						url="{AttachmentsModel>mProperties/url}"/>
+				</UploadCollection>
+				<Label text="{i18n>AddnewComment}" visible="{InspectionTaskModel>/editMode}"/>
+				<TextArea id="idInspectionAddnewComment" value="{InspectionTaskModel>/TaskNewcomments}" visible="{InspectionTaskModel>/editMode}"/>
+				<Label/>
+				<CheckBox id="idPermitWorkImpactchkbox" text="{i18n>DonotsendUpdate}" selected="{InspectionTaskModel>/DonotsendUpdate}"/>
+				<Toolbar class="InsToolbarFooter">
+					<ToolbarSpacer/>
+					<Button text="{i18n>BtnCancel}" press=".onCancelInspection($event, 'cancel')" type="Reject"/>
+					<Button text="{i18n>SaveSendTask}" press="onPressSaveandSend" type="Accept" enabled="{InspectionTaskModel>/InsButtons}"/>
+				</Toolbar>
+			</f:content>
+		</f:SimpleForm>
+		<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="2" labelSpanL="2" labelSpanM="2" labelSpanS="12"
+			adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+			singleContainerFullSize="false" visible="{InspectionTaskModel>/viewMode}">
+			<f:toolbar>
+				<Toolbar>
+					<Title text="{parts:['i18n>InspectiontaskId', 'InspectionTaskModel>/inspectionTaskId']}" level="H4" titleStyle="H4"/>
+					<ToolbarSpacer/>
+					<Text text="{InspectionTaskModel>/status}" visible="{InspectionTaskModel>/viewMode}"/>
+				</Toolbar>
+			</f:toolbar>
+			<f:content>
+				<Label text="{i18n>Tasktype}"/>
+				<Text text="{InspectionTaskModel>/taskType}"/>
+				<Label text="{i18n>TaskDeadline}"/>
+				<Text text="{path:'InspectionTaskModel>/taskDeadline', formatter:'.formatter.DateFormatMoment'}"/>
+				<Label text="{i18n>assignTo}"/>
+				<Text text="{InspectionTaskModel>/workingGroupName}"/>
+				<Label  text="{i18n>TaskComments}"/>
+				<List items="{InspectionTaskModel>/taskComments}">
+					<items>
+						<CustomListItem>
+							<VBox>
+								<Text text="{InspectionTaskModel>createdBy}"/>
+							</VBox>
+						</CustomListItem>
+					</items>
+				</List>
+				<Label text="{i18n>TaskAttachments}"/>
+				<UploadCollection id="idUploadCollectionDisplay" class="sapUiTinyMargin" instantUpload="false" items="{AttachmentsModel>/attachments}"
+					fileType="doc,docx,pdf,jpeg,jpg,png,bmp,tiff" maximumFileSize="10" fileSizeExceed="onFileSizeExceed">
+					<UploadCollectionItem ariaLabelForPicture="{AttachmentsModel>mProperties/ariaLabelForPicture}"
+						fileName="{AttachmentsModel>mProperties/fileName}" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false"
+						url="{AttachmentsModel>mProperties/url}"/>
+				</UploadCollection>
+				<!--<HBox justifyContent="Start" alignContent="Start" alignItems="Start">-->
+				<!--	<Text text="{InspectionTaskModel>/attachmentCount}"/>-->
+				<!--	<Button text="{i18n>ViewAttachments}" class="sapUiTinyMarginBegin"/>-->
+				<!--</HBox>-->
+				<Toolbar class="InsToolbarFooter">
+					<ToolbarSpacer/>
+					<Button text="{i18n>BtnClose}" press=".onCancelInspection($event, 'close')"/>
+					<Button enabled="{InspectionTaskModel>/editable}" text="{i18n>BtnEdit}" press="onPressEditInspectionTask"/>
+				</Toolbar>
+			</f:content>
+		</f:SimpleForm>
+	</VBox>
+</core:FragmentDefinition>

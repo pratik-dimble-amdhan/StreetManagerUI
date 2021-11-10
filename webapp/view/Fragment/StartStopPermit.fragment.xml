@@ -1,0 +1,21 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core"
+	xmlns:u="sap.ui.unified">
+	<Dialog id="idDialogStartPermit" showHeader="true">
+		<content>
+			<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="2" labelSpanS="12"
+				adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+				singleContainerFullSize="false">
+				<f:content>
+					<!--<Label text="{SearchModel>/startStopPermiti18n>actualStartdateTime}"/>-->
+					<Label text="{= ${SearchModel>/startStopPermit} === 'Start' ? ${i18n>actualStartdateTime} : ${i18n>actualenddateTime}}"/>
+					<DateTimePicker id="idSearchStartdateTime" placeholder="{i18n>Selectdateandtime}" displayFormat="d MMM y, HH:mm:ss"
+						change="onSelectStartdateTime"></DateTimePicker>
+				</f:content>
+			</f:SimpleForm>
+		</content>
+		<buttons>
+			<Button text="{i18n>BtnCancel}" type="Reject" press="onPressCancel"/>
+			<Button text="{i18n>BtnConfirm}" type="Ghost" press="onPressConfirm"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,280 @@
+<mvc:View height="100%" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout" 
+	controllerName="project1.controller.Search" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Shell id="shell">
+		<App>
+			<pages>
+				<Page>
+					<customHeader>
+						<Bar class="pageHeaderBGcolor">
+							<contentLeft>
+								<core:Icon src="sap-icon://nav-back" size="20px" color="#ffffff" press=".onNavBack(false)"/>
+								<core:Icon src="sap-icon://home" size="20px" color="#ffffff" press="onHome">
+									<core:layoutData>
+										<FlexItemData growFactor="1"/>
+									</core:layoutData>
+								</core:Icon>
+							</contentLeft>
+							<contentMiddle>
+								<Title text="{i18n>Ukpn_Title}" level="H2" class="titleColor"/>
+							</contentMiddle>
+							<contentRight>
+								<Text textAlign="Right" class="titleColor" text="{UserProfileModel>/givenName} {UserProfileModel>/surname} &#13; {UserProfileModel>/assignedRoles}"/>
+								<core:Icon size="30px" src="sap-icon://customer"/>
+							</contentRight>
+						</Bar>
+					</customHeader>
+					<subHeader>
+						<Toolbar class="smallHeader">
+							<Title text="{i18n>Search}" level="H1" textAlign="Left" class="secondTitle"/>
+						</Toolbar>
+					</subHeader>
+					<l:VerticalLayout id="idVlSearch" class="sapUiContentPadding" width="100%">
+						<l:content>
+							<HBox alignItems="Center" width="100%">
+								<Label text="{i18n>Search_for}"/>
+								<ComboBox id="idSearchfor" selectedKey="{SearchModel>/searchFor}" selectionChange="onSelectSearchfor"
+									class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+									<core:ListItem key="key1" text="{i18n>All_permits_types}"/>
+									<core:ListItem key="key2"  text="{i18n>Inspections}"/>
+								</ComboBox>
+								<CheckBox id="idSearchByMeChkbox" text="{i18n>Search_by_me}" select="onSearchSelect"/>
+							</HBox>
+							<HBox>
+								<HBox id="idAllPermitTypeHBox" justifyContent="SpaceBetween" alignItems="Center" class="HBoxStyle" width="80%" visible="true">
+									<VBox>
+										<Label text="{i18n>Permit_number}"/>
+										<Input width="90%" id="idPermitNoInBox" type="Text" value="{SearchModel>/WorkReference}" liveChange="handleUserInput" submit="OnSearchPress"/>
+									</VBox>
+									<VBox>
+										<Label text="{i18n>Request_id}"/>
+										<Input width="90%" id="idRequestIdInBox" type="Text" value="{SearchModel>/RequestId}" submit="OnSearchPress" liveChange="handleUserInput"/>
+									</VBox>
+									<VBox>
+										<Label text=""/>
+										<Text width="40px" text="INCD-"/>
+									</VBox>
+									<VBox>
+										<Label text="{i18n>Incident_no}"/>
+										<Input width="90%" id="idIncidentNoInBox" type="Text" maxLength="10" submit="OnSearchPress" value="{SearchModel>/IncidentNo}"
+											liveChange="handleUserInput"/>
+									</VBox>
+									<VBox>
+										<Label text="{i18n>SAP_Work_Order_Number}"/>
+										<Input width="90%" id="idWorkOrderInBox" type="{SearchModel>SAPWorkOrderNo}" submit="OnSearchPress" value="{SearchModel>/SAPWorkOrderNo}"
+											liveChange="handleUserInput"/>
+									</VBox>
+									<VBox>
+										<Label text="{i18n>Licence_number}"/>
+										<Input width="90%" id="idLicenceNoInBox" type="Text" value="{SearchModel>/LicenceNumber}" submit="OnSearchPress" liveChange="handleUserInput"/>
+									</VBox>
+								</HBox>
+								<HBox id="idInspectionsHBox" justifyContent="SpaceBetween" alignItems="Center" class="HBoxStyle" width="85%" visible="false">
+									<VBox>
+										<Label text="{i18n>InspectionID}"/>
+										<Input width="90%" id="idInspectionIDInBox" type="Text" value="{SearchModel>/InspectionId}" submit="OnSearchPress" liveChange="handleUserInput"/>
+									</VBox>
+									<VBox>
+										<Label text="{i18n>Related_permit_number}"/>
+										<Input width="90%" id="idRelatedpermitInBox" type="Text" submit="OnSearchPress" value="{SearchModel>/RelatedPermitNo}" liveChange="handleUserInput"/>
+									</VBox>
+									<VBox>
+										<Label text="{i18n>DNO}"/>
+										<ComboBox width="90%" id="idComboDNO" items="{SearchModel>/DNO}" selectedKey="{SearchModel>/selectedDNO}" placeholder="Please Select"
+											change="handleUserInput">
+											<core:ListItem key="{SearchModel>id}" text="{SearchModel>dno}"/>
+										</ComboBox>
+									</VBox>
+									<VBox>
+										<Label text="{i18n>Workinggroup}"/>
+										<Input width="90%" id="idWorkinggroupInBox" placeholder="{i18n>search_working_groups}" showSuggestion="true" suggest="handleSuggest"
+											suggestionItems="{SuggestModel>/}" submit="OnSearchPress" liveChange="handleUserInputWorkingGr"
+											suggestionItemSelected="onsuggestionItemSelected">
+											<suggestionItems>
+												<core:Item key="{SuggestModel>workingGroupId}" text="{SuggestModel>groupName}"/>
+											</suggestionItems>
+										</Input>
+									</VBox>
+									<VBox>
+										<Label text="{i18n>Inspection_type}"/>
+										<ComboBox width="90%" id="idInspecionTypeCBox" items="{SearchModel>/InspectionType}" selectedKey="{SearchModel>/selectedInspectionType}"
+											placeholder="Please Select" change="handleUserInput">
+											<core:ListItem key="{SearchModel>key}" text="{SearchModel>displayText}"/>
+										</ComboBox>
+									</VBox>
+								</HBox>
+							</HBox>
+							<Label text="{i18n>Search_by_address}"></Label>
+							<HBox justifyContent="SpaceBetween" alignItems="Center" class="HBoxStyle" width="48%">
+								<VBox>
+									<Label text="{i18n>Street}"/>
+									<Input width="90%" id="idStreetInBox" type="Text" value="{SearchModel>/Street}" submit="OnSearchPress" liveChange="handleUserInput" />
+								</VBox>
+								<VBox>
+									<Label text="{i18n>Town}"/>
+									<Input width="90%" id="idTownInBox" type="Text" value="{SearchModel>/Town}" submit="OnSearchPress" liveChange="handleUserInput"/>
+								</VBox>
+								<VBox>
+									<Label text="{i18n>Area}"/>
+									<Input width="90%" id="idAreaInBox" type="Text" value="{SearchModel>/Area}" submit="OnSearchPress" liveChange="handleUserInput"/>
+								</VBox>
+							</HBox>
+							<Button type="Emphasized" text="{i18n>Search}" press="OnSearchPress" enabled="{SearchModel>/searchButton}"/>
+						</l:content>
+					</l:VerticalLayout>
+					<VBox id="idSearchTable" visible="false">
+						<Table id="idSearchViewTable" items="{SearchModel>/SearchArray}"  selectionChange="onTableSelectRow"
+							alternateRowColors="true" sticky="HeaderToolbar,ColumnHeaders" visible="{= ${SearchModel>/searchFor} === 'key1'}">
+							<headerToolbar>
+								<OverflowToolbar>
+									<content>
+										<ToolbarSpacer/>
+										<Button id="revertJointingBtn" visible="false" text="{i18n>revertJointing}" press="onPressRevertJointing"/>
+										<Button id="completeJointingBtn" visible="false" text="{i18n>completeJointing}" press="onPressCompleteJointing"/>
+										<Button id="continueCreateBtn" text="{i18n>ContinueCreate_new_permit}" visible="false" press=".onPressCreatePermit(true)"/>
+										<Button id="createBtn" text="{i18n>Create_new_permit}" visible="false" press=".onPressCreatePermit(false)"/>
+										<Button id="continueAlterBtn" text="{i18n>ContinueAlter_permit}" visible="false" press=".onPressAlterPermit(true)"/>
+										<Button id="alterBtn" text="{i18n>Alter_permit}" visible="false" press=".onPressAlterPermit(false)"/>
+										<Button id="ContinuePAABtn" text="{i18n>ContinueProceedPAA}" visible="false" press=".onPressPAA(true)"/>
+										<Button id="PAABtn" text="{i18n>proceedPAA}" visible="false" press=".onPressPAA(false)"/>
+										<Button id="registerBtn" text="{i18n>Register}" visible="false" press="onPressRegister"/>
+										<Button id="stopBtn" text="{i18n>Stop}" visible="false" press=".onPressStartStop('Stop')"/>
+										<Button id="startBtn" text="{i18n>Start}" visible="false" press=".onPressStartStop('Start')"/>
+										<Button id="extndBtn" text="{i18n>extendPermit}" visible="false" press=".onPressExtendPermit('search')"/>
+										<Button id="attachBtn" text="{i18n>TaskAddAttachments}" visible="false" press=".onPressAddAttachments"/>
+										<Button id="cancelBtn" text="{i18n>cancel}" visible="false" press="onPressCancelAction"/>
+										<Button id="revertStartBtn" text="{i18n>revert_start}" visible="false" press=".onPressRevertAction('RevertStart')"/>
+										<Button id="revertStopBtn" text="{i18n>revert_stop}" visible="false" press=".onPressRevertAction('RevertStop')"/>
+									</content>
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+								<Column minScreenWidth="Tablet" demandPopin="true" width="10em">
+									<Label text="{i18n>Work_reference}" wrapping="true" design="Bold"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true" width="6em">
+									<Label text="{i18n>Request_id}" wrapping="true" design="Bold"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Label text="{i18n>Incident_no}" wrapping="true" design="Bold"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true" width="10em">
+									<Label text="{i18n>SAP_work_order_number}" wrapping="true" design="Bold"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true" width="6em">
+									<Label text="{i18n>Request_type}" wrapping="true" design="Bold"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Label text="{i18n>Work_Category}" wrapping="true" design="Bold"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Label text="{i18n>Start_End_date}" wrapping="true" design="Bold"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Label text="{i18n>Address}" wrapping="true" design="Bold"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Label text="{i18n>Exact_location}" wrapping="true" design="Bold"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Label text="{i18n>Permit_Status}" wrapping="true" design="Bold"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Label text="{i18n>Work_status}" wrapping="true" design="Bold"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Link text="{= ${SearchModel>workReferenceNumber} ? ${SearchModel>workReferenceNumber} : '--'}" wrapping="true"
+											enabled="{= ${SearchModel>workStatusValue} ? true : false}" press="onLinkWorkReference"/>
+										<Link text="{= ${SearchModel>workId} ? ${SearchModel>workId} : '--'}" 
+											press="onClickAppId" wrapping="true"/>
+										<Link text="{= ${SearchModel>incidentReference} ? ${SearchModel>incidentReference} : '--'}" press="onClickIncdId"
+											wrapping="true"/>
+										<Text text="{= ${SearchModel>workOrderNumber} ? ${SearchModel>workOrderNumber} : '--'}"/>
+										<Text text="{= ${parts: ['SearchModel>workType'], formatter: '.formatter.formatWorkType'} ? ${parts: ['SearchModel>workType'], formatter: '.formatter.formatWorkType'} : '--'}"/>
+										<Text text="{= ${parts: ['SearchModel>workCategory'], formatter: '.formatter.formatWorkCategory'} ? ${parts: ['SearchModel>workCategory'], formatter: '.formatter.formatWorkCategory'} : '--'}"/>
+										<VBox>
+											<Text text="{path:'SearchModel>proposedStartDate', formatter:'.DateFormatwithoutTime'}"/>
+											<Text text="{path:'SearchModel>proposedEndDate', formatter:'.DateFormatwithoutTime'}"/>
+										</VBox>
+										<Text text="{= ${SearchModel>street} + ', ' + ${SearchModel>town} + ', ' + ${SearchModel>area}}"/>
+										<Text text="{= ${SearchModel>locationDescription} ? ${SearchModel>locationDescription} : '--'}"/>
+										<Text text="{= ${SearchModel>statusValue} ? ${SearchModel>statusValue} : '--'}"/>
+										<Text text="{= ${SearchModel>workStatusValue} ? ${SearchModel>workStatusValue} : '--'}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+						<HBox justifyContent="Center"
+							visible="{= ${SearchModel>/searchFor} === 'key1' &amp;&amp; ${SearchModel>/SearchArray/length} &lt; ${SearchModel>/totalElements} }">
+							<Button text="{i18n>loadMore}" press=".loadPaginationItems"/>
+						</HBox>
+						<Table items="{SearchModel>/SearchArray}" selectionChange="onTableSelectRow" alternateRowColors="true" sticky="HeaderToolbar,ColumnHeaders"
+							visible="{= ${SearchModel>/searchFor} === 'key2'}">
+							<headerToolbar>
+								<OverflowToolbar>
+									<content>
+										<HBox>
+											<Label text="{i18n>Filter_inspection_status}" class="sapUiSmallMarginTop sapUiSmallMarginEnd"/>
+											<ComboBox id="statusFilterSelect" items="{SearchModel>/InspectionStatus}" selectedKey="{SearchModel>/selectedInspectionStatus}"
+												placeholder="Please Select" selectionChange="onStatusSelect">
+												<core:ListItem key="{SearchModel>key}" text="{SearchModel>desc}"/>
+											</ComboBox>
+										</HBox>
+										<ToolbarSpacer/>
+									</content>
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+								<Column minScreenWidth="Desktop" demandPopin="true">
+									<Label text="{i18n>InspectionID}" wrapping="true" design="Bold"/>
+								</Column>
+								<Column minScreenWidth="Desktop" demandPopin="true">
+									<Label text="{i18n>Relatedpermit}" wrapping="true" design="Bold"/>
+								</Column>
+								<Column minScreenWidth="Desktop" demandPopin="true">
+									<Label text="{i18n>Workinggroup}" wrapping="true" design="Bold"/>
+								</Column>
+								<Column minScreenWidth="Desktop" demandPopin="true">
+									<Label text="{i18n>Inspectiontype}" wrapping="true" design="Bold"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Label text="{i18n>Inspectioncategory}" wrapping="true" design="Bold"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Label text="{i18n>Inspectiondateandtime}" wrapping="true" design="Bold"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Label text="{i18n>Inspectionoutcome}" wrapping="true" design="Bold"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Label text="{i18n>Duedateandtime}" wrapping="true" design="Bold"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Label text="{i18n>status}" wrapping="true" design="Bold"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem
+									visible="{= ${SearchModel>/selectedInspectionStatus} === '*' || ${SearchModel>/selectedInspectionStatus} === ${SearchModel>workStatus}}">
+									<cells>
+										<Link text="{= ${SearchModel>inspectionId} ? ${SearchModel>inspectionId} : '--'}" press="onClickInspectionId" wrapping="true"/>
+										<Text text="{= ${SearchModel>permitReferenceNumber} ? ${SearchModel>permitReferenceNumber} : '--'}"/>
+										<Text text="{parts:['SearchModel>workingGroup','SuggestModel>/'], formatter:'.formatter.formatWorkingGroup'}"/>
+										<Text text="{= ${SearchModel>inspectionTypeValue} ? ${SearchModel>inspectionTypeValue} : '--'}"/>
+										<Text text="{= ${SearchModel>categoryValue} ? ${SearchModel>categoryValue} : '--'}"/>
+										<Text text="{= ${SearchModel>startDate} ? ${SearchModel>startDate} : '--'}"/>
+										<Text text="{= ${SearchModel>outcomeValue} ? ${SearchModel>outcomeValue} : '--'}"/>
+										<Text text="{= ${SearchModel>dueDate} ? ${SearchModel>dueDate} : '--'}"/>
+										<Text text="{= ${SearchModel>workStatusValue} ? ${SearchModel>workStatusValue} : '--'}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</VBox>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>

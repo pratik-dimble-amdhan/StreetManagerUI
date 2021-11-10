@@ -1,0 +1,48 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<HBox id="idInspectionHistoryTable">
+		<Table items="{InspectionHistory>/}" selectionChange="onTableSelectRow" alternateRowColors="true" sticky="HeaderToolbar,ColumnHeaders">
+			<columns>
+				<Column minScreenWidth="Tablet" demandPopin="true">
+					<Label text="{i18n>Date_time}" wrapping="true" design="Bold"/>
+				</Column>
+				<Column minScreenWidth="Desktop" demandPopin="true">
+					<Label text="{i18n>InspectionID}" wrapping="true" design="Bold"/>
+				</Column>
+				<Column minScreenWidth="Desktop" demandPopin="true">
+					<Label text="{i18n>Inspectiontype}" wrapping="true" design="Bold"/>
+				</Column>
+				<Column minScreenWidth="Tablet" demandPopin="true">
+					<Label text="{i18n>Inspectioncategory}" wrapping="true" design="Bold"/>
+				</Column>
+				<Column minScreenWidth="Tablet" demandPopin="true">
+					<Label text="{i18n>Inspectionoutcome}" wrapping="true" design="Bold"/>
+				</Column>
+				<Column minScreenWidth="Tablet" demandPopin="true">
+					<Label text="{i18n>Due_date_time}" wrapping="true" design="Bold"/>
+				</Column>
+				<Column minScreenWidth="Desktop" demandPopin="true">
+					<Label text="{i18n>Coordinator}" wrapping="true" design="Bold"/>
+				</Column>
+				<Column minScreenWidth="Tablet" demandPopin="true">
+					<Label text="{i18n>status}" wrapping="true" design="Bold"/>
+				</Column>
+				<Column visible="{ parts: ['i18n>IM-Viewer','i18n>IM-Editor'], formatter:'.formatter.checkRoles'}" minScreenWidth="Tablet" demandPopin="true"></Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<Text text="{= ${InspectionHistory>startDate} ? ${InspectionHistory>startDate} : '--'}" wrapping="true"/>
+						<Text text="{= ${InspectionHistory>inspectionId} ? ${InspectionHistory>inspectionId} : '--'}" wrapping="true"/>
+						<Text text="{= ${InspectionHistory>inspectionTypeValue} ? ${InspectionHistory>inspectionTypeValue} : '--'}"/>
+						<Text text="{= ${InspectionHistory>categoryValue} ? ${InspectionHistory>categoryValue} : '--'}"/>
+						<Text text="{= ${InspectionHistory>outcomeValue} ? ${InspectionHistory>outcomeValue} : '--'}"/>
+						<Text text="{= ${InspectionHistory>dueDate} ? ${InspectionHistory>dueDate} : '--'}"/>
+						<Text text="{= ${InspectionHistory>inspectionCoordinator} ? ${InspectionHistory>inspectionCoordinator} : '--'}"/>
+						<Text text="{= ${parts: ['InspectionHistory>workStatusValue'], formatter: '.formatter.formatInspectionStatus'} ? ${parts: ['InspectionHistory>workStatusValue'], formatter: '.formatter.formatInspectionStatus'} : '--'}"/>
+						<Link text="View" press="onClickView"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</HBox>
+</core:FragmentDefinition>

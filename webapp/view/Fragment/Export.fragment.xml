@@ -1,0 +1,10 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Popover placement="Bottom" showHeader="false">
+		<FlexBox direction="Column">
+			<Button text="Export as .pdf" width="200px" type="Transparent" press="onExportPDF"
+				icon="https://image.flaticon.com/icons/svg/337/337946.svg"></Button>
+			<Button text="Export as MS Word" width="200px" type="Transparent"
+				icon="http://www.alexandramunroe.com/wp-content/uploads/2000/05/Word-Doc-Icon.jpeg"></Button>
+		</FlexBox>
+	</Popover>
+</core:FragmentDefinition>

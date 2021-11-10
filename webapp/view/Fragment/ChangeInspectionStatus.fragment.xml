@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog showHeader="true" title="Change Inspection Status">
+		<content>
+			<f:SimpleForm id="idChangeInspectionStatusForm" editable="true" layout="ResponsiveGridLayout" labelSpanL="5" emptySpanL="0" columnsL="1">
+					<Label text="New status"/>
+					<ComboBox id="idChangeStatusCombo" items="{InsDialogModel>/InspectionChangeStatus}" placeholder="Please Select" selectionChange="onStatusChangeDropdown">
+						<core:ListItem key="{InsDialogModel>value}" text="{InsDialogModel>displayText}"/>
+					</ComboBox>
+					<Label text="Status Change Comments"/>
+					<TextArea id="idStatusChangeCommentText" value="{InsDialogModel>/InspectionStatusComment}" liveChange="handleLiveChangeStatusComment"/>
+			</f:SimpleForm>
+		</content>
+		<beginButton>
+			<Button text="Cancel" type="Ghost" press="onPressCancelStatus"/>
+		</beginButton>
+		<endButton>
+			<Button id="idStatusSaveBtn" text="Save" type="Ghost" press="onSaveInspectionStatus" enabled="false"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

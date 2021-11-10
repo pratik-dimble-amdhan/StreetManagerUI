@@ -1,0 +1,32 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<VBox class="sapUiSmallMargin InspectionformBorder" width="100%">
+		<VBox class="sapUiSmallMargin">
+			<Table class="sapUiTinyMarginTop" items="{Activities>/}">
+				<columns>
+					<Column>
+						<Label text="{i18n>received}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>Activity_Type}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column width="50%">
+						<Label text="{i18n>btnComments}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>action}" wrapping="true" design="Bold"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{path:'Activities>createDate', formatter:'.formatter.DateFormatMoment'}"/>
+							<Text text="{Activities>label}"/>
+							<Text text="{Activities>comments}"/>
+							<Link text="{Activities>clearLabel}" press=".onPressClearActivity(${Activities>pendingActivityId})"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</VBox>
+	</VBox>
+</core:FragmentDefinition>

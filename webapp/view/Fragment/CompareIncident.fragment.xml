@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog showHeader="true" title="Please confirm the incident number of this fault permit to submit">
+		<content>
+			<l:VerticalLayout class="sapUiContentPadding">
+				<Title text="The incident numbers you have entered do not match. Which one is correct"/>
+					<SegmentedButton id="idIncidentSegbtn" selectedItem="none" items="{oModel>/DiffIncidentNumbers}" selectionChange="onSelectionChangeSegbutton">
+						<items>
+							<!--<SegmentedButtonItem key="{oModel>IncidentProjectNumber}" text="{oModel>/IncidentProjectNumber}"/>-->
+							<!--<SegmentedButtonItem key="{oModel>IncidentNumber}" text="{oModel>/IncidentNumber}"/>-->
+							<SegmentedButtonItem key="{oModel>Incident}" text="{oModel>Incident}"/>
+						</items>
+					</SegmentedButton>
+					<Link id="idAddIncidentNumber" text="Enter a different incident number" press="onIncidentNumber" class="AddagreementMargin"></Link>
+			</l:VerticalLayout>			
+		</content>
+		<beginButton>
+			<Button text="Cancel" type="Reject" press="onPressCompareIncidentCancel"/>
+		</beginButton>
+		<endButton>
+			<Button id="idConfirmSubmit" text="Confirm Permit Submission" type="Accept" press="onConfirmPermitSubmissionFinal" enabled="false"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

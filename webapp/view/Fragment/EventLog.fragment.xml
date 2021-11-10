@@ -1,0 +1,36 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<VBox class="sapUiSmallMargin InspectionformBorder" width="100%">
+		<VBox class="sapUiSmallMargin">
+			<Table class="sapUiTinyMarginTop" items="{EventHistory>/}">
+				<columns>
+					<Column>
+						<Label text="{i18n>eventType}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>logDateTime}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>loggedBy}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column width="40%">
+						<Label text="{i18n>comments}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column width="50px" visible="false">
+						<Label text=""/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{parts:['EventHistory>versionType','EventTypes>/'], formatter:'.formatter.formatEventType'}"/>
+							<Text text="{path:'EventHistory>versionDateTime', formatter:'.formatter.DateFormatMoment'}"/>
+							<Text text="{EventHistory>variationById}"/>
+							<Text text="{EventHistory>comments}"/>
+							<Link text="{i18n>view}" visible="{= ${EventHistory>applicationId} ? true : false}" press=".onPressVersionDetail(${EventHistory>applicationId})"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</VBox>
+	</VBox>
+</core:FragmentDefinition>

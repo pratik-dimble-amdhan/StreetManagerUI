@@ -1,0 +1,377 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog showHeader="false" stretch="true" contentWidth="100%" contentHeight="100%">
+		<content height="100%">
+			<VBox class="comparer">
+				<Toolbar class="SummaryToolbar">
+					<Title text="{i18n>comparePermits}" level="H1"/>
+				</Toolbar>
+				<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom">
+					<Text text="{i18n>differences} ("/>
+					<HBox width="50px" backgroundDesign="Solid" class="sapUiTinyMarginBeginEnd"/>
+					<Text text=")"/>
+				</HBox>
+				<HBox width="98%" class="sapUiSmallMarginBeginEnd">
+					<VBox width="48%" class="comparerBox sapUiSmallMarginTopBottom sapUiSmallMarginBeginEnd">
+						<Title text="{ parts: [ 'i18n>versionIdentifier', 'compareModel>/app1/applicationId/value' ], formatter: 'jQuery.sap.formatMessage'}"/>
+						<Toolbar class="sapUiSmallMarginBottom">
+							<Title text="{i18n>Permitreferencenumbers}" level="H4" titleStyle="H4"/>
+						</Toolbar>
+						<HBox backgroundDesign="{= ${compareModel>/app1/workReferenceNumber/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>UKPN_Works_Reference_Number}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app1/workReferenceNumber/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/workOrderNumber/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>SAP_Work_Order_Number}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app1/workOrderNumber/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/workOrderOperationNumber/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>SAP_Work_Order_Operation_Number}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app1/workOrderOperationNumber/value}"/>
+						</HBox>
+						<Toolbar class="sapUiSmallMarginBottom">
+							<Title text="{i18n>Worklocationdetails}" level="H4" titleStyle="H4"/>
+						</Toolbar>
+						<HBox
+							backgroundDesign="{= ${compareModel>/app1/locationDescription/diff} || ${compareModel>/app1/street/diff} || ${compareModel>/app1/area/diff} || ${compareModel>/app1/town/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Selectedlocation}" class="sapUiSmallMarginEnd"/>
+							<Text
+								text="{parts:['compareModel>/app1/locationDescription/value','compareModel>/app1/street/value','compareModel>/app1/area/value','compareModel>/app1/town/value'], formatter:'.FormatSelectedlocation'}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/usrn/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>USRN}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app1/usrn/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/roadCategory/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Roadcategories}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app1/roadCategory/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/operationalZoneDescription/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Operationalzone}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app1/operationalZoneDescription/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/highwayAuthorityTxt/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Highwayauthority}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app1/highwayAuthorityTxt/value}"/>
+						</HBox>
+						<Toolbar class="sapUiSmallMarginTop SummaryToolbar">
+							<Title text="{i18n>specialDesignation}" level="H3"/>
+						</Toolbar>
+						<VBox class="sapUiSmallMarginBottom" backgroundDesign="{= ${compareModel>/app1/specialDesignations/diff} ? 'Solid' : 'Transparent'}">
+							<List items="{compareModel>/app1/specialDesignations/value}" class="SplDesignation ColorchangeList">
+								<CustomListItem>
+									<Text
+										text="{= ${compareModel>special_desig_location_text} === null ? ${compareModel>special_desig_description} : ${compareModel>special_desig_location_text} }"/>
+								</CustomListItem>
+							</List>
+						</VBox>
+						<VBox backgroundDesign="{= ${compareModel>/app1/positionOfWorks/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Position_of_works}"/>
+							<List items="{compareModel>/app1/positionOfWorks/value}" class="ColorchangeList">
+								<CustomListItem>
+									<Text text="{ parts: ['compareModel>'], formatter: '.formatter.formatPosition'}"/>
+								</CustomListItem>
+							</List>
+						</VBox>
+						<Toolbar class="sapUiSmallMarginBottom">
+							<Title text="{i18n>assesmentDetails}" level="H4" titleStyle="H4"/>
+						</Toolbar>
+						<HBox backgroundDesign="{= ${compareModel>/app1/assessmentStatus/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>assesmentDecision}" class="sapUiSmallMarginEnd"/>
+							<Text text="{ parts: ['compareModel>/app1/assessmentStatus/value'], formatter: '.formatter.formatAssesmentStatus'}"/>
+						</HBox>
+						<VBox backgroundDesign="{= ${compareModel>/app1/reasonsForRefusal/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>refusalReason}" class="sapUiSmallMarginEnd"/>
+							<Text text="{ parts: ['compareModel>/app1/reasonsForRefusal/value'], formatter: '.formatter.parseRefusalReasons'}"/>
+						</VBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/assessmentComments/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>assesmentComments}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app1/assessmentComments/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/pendingChangeDetails/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>modificationRequestComments}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app1/pendingChangeDetails/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/assessmentDiscount/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>discountApplied}" class="sapUiSmallMarginEnd"/>
+							<Text text="{= ${compareModel>/app1/assessmentDiscount/value} ? ${compareModel>/app1/assessmentDiscount/value} + '%' : ''}"/>
+						</HBox>
+						<Toolbar class="sapUiSmallMarginBottom">
+							<Title text="{i18n>Workdetails}" level="H4" titleStyle="H4"/>
+						</Toolbar>
+						<HBox backgroundDesign="{= ${compareModel>/app1/primaryContractorTxt/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Primary_contractor}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app1/primaryContractorTxt/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/secondaryContractorTxt/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Secondary_contractor}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app1/secondaryContractorTxt/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/otherContractorTxt/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Other_contractor}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app1/otherContractorTxt/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/workType/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Work_Type}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app1/workType/value}"/>
+						</HBox>
+						<VBox class="sapUiSmallMarginTop" backgroundDesign="{= ${compareModel>/app1/workType/diff} ? 'Solid' : 'Transparent'}">
+							<Toolbar class="SummaryToolbar">
+								<Title text="{ parts: [ 'i18n>workType', 'compareModel>/app1/workType/value' ], formatter: 'jQuery.sap.formatMessage'}" level="H3"/>
+							</Toolbar>
+						</VBox>
+						<HBox
+							backgroundDesign="{= ${compareModel>/app1/proposedStartDate/diff} || ${compareModel>/app1/proposedEndDate/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Work_date_range}" class="sapUiSmallMarginEnd"/>
+							<Text
+								text="{parts:['compareModel>/app1/proposedStartDate/value','compareModel>/app1/proposedEndDate/value'], formatter:'.formatWorkdateRange'}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/reasonablePeriodEndDate/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>authEndDate}" class="sapUiSmallMarginEnd"/>
+							<Text text="{path:'compareModel>/app1/reasonablePeriodEndDate/value', formatter:'.DateFormat'}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/actualStartDate/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>actualStartdateAndTime}" class="sapUiSmallMarginEnd"/>
+							<Text
+								text="{= ${compareModel>/app1/actualStartDate/value} ? ${path:'compareModel>/app1/actualStartDate/value', formatter:'.formatter.DateFormatMoment'} : 'N/A'}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/jointingStartDate/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Jointing_date}" class="sapUiSmallMarginEnd"/>
+							<Text text="{path:'compareModel>/app1/jointingStartDate/value', formatter:'.DateFormat'}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/trafficManagementTypeValue/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Traffic_management_type}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app1/trafficManagementTypeValue/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/excavationFlag/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Excavation_required}" class="sapUiSmallMarginEnd"/>
+							<Text text="{= ${compareModel>/app1/excavationFlag/value} ? 'True' : 'False' }"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/collaborationTypeTxt/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Collaboration_type}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app1/collaborationTypeTxt/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/wrpFlag/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>WRP}" class="sapUiSmallMarginEnd"/>
+							<Text text="{= ${compareModel>/app1/wrpFlag/value} ? 'True' : 'False' }"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/wrpAuthority/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>WRP_authority}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app1/wrpAuthority/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/departmentIdentifierName/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Department_identifier}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app1/departmentIdentifierName/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/worksIdentifierTxt/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Works_identifier}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app1/worksIdentifierTxt/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/workDescription/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Works_description}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app1/workDescription/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/personResponsible/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Person_responsible}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app1/personResponsible/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app1/personResponsiblePhone/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Person_responsible_contact_details}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app1/personResponsiblePhone/value}"/>
+						</HBox>
+						<Toolbar class="sapUiSmallMarginTop SummaryToolbar">
+							<Title text="{i18n>PermitConditions}" level="H3"/>
+						</Toolbar>
+						<VBox backgroundDesign="{= ${compareModel>/app1/conditions/diff} ? 'Solid' : 'Transparent'}">
+							<List items="{compareModel>/app1/conditions/value}" class="SplDesignation ColorchangeList">
+								<CustomListItem>
+									<Text text="{compareModel>condition} - {compareModel>comment}"/>
+								</CustomListItem>
+							</List>
+						</VBox>
+					</VBox>
+					<VBox width="48%" class="comparerBox sapUiSmallMarginTopBottom sapUiSmallMarginBeginEnd">
+						<Title text="{ parts: [ 'i18n>versionIdentifier', 'compareModel>/app2/applicationId/value' ], formatter: 'jQuery.sap.formatMessage'}"/>
+						<Toolbar class="sapUiSmallMarginBottom">
+							<Title text="{i18n>Permitreferencenumbers}" level="H4" titleStyle="H4"/>
+						</Toolbar>
+						<HBox backgroundDesign="{= ${compareModel>/app2/workReferenceNumber/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>UKPN_Works_Reference_Number}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app2/workReferenceNumber/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/workOrderNumber/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>SAP_Work_Order_Number}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app2/workOrderNumber/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/workOrderOperationNumber/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>SAP_Work_Order_Operation_Number}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app2/workOrderOperationNumber/value}"/>
+						</HBox>
+						<Toolbar class="sapUiSmallMarginBottom">
+							<Title text="{i18n>Worklocationdetails}" level="H4" titleStyle="H4"/>
+						</Toolbar>
+						<HBox
+							backgroundDesign="{= ${compareModel>/app2/locationDescription/diff} || ${compareModel>/app2/street/diff} || ${compareModel>/app2/area/diff} || ${compareModel>/app2/town/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Selectedlocation}" class="sapUiSmallMarginEnd"/>
+							<Text
+								text="{parts:['compareModel>/app2/locationDescription/value','compareModel>/app2/street/value','compareModel>/app2/area/value','compareModel>/app2/town/value'], formatter:'.FormatSelectedlocation'}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/usrn/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>USRN}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app2/usrn/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/roadCategory/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Roadcategories}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app2/roadCategory/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/operationalZoneDescription/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Operationalzone}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app2/operationalZoneDescription/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/highwayAuthorityTxt/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Highwayauthority}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app2/highwayAuthorityTxt/value}"/>
+						</HBox>
+						<Toolbar class="sapUiSmallMarginTop SummaryToolbar">
+							<Title text="{i18n>specialDesignation}" level="H3"/>
+						</Toolbar>
+						<VBox class="sapUiSmallMarginBottom" backgroundDesign="{= ${compareModel>/app2/specialDesignations/diff} ? 'Solid' : 'Transparent'}">
+							<List items="{compareModel>/app2/specialDesignations/value}" class="SplDesignation ColorchangeList">
+								<CustomListItem>
+									<Text
+										text="{= ${compareModel>special_desig_location_text} === null ? ${compareModel>special_desig_description} : ${compareModel>special_desig_location_text} }"/>
+								</CustomListItem>
+							</List>
+						</VBox>
+						<VBox backgroundDesign="{= ${compareModel>/app2/positionOfWorks/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Position_of_works}"/>
+							<List items="{compareModel>/app2/positionOfWorks/value}" class="ColorchangeList">
+								<CustomListItem>
+									<Text text="{ parts: ['compareModel>'], formatter: '.formatter.formatPosition'}"/>
+								</CustomListItem>
+							</List>
+						</VBox>
+						<Toolbar class="sapUiSmallMarginBottom">
+							<Title text="{i18n>assesmentDetails}" level="H4" titleStyle="H4"/>
+						</Toolbar>
+						<HBox backgroundDesign="{= ${compareModel>/app2/assessmentStatus/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>assesmentDecision}" class="sapUiSmallMarginEnd"/>
+							<Text text="{ parts: ['compareModel>/app2/assessmentStatus/value'], formatter: '.formatter.formatAssesmentStatus'}"/>
+						</HBox>
+						<VBox backgroundDesign="{= ${compareModel>/app2/reasonsForRefusal/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>refusalReason}" class="sapUiSmallMarginEnd"/>
+							<Text text="{ parts: ['compareModel>/app2/reasonsForRefusal/value'], formatter: '.formatter.parseRefusalReasons'}"/>
+						</VBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/assessmentComments/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>assesmentComments}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app2/assessmentComments/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/pendingChangeDetails/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>modificationRequestComments}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app2/pendingChangeDetails/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/assessmentDiscount/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>discountApplied}" class="sapUiSmallMarginEnd"/>
+							<Text text="{= ${compareModel>/app2/assessmentDiscount/value} ? ${compareModel>/app2/assessmentDiscount/value} + '%' : ''}"/>
+						</HBox>
+						<Toolbar class="sapUiSmallMarginBottom">
+							<Title text="{i18n>Workdetails}" level="H4" titleStyle="H4"/>
+						</Toolbar>
+						<HBox backgroundDesign="{= ${compareModel>/app2/primaryContractorTxt/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Primary_contractor}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app2/primaryContractorTxt/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/secondaryContractorTxt/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Secondary_contractor}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app2/secondaryContractorTxt/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/otherContractorTxt/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Other_contractor}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app2/otherContractorTxt/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/workType/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Work_Type}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app2/workType/value}"/>
+						</HBox>
+						<VBox class="sapUiSmallMarginTop" backgroundDesign="{= ${compareModel>/app2/workType/diff} ? 'Solid' : 'Transparent'}">
+							<Toolbar class="SummaryToolbar">
+								<Title text="{ parts: [ 'i18n>workType', 'compareModel>/app2/workType/value' ], formatter: 'jQuery.sap.formatMessage'}" level="H3"/>
+							</Toolbar>
+						</VBox>
+						<HBox
+							backgroundDesign="{= ${compareModel>/app2/proposedStartDate/diff} || ${compareModel>/app2/proposedEndDate/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Work_date_range}" class="sapUiSmallMarginEnd"/>
+							<Text
+								text="{parts:['compareModel>/app2/proposedStartDate/value','compareModel>/app2/proposedEndDate/value'], formatter:'.formatWorkdateRange'}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/reasonablePeriodEndDate/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>authEndDate}" class="sapUiSmallMarginEnd"/>
+							<Text text="{path:'compareModel>/app2/reasonablePeriodEndDate/value', formatter:'.DateFormat'}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/actualStartDate/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>actualStartdateAndTime}" class="sapUiSmallMarginEnd"/>
+							<Text
+								text="{= ${compareModel>/app2/actualStartDate/value} ? ${path:'compareModel>/app2/actualStartDate/value', formatter:'.formatter.DateFormatMoment'} : 'N/A'}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/jointingStartDate/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Jointing_date}" class="sapUiSmallMarginEnd"/>
+							<Text text="{path:'compareModel>/app2/jointingStartDate/value', formatter:'.DateFormat'}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/trafficManagementTypeValue/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Traffic_management_type}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app2/trafficManagementTypeValue/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/excavationFlag/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Excavation_required}" class="sapUiSmallMarginEnd"/>
+							<Text text="{= ${compareModel>/app2/excavationFlag/value} ? 'True' : 'False' }"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/collaborationTypeTxt/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Collaboration_type}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app2/collaborationTypeTxt/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/wrpFlag/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>WRP}" class="sapUiSmallMarginEnd"/>
+							<Text text="{= ${compareModel>/app2/wrpFlag/value} ? 'True' : 'False' }"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/wrpAuthority/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>WRP_authority}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app2/wrpAuthority/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/departmentIdentifierName/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Department_identifier}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app2/departmentIdentifierName/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/worksIdentifierTxt/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Works_identifier}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app2/worksIdentifierTxt/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/workDescription/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Works_description}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app2/workDescription/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/personResponsible/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Person_responsible}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app2/personResponsible/value}"/>
+						</HBox>
+						<HBox backgroundDesign="{= ${compareModel>/app2/personResponsiblePhone/diff} ? 'Solid' : 'Transparent'}">
+							<Label text="{i18n>Person_responsible_contact_details}" class="sapUiSmallMarginEnd"/>
+							<Text text="{compareModel>/app2/personResponsiblePhone/value}"/>
+						</HBox>
+						<Toolbar class="sapUiSmallMarginTop SummaryToolbar">
+							<Title text="{i18n>PermitConditions}" level="H3"/>
+						</Toolbar>
+						<VBox backgroundDesign="{= ${compareModel>/app2/conditions/diff} ? 'Solid' : 'Transparent'}">
+							<List items="{compareModel>/app2/conditions/value}" class="SplDesignation ColorchangeList">
+								<CustomListItem>
+									<Text text="{compareModel>condition} - {compareModel>comment}"/>
+								</CustomListItem>
+							</List>
+						</VBox>
+					</VBox>
+				</HBox>
+			</VBox>
+		</content>
+		<endButton>
+			<Button text="{i18n>BtnClose}" press="onCompareClose"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

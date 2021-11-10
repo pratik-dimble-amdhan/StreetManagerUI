@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog showHeader="true" title="Please confirm the incident number of this fault permit to submit" contentWidth="40rem">
+		<content>
+			<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="2" labelSpanS="12"
+				adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+				singleContainerFullSize="false">
+				<Label text="Incident Number"/>
+				<Input id="idIncidentNumber" value="{oModel>/IncidentNumber}" liveChange="handleChangeSbmitIncidentNumber" maxLength="15"/>
+			</f:SimpleForm>
+		</content>
+		<beginButton>
+			<Button text="Cancel" type="Reject" press="onPressCheckIncidentCancel"/>
+		</beginButton>
+		<endButton>
+			<Button text="Confirm Permit Submission" type="Accept" press="onConfirmPermitSubmission"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

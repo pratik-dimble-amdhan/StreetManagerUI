@@ -1,0 +1,28 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	controllerName="project1.NoticeRequest" xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Title">
+				<customHeader>
+					<Bar class="pageHeaderBGcolor">
+						<contentLeft>
+							<core:Icon src="sap-icon://nav-back" size="20px" color="#ffffff" press=".onNavBack(true)"/>
+							<core:Icon src="sap-icon://home" size="20px" color="#ffffff" press="onHome">
+								<core:layoutData>
+									<FlexItemData growFactor="1"/>
+								</core:layoutData>
+							</core:Icon>
+						</contentLeft>
+						<contentMiddle>
+							<Title text="{i18n>Ukpn_Title}" level="H2" class="titleColor"/>
+						</contentMiddle>
+						<contentRight>
+							<Text class="titleColor" text="{UserProfileModel>/givenName} {UserProfileModel>/surname} &#13; {UserProfileModel>/assignedRoles}"/>
+						</contentRight>
+					</Bar>
+				</customHeader>
+				<content></content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

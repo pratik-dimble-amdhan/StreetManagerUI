@@ -1,0 +1,17 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core"
+	xmlns:u="sap.ui.unified">
+	<Dialog id="idDialogCancelPermit" showHeader="true" title="{i18n>Cancel_permit}">
+		<content>
+			<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanL="5" emptySpanL="0" columnsL="1">
+				<Label text="{i18n>Comments}"/>
+				<TextArea id="idCancelComment" value="{PermitCancelModel>/permitCancelComment}" liveChange="onChangeCancelComment" maxLength="500"
+					showExceededText="false" height="120px" width="100%"/>
+				<Text text="{i18n>maxCharacter}"/>
+			</f:SimpleForm>
+		</content>
+		<buttons>
+			<Button text="{i18n>BtnClose}" type="Reject" press="onPressCancelClose"/>
+			<Button text="{i18n>BtnConfirm}" type="Ghost" press="onPressCancelConfirm"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

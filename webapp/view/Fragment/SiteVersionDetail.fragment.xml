@@ -1,0 +1,61 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog showHeader="false" stretch="true" contentWidth="100%" contentHeight="100%">
+		<content height="100%">
+			<VBox>
+				<HBox class="sapUiSmallMarginTop">
+					<Text text="{i18n>workReference}" width="200px" class="sapUiSmallMarginBeginEnd"/>
+					<Text text="{siteHistory>/workReferece}"/>
+				</HBox>
+				<HBox>
+					<Text text="{i18n>Work_location}" width="200px" class="sapUiSmallMarginBeginEnd"/>
+					<Text text="{siteHistory>/workLocation}"/>
+				</HBox>
+				<List items="{siteHistory>/versions}" class="sapUiSmallMarginTop">
+					<CustomListItem>
+						<VBox>
+							<Toolbar class="SummaryToolbar">
+								<Text text="{siteHistory>title}"/>
+							</Toolbar>
+							<HBox class="sapUiSmallMarginTop">
+								<Text text="{i18n>Reinstatementdate}" width="200px" class="sapUiSmallMarginBeginEnd"/>
+								<Text text="{path:'siteHistory>reinstatementDate', formatter:'.formatter.DateFormatMoment'}"/>
+							</HBox>
+							<HBox class="sapUiTinyMarginTop">
+								<Text text="{i18n>Site_Location}" width="200px" class="sapUiSmallMarginBeginEnd"/>
+								<Text text="{siteHistory>locationDescription}"/>
+							</HBox>
+							<HBox class="sapUiTinyMarginTop">
+								<Text text="{i18n>sitePosition}" width="200px" class="sapUiSmallMarginBeginEnd"/>
+								<Text text="{siteHistory>locationTypes}"/>
+							</HBox>
+							<HBox class="sapUiTinyMarginTop">
+								<Text text="{i18n>coordinates}" width="200px" class="sapUiSmallMarginBeginEnd"/>
+								<Text text="{= ${siteHistory>reinstatementCoordinates/coordinates/0} + ' - ' + ${siteHistory>reinstatementCoordinates/coordinates/1} }"/>
+								<Link text="{i18n>viewOnMap}" press=".onPressViewCoordinates(${siteHistory>reinstatementCoordinates})" class="cusLinkMaring sapUiSmallMarginBegin"/>
+							</HBox>
+							<HBox class="sapUiTinyMarginTop">
+								<Text text="{i18n>reinstatementMeasurements}" width="200px" class="sapUiSmallMarginBeginEnd"/>
+								<Text text="{= 'L' + ${siteHistory>length} + 'm x W' + ${siteHistory>width} +'m x D' + ${siteHistory>depth} + 'm'}"/>
+							</HBox>
+							<HBox class="sapUiTinyMarginTop">
+								<Text text="{i18n>reinstatementType}" width="200px" class="sapUiSmallMarginBeginEnd"/>
+								<Text text="{siteHistory>reinstatementType}"/>
+							</HBox>
+							<HBox class="sapUiTinyMarginTop">
+								<Text text="{i18n>reinstatementState}" width="200px" class="sapUiSmallMarginBeginEnd"/>
+								<Text text="{siteHistory>reinstatementStatus}"/>
+							</HBox>
+							<HBox class="sapUiTinyMarginTop sapUiSmallMarginBottom">
+								<Text text="{i18n>Final_reinstatement}" width="200px" class="sapUiSmallMarginBeginEnd"/>
+								<Text text="{= ${siteHistory>finalReinstatement} === true ? 'Yes' : 'No' }"/>
+							</HBox>
+						</VBox>
+					</CustomListItem>
+				</List>
+			</VBox>
+		</content>
+		<endButton>
+			<Button text="{i18n>BtnClose}" press="onSiteVersionDetailClose"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,102 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+	controllerName="project1.controller.PermitHistory" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page title="Title">
+					<customHeader>
+						<Bar class="pageHeaderBGcolor">
+							<contentLeft>
+								<core:Icon src="sap-icon://nav-back" size="20px" color="#ffffff" press=".onNavBack(false)"/>
+								<core:Icon src="sap-icon://home" size="20px" color="#ffffff" press="onHome">
+									<core:layoutData>
+										<FlexItemData growFactor="1"/>
+									</core:layoutData>
+								</core:Icon>
+							</contentLeft>
+							<contentMiddle>
+								<Title text="{i18n>Ukpn_Title}" level="H2" class="titleColor"/>
+							</contentMiddle>
+							<contentRight>
+								<Text textAlign="Right" class="titleColor" text="{UserProfileModel>/givenName} {UserProfileModel>/surname} &#13; {UserProfileModel>/assignedRoles}"/>
+								<core:Icon size="30px" src="sap-icon://customer"/>
+							</contentRight>
+						</Bar>
+					</customHeader>
+					<subHeader>
+						<Toolbar class="smallHeader">
+							<Title text="{ parts: [ 'i18n>Permit', 'PermitDetails>/permitReferenceNumber' ]}" level="H1" textAlign="Left" class="secondTitle"/>
+							<ToolbarSpacer/>
+							<Text text="{PermitDetails>/statusValue}" class="secondTitle"/>
+						</Toolbar>
+					</subHeader>
+					<content>
+						<!--<f:SimpleForm editable="false" title="{i18n>Registration_details}" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3"-->
+						<!--	labelSpanM="2" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1"-->
+						<!--	columnsL="1" columnsM="1" singleContainerFullSize="false" class="sapMTBStandard">-->
+						<!--	<Label text="{i18n>Works_start_and_enddate}" textAlign="Begin"></Label>-->
+						<!--	<Text text=""></Text>-->
+						<!--	<Label text="{i18n>Work_location}" textAlign="Begin"></Label>-->
+						<!--	<Text text="" ></Text>-->
+						<!--	<Label text=""></Label>-->
+						<!--	<Text text=""></Text>-->
+						<!--	<Label text="{i18n>Potentialoverruncost}" textAlign="Begin"></Label>-->
+						<!--	<Text text=""></Text>-->
+						<!--</f:SimpleForm>-->
+						<!--<Toolbar>-->
+						<!--	<ToolbarSpacer/>-->
+						<!--	<Link text="{i18n>startpermit}"/>-->
+						<!--</Toolbar>-->
+						<l:VerticalLayout width="100%">
+							<Toolbar visible="{ parts: ['i18n>PM-Editor'], formatter:'.formatter.checkRoles'}" class="borderTopSummarystep">
+								<ToolbarSpacer/>
+								<Button id="revertJointingBtn" visible="false" text="{i18n>revertJointing}" press="onPressRevertJointing"/>
+								<Button id="completeJointingBtn" visible="false" text="{i18n>completeJointing}" press="onPressCompleteJointing"/>
+								<Button id="continueCreateBtn" text="{i18n>ContinueCreate_new_permit}" visible="false" press=".onPressCreatePermit(true)"/>
+								<Button id="createBtn" text="{i18n>Create_new_permit}" visible="false" press=".onPressCreatePermit(false)"/>
+								<Button id="continueAlterBtn" text="{i18n>ContinueAlter_permit}" visible="false" press=".onPressAlterPermit(true)"/>
+								<Button id="alterBtn" text="{i18n>Alter_permit}" visible="false" press=".onPressAlterPermit(false)"/>
+								<Button id="ContinuePAABtn" text="{i18n>ContinueProceedPAA}" visible="false" press=".onPressPAA(true)"/>
+								<Button id="PAABtn" text="{i18n>proceedPAA}" visible="false" press=".onPressPAA(false)"/>
+								<Button id="registerBtn" text="{i18n>Register}" visible="false" press="onPressRegister"/>
+								<Button id="stopBtn" text="{i18n>Stop}" visible="false" press=".onPressStartStop('Stop')"/>
+								<Button id="startBtn" text="{i18n>Start}" visible="false" press=".onPressStartStop('Start')"/>
+								<!--<Button id="attachBtn" text="{i18n>TaskAddAttachments}" visible="false" press=".onPressAddAttachments"/>-->
+								<Button id="extndBtn" text="{i18n>extendPermit}" visible="false" press=".onPressExtendPermit('permithistory')"/>
+								<Button id="cancelBtn" text="{i18n>cancel}" visible="false" press="onPressCancelAction"/>
+								<Button id="revertStartBtn" text="{i18n>revert_start}" visible="false" press=".onPressRevertAction('RevertStart')"/>
+								<Button id="revertStopBtn" text="{i18n>revert_stop}" visible="false" press=".onPressRevertAction('RevertStop')"/>
+							</Toolbar>
+							<IconTabBar id="idIconTabBarInlineMode" selectedKey="{PermitHistory>/selectedTab}" headerMode="Inline"
+								class="sapUiResponsiveContentPadding permitHistoryTabs" select="onSelectTab" expandable="false">
+								<items>
+									<IconTabFilter key="Permitdetails" text="{i18n>Permitdetails}">
+										<core:Fragment fragmentName="SAP.UKPN.UI.PermitApplication.view.Fragment.PermitDetails" type="XML"/>
+									</IconTabFilter>
+									<IconTabFilter key="VersionHistory" text="{i18n>Versionhistory}">
+										<core:Fragment fragmentName="SAP.UKPN.UI.PermitApplication.view.Fragment.VersionHistory" type="XML"/>
+									</IconTabFilter>
+									<IconTabFilter key="EventLog" text="{i18n>Eventlog}">
+										<core:Fragment fragmentName="SAP.UKPN.UI.PermitApplication.view.Fragment.EventLog" type="XML"/>
+									</IconTabFilter>
+									<IconTabFilter key="CommentsAttachments" text="{i18n>CommentsAttachments}">
+										<core:Fragment fragmentName="SAP.UKPN.UI.PermitApplication.view.Fragment.CommentsAttachments" type="XML"/>
+									</IconTabFilter>
+									<IconTabFilter key="Inspectionhistory" text="{i18n>Inspectionhistory}" visible="{ parts: ['i18n>IM-Viewer','i18n>IM-Editor'], formatter:'.formatter.checkRoles'}">
+										<core:Fragment fragmentName="SAP.UKPN.UI.PermitApplication.view.Fragment.InspectionHistory" type="XML"/>
+									</IconTabFilter>
+									<IconTabFilter key="RegistrationHistory" text="{i18n>Registrationhistory}">
+										<core:Fragment fragmentName="SAP.UKPN.UI.PermitApplication.view.Fragment.RegistrationHistory" type="XML"/>
+									</IconTabFilter>
+									<IconTabFilter iconColor="{= ${PermitDetails>/pendingActivitiesCount} > 0 ? 'Critical' : 'Neutral'}" key="PendingActivities" text="{= ${PermitDetails>/pendingActivitiesCount} > 0 ? ${i18n>Pendingactivities} + ' &#x26A0;' : ${i18n>Pendingactivities} }">
+										<core:Fragment fragmentName="SAP.UKPN.UI.PermitApplication.view.Fragment.Activities" type="XML"/>
+									</IconTabFilter>
+								</items>
+							</IconTabBar>
+						</l:VerticalLayout>
+					</content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>

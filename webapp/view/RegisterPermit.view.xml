@@ -1,0 +1,336 @@
+<mvc:View height="100%" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+	xmlns="sap.m" controllerName="project1.controller.RegisterPermit" xmlns:semantic="sap.m.semantic" displayBlock="true"
+	xmlns:fl="sap.f" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Shell id="shell">
+		<App>
+			<pages>
+				<Page>
+					<customHeader>
+						<Bar class="pageHeaderBGcolor">
+							<contentLeft>
+								<core:Icon src="sap-icon://nav-back" size="20px" color="#ffffff" press=".onNavBack(true)"/>
+								<core:Icon src="sap-icon://home" size="20px" color="#ffffff" press="onHome">
+									<core:layoutData>
+										<FlexItemData growFactor="1"/>
+									</core:layoutData>
+								</core:Icon>
+							</contentLeft>
+							<contentMiddle>
+								<Title text="{i18n>Ukpn_Title}" level="H2" class="titleColor"/>
+							</contentMiddle>
+							<contentRight>
+								<Text textAlign="Right" class="titleColor" text="{UserProfileModel>/givenName} {UserProfileModel>/surname} &#13; {UserProfileModel>/assignedRoles}"/>
+								<core:Icon size="30px" src="sap-icon://customer"/>
+							</contentRight>
+						</Bar>
+					</customHeader>
+					<subHeader>
+						<Toolbar class="smallHeader">
+							<Title text="{i18n>Register_Permit}" level="H2" textAlign="Left" class="secondTitle"/>
+							<ToolbarSpacer/>
+						</Toolbar>
+					</subHeader>
+					<content>
+						<Toolbar height="7rem">
+							<ToolbarSpacer/>
+							<VBox alignContent="Center" justifyContent="Center" alignItems="Center" class="vbooxRegisterStep1">
+								<Image id="idRegStep1" src="images/1.png" width="40px" alt="Location" class="clickBorder" press="handleNav"/>
+								<Text text="{i18n>Registrationdetails}"/>
+							</VBox>
+							<ToolbarSpacer class="custToolbar"/>
+							<!--<ToolbarSpacer class="custToolbar"/>-->
+							<VBox alignContent="Center" justifyContent="Center" alignItems="Center" class="vbooxStep3">
+								<Image id="idRegStep2" src="images/2.png" width="40px" alt="Summary" press="handleNav"/>
+								<Text text="{i18n>Summary}"/>
+							</VBox>
+							<ToolbarSpacer/>
+						</Toolbar>
+						<NavContainer id="idRegisternavCon" width="98%" height="42em" class="navContainerControl sapUiTinyMargin">
+							<Page id="idRegisterp1" showHeader="false" navButtonTooltip="LocationDetails">
+								<f:SimpleForm editable="false" title="{i18n>Registration_details}" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3"
+									labelSpanM="2" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1"
+									columnsL="1" columnsM="1" singleContainerFullSize="false">
+									<Label text="{i18n>Permit_Number}" textAlign="Begin"></Label>
+									<Text text="{RegModel>/PermitNo}" id="PermitNo"></Text>
+									<Label text="{i18n>UKPN_Works_Reference_Number}" textAlign="Begin"></Label>
+									<!--<Text text="{oModel>/sapkey}" id="RefNo"></Text>-->
+									<Text text="{RegModel>/workReferenceNumber}" id="RefNo"></Text>
+									<Label text="{i18n>SAP_Work_Order_Number}"></Label>
+									<Text text="{RegModel>/workno}"></Text>
+									<Label text="{i18n>SAP_Work_Order_Operation_Number}" textAlign="Begin"></Label>
+									<Text text="{RegModel>/workoperationno}"></Text>
+								</f:SimpleForm>
+								<f:SimpleForm editable="true" title="{i18n>site_details}" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="2"
+									labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="1" columnsM="1"
+									singleContainerFullSize="false">
+									<Label text="{i18n>Total_sites}"></Label>
+									<Text text="{RegModel>/totalSites}"></Text>
+									<Label text="{i18n>Inspection_units}"></Label>
+									<Input value="{RegModel>/totalUnits}">
+										<layoutData>
+											<l:GridData span="XL1 L1 M2 S4"/>
+										</layoutData>
+									</Input>
+								</f:SimpleForm>
+								<Table id="idSitesTable" items="{RegModel>/Sites}" noDataText="{i18n>RegnoDataText}" mode="SingleSelectLeft"
+									selectionChange="onTableSelectRow" alternateRowColors="true" sticky="HeaderToolbar,ColumnHeaders">
+									<headerToolbar>
+										<OverflowToolbar>
+											<content>
+												<ToolbarSpacer/>
+												<Button text="{i18n>Deletesite}" enabled="{RegModel>/deleteButton}" press="onPressDelete"/>
+												<Button text="{i18n>Copysite}" enabled="{RegModel>/tableButtons}" press="onPressCopy"/>
+												<Button text="{i18n>Editsite}" enabled="{RegModel>/tableButtons}" press="onPressEditTable"/>
+											</content>
+										</OverflowToolbar>
+									</headerToolbar>
+									<columns>
+										<Column minScreenWidth="Tablet" visible="false" demandPopin="true">
+											<Label text="{i18n>site_Number}" design="Bold"/>
+										</Column>
+										<Column minScreenWidth="Tablet" demandPopin="true">
+											<Label text="{i18n>Final_reinstatement}" wrapping="true" design="Bold"/>
+										</Column>
+										<Column minScreenWidth="Desktop" demandPopin="true">
+											<Label text="{i18n>ReInstatementDate}" wrapping="true" design="Bold"/>
+										</Column>
+										<Column minScreenWidth="Desktop" demandPopin="true">
+											<Label text="{i18n>Position}" wrapping="true" design="Bold"/>
+										</Column>
+										<Column minScreenWidth="Tablet" demandPopin="true">
+											<Label text="{i18n>Registration_Type}" wrapping="true" design="Bold"/>
+										</Column>
+										<Column minScreenWidth="Tablet" demandPopin="true">
+											<Label text="{i18n>Site_Location}" wrapping="true" design="Bold"/>
+										</Column>
+										<Column minScreenWidth="Tablet" demandPopin="true">
+											<Label text="{i18n>ReInstatementDate_Measurements}" wrapping="true" design="Bold"/>
+										</Column>
+										<Column minScreenWidth="Tablet" demandPopin="true">
+											<Label text="{i18n>CoOrdinates}" wrapping="true" design="Bold"/>
+										</Column>
+										<Column width="40px" minScreenWidth="Tablet" demandPopin="true">
+											<Label text="" wrapping="true" design="Bold"/>
+										</Column>
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Text text="{RegModel>uiSiteNumber}"/>
+												<Text text="{= ${RegModel>finalReinstatement} === true ? 'Yes' : 'No' }"/>
+												<!--<Text text="{RegModel>reinstatementDate}"/>-->
+												<Text text="{path:'RegModel>reinstatementDate', formatter:'.formatter.DateFormatMomentwithoutTime'}"/>
+												<Text text="{ parts: ['RegModel>locationTypes'], formatter: '.formatter.formatPosition'}"/>
+												<Text text="{ parts: ['RegModel>reinstatementStatus'], formatter: '.formatter.formatReinstatementStatus'}"/>
+												<Text text="{RegModel>locationDescription}"/>
+												<VBox>
+													<Text text="L: {RegModel>length}"/>
+													<Text text="W: {RegModel>width}"/>
+													<Text text="D: {RegModel>depth}"/>
+												</VBox>
+												<VBox>
+													<Text text="E: {RegModel>reinstatementCoordinates/coordinates/0}"/>
+													<Text text="N: {RegModel>reinstatementCoordinates/coordinates/1}"/>
+												</VBox>
+												<core:Icon src="sap-icon://notes" size="20px" visible="{= ${RegModel>version}.toUpperCase() === 'DRAFT'}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+								<Button id="idAddnewsiteBtn" text="{i18n>BtnAddNewSite}" type="Ghost" press="onAddnewsite"/>
+								<f:SimpleForm id="idAddSiteForm" editable="true" title="Site details" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3"
+									labelSpanM="2" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1"
+									columnsL="1" columnsM="1" singleContainerFullSize="false" visible="false">
+									<Label text="{i18n>Site_coordinates}" textAlign="Begin"></Label>
+									<Button type="Emphasized" text="{i18n>plotMap}" press="OnSearchMap">
+										<layoutData>
+											<l:GridData span="XL3 L3 M3 S6"/>
+										</layoutData>
+									</Button>
+									<Label/>
+									<Label visible="{path: 'i18n>environment', formatter:'.formatter.checkDevUrl'}" text="{i18n>Eastings}" textAlign="Begin"/>
+									<Input visible="{path: 'i18n>environment', formatter:'.formatter.checkDevUrl'}" value="{SiteModel>/Eastings}" change="validAddsiteform"/>
+									<Label/>
+									<Label visible="{path: 'i18n>environment', formatter:'.formatter.checkDevUrl'}" text="{i18n>Northings}" textAlign="Begin"/>
+									<Input visible="{path: 'i18n>environment', formatter:'.formatter.checkDevUrl'}" value="{SiteModel>/Northings}" change="validAddsiteform"/>
+									<Label/>
+									<Label text="{i18n>Reinstatementdate}" textAlign="Begin"/>
+									<DateTimePicker id="idReinstatementDatePicker" displayFormat="d MMM y HH:mm:ss" placeholder="Enter Date ..." value="{SiteModel>/Reinstatementdatevalue}"
+										change="handleChangeReinstatementDate" class="sapUiSmallMarginBottom"/>
+									<Label/>
+									<MessageStrip id="idReinstatementDateMessage" type="Error" showIcon="true" text="{i18n>ReinstatementdateErrorMessage}" visible="false"/>
+									<Label text="Position" textAlign="Begin"></Label>
+									<ComboBox id="idAddSitePosition" items="{positions>/}" selectionChange="onSelectPosition" placeholder="Please Select">
+										<core:Item key="{positions>value}" text="{positions>displayText}"/>
+									</ComboBox>
+									<Label text="{i18n>Registrationtype}" textAlign="Begin"></Label>
+									<ComboBox id="idAddSiteRegtype" enabled="true" items="{registerTypes>/}" selectedKey="none"
+										selectionChange="onSelectRegistrationtype" placeholder="Please Select">
+										<core:ListItem key="{registerTypes>value}" text="{registerTypes>displayText}"/>
+									</ComboBox>
+									<Label text="{i18n>Site_Location}"/>
+									<TextArea id="idSiteLocation" value="{SiteModel>/locationDescription}" maxLength="500" change="handleChangeSitelocation"/>
+									<Label text="{i18n>ReInstatementDate_Measurements}"/>
+									<Text/>
+									<Label text="{i18n>Length}"/>
+									<Input id="idLength" value="{SiteModel>/length}" type="Number" placeholder="Length" description="Meters" liveChange="handleChangeLength">
+										<layoutData>
+											<l:GridData span="XL4 L3 M3 S12"/>
+										</layoutData>
+									</Input>
+									<HBox justifyContent="Center" alignContent="Center" alignItems="Center">
+										<Label text="{i18n>Width}" design="Bold"/>
+										<Input id="idWidth" value="{SiteModel>/width}" type="Number" placeholder="Width" description="Meters" liveChange="handleChangeWidth"
+											class="sapUiSmallMarginBegin"/>
+										<layoutData>
+											<l:GridData span="XL4 L3 M3 S12"/>
+										</layoutData>
+									</HBox>
+									<HBox justifyContent="Center" alignContent="Center" alignItems="Center">
+										<Label text="{i18n>Depth}" design="Bold"/>
+										<Input id="idDepth" value="{SiteModel>/depth}" type="Number" placeholder="Depth" description="Meters" change="handleChangeDepth"
+											class="sapUiSmallMarginBegin"/>
+										<layoutData>
+											<l:GridData span="XL4 L3 M3 S12"/>
+										</layoutData>
+									</HBox>
+									<Label/>
+									<MessageStrip id="idDepthMessage" type="Error" showIcon="true" text="{i18n>DepthMessage}" showCloseButton="false"
+										class="sapUiSmallMarginBottom" visible="false"/>
+									<Label text="Reinstatement evidence(optional)"/>
+									<Label text="{i18n>Attachments}"/>
+									<UploadCollection id="uploadCollection" class="sapUiTinyMargin" instantUpload="false" items="{AttachmentsModel>/attachments}"
+										fileType="doc,docx,pdf,jpeg,jpg,png,bmp,tiff" maximumFileSize="10" fileSizeExceed="onFileSizeExceed">
+										<UploadCollectionItem ariaLabelForPicture="{AttachmentsModel>mProperties/ariaLabelForPicture}"
+											fileName="{AttachmentsModel>mProperties/fileName}" enableDelete="{AttachmentsModel>mProperties/enableDelete}"
+											deletePress=".onDeleteItemPress"/>
+										<!--<layoutData>-->
+										<!--	<l:GridData span="XL12 L12 M12 S12"/>-->
+										<!--</layoutData>-->
+									</UploadCollection>
+									<Label/>
+									<Label text="{i18n>Registrationcommentsoptional}" visible ="false"/>
+									<TextArea id="idRegComments" value="{SiteModel>/Registrationcomments}" change="handleChangeRegComments" visible ="false"/>
+									<Label text="{i18n>Final_reinstatement}"/>
+									<SegmentedButton id="idSegBtnFinalReInstmt" selectedItem="none" selectionChange="onSelectFinalReInstmt">
+										<items>
+											<SegmentedButtonItem text="Yes" key="Yes"/>
+											<SegmentedButtonItem text="No" key="No"/>
+										</items>
+									</SegmentedButton>
+									<Toolbar>
+										<ToolbarSpacer/>
+										<Button text="{i18n>CancelSite}" press="onCancelSite" type="Reject"/>
+										<Button id="idAddSiteSaveCopyBtn" text="{i18n>SaveCopySite}" press="onSaveCopySite" type="Ghost" enabled="{RegModel>/enableAddSiteBtns}"/>
+										<Button id="idAddSiteSaveBtn" text="{i18n>SaveSite}" press="onSaveSite" type="Ghost" enabled="{RegModel>/enableAddSiteBtns}"/>
+									</Toolbar>
+								</f:SimpleForm>
+							</Page>
+							<Page id="idRegisterp2" showHeader="false" navButtonTooltip="LocationDetails">
+								<f:SimpleForm editable="false" title="{i18n>Registration_details}" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3"
+									labelSpanM="2" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1"
+									columnsL="1" columnsM="1" singleContainerFullSize="false">
+									<Label text="{i18n>Permit_Number}" textAlign="Begin"></Label>
+									<Text text="{RegModel>/PermitNo}"></Text>
+									<Label text="{i18n>UKPN_Works_Reference_Number}" textAlign="Begin"></Label>
+									<!--<Text text="{oModel>/sapkey}" id="RefNo"></Text>-->
+									<Text text="{RegModel>/workReferenceNumber}"></Text>
+									<Label text="{i18n>SAP_Work_Order_Number}"></Label>
+									<Text text="{RegModel>/workno}"></Text>
+									<Label text="{i18n>SAP_Work_Order_Operation_Number}" textAlign="Begin"></Label>
+									<Text text="{RegModel>/workoperationno}"></Text>
+								</f:SimpleForm>
+								<f:SimpleForm editable="true" title="{i18n>site_details}" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="2"
+									labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="1" columnsM="1"
+									singleContainerFullSize="false">
+									<Label text="{i18n>Total_sites}"></Label>
+									<Text text="{RegModel>/totalSites}"></Text>
+									<Label text="{i18n>Inspection_units}"></Label>
+									<Text text="{RegModel>/totalUnits}">
+										<layoutData>
+											<l:GridData span="XL1 L1 M2 S4"/>
+										</layoutData>
+									</Text>
+									<Text/>
+									<Button text="Edit" press="onPressEdit">
+										<layoutData>
+											<l:GridData span="XL1 L1 M2 S4"/>
+										</layoutData>
+									</Button>
+								</f:SimpleForm>
+								<Table items="{RegModel>/Sites}" noDataText="{i18n>RegnoDataText}">
+									<columns>
+										<Column minScreenWidth="Tablet" visible="false" demandPopin="true">
+											<Label text="{i18n>site_Number}" design="Bold"/>
+										</Column>
+										<Column minScreenWidth="Tablet" demandPopin="true">
+											<Label text="{i18n>Final_reinstatement}" wrapping="true" design="Bold"/>
+										</Column>
+										<Column minScreenWidth="Desktop" demandPopin="true">
+											<Label text="{i18n>ReInstatementDate}" wrapping="true" design="Bold"/>
+										</Column>
+										<Column minScreenWidth="Desktop" demandPopin="true">
+											<Label text="{i18n>Position}" wrapping="true" design="Bold"/>
+										</Column>
+										<Column minScreenWidth="Tablet" demandPopin="true">
+											<Label text="{i18n>Registration_Type}" wrapping="true" design="Bold"/>
+										</Column>
+										<Column minScreenWidth="Tablet" demandPopin="true">
+											<Label text="{i18n>Site_Location}" wrapping="true" design="Bold"/>
+										</Column>
+										<Column minScreenWidth="Tablet" demandPopin="true">
+											<Label text="{i18n>ReInstatementDate_Measurements}" wrapping="true" design="Bold"/>
+										</Column>
+										<Column minScreenWidth="Tablet" demandPopin="true">
+											<Label text="{i18n>CoOrdinates}" wrapping="true" design="Bold"/>
+										</Column>
+										<Column width="40px" minScreenWidth="Tablet" demandPopin="true">
+											<Label text="" wrapping="true" design="Bold"/>
+										</Column>
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Text text="{RegModel>uiSiteNumber}"/>
+												<Text text="{= ${RegModel>finalReinstatement} === true ? 'Yes' : 'No' }"/>
+												<!--<Text text="{RegModel>reinstatementDate}"/>-->
+												<Text text="{path:'RegModel>reinstatementDate', formatter:'.formatter.DateFormatMomentwithoutTime'}"/>
+												<Text text="{RegModel>locationTypes}"/>
+												<Text text="{RegModel>reinstatementStatus}"/>
+												<Text text="{RegModel>locationDescription}"/>
+												<VBox>
+													<Text text="L: {RegModel>length}"/>
+													<Text text="W: {RegModel>width}"/>
+													<Text text="D: {RegModel>depth}"/>
+												</VBox>
+												<VBox>
+													<Text text="E: {RegModel>reinstatementCoordinates/coordinates/0}"/>
+													<Text text="N: {RegModel>reinstatementCoordinates/coordinates/1}"/>
+												</VBox>
+												<core:Icon src="sap-icon://notes" size="20px" visible="{= ${RegModel>version}.toUpperCase() === 'DRAFT'}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+							</Page>
+						</NavContainer>
+					</content>
+					<footer>
+						<OverflowToolbar>
+							<content>
+								<Button id="messagePopoverBtn" icon="sap-icon://message-popup" type="{=${oModel>/Notifications}.length===0 ? 'Emphasized' : 'Reject'}"
+									text="{=${oModel>/Notifications}.length}" press="onMessagesButtonPress"/>
+								<ToolbarSpacer/>
+								<Button text="{i18n>BtnCancel}" type="Reject" press="onCancel"/>
+								<Button id="idRegSave" text="{i18n>BtnSave}" press="onSavePress" type="Ghost"/>
+								<Button id="idViewSummary" text="{i18n>BtnViewSUMMARY}" type="Accept" press="onViewSummary"
+									enabled="{= ${RegModel>/Sites}.length !== 0? true: false}"/>
+								<Button id="idSubmitRegistration" text="{i18n>BtnSUBMITREGISTRATION}" type="Accept" press="onSubmitRegistration" visible="false"/>
+							</content>
+						</OverflowToolbar>
+					</footer>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>

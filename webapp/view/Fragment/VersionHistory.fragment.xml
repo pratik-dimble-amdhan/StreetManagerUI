@@ -1,0 +1,56 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<VBox class="sapUiSmallMargin InspectionformBorder" width="100%">
+		<VBox class="sapUiSmallMargin">
+			<Table id="VersionHistoryTable" class="sapUiTinyMarginTop cusSelectTable" items="{VersionHistory>/versions}" selectionChange="onVersionSelect" mode="MultiSelect">
+				<headerToolbar>
+					<OverflowToolbar>
+						<content>
+							<ToolbarSpacer/>
+							<Button enabled="false" id="compareBtn" text="{i18n>compare}" press=".onVersionCompare"/>
+						</content>
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+					<Column width="180px">
+						<Label text="{i18n>pertmitAlterRef}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column width="120px">
+						<Label text="{i18n>Request_type}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>Work_Category}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>Start_End_date}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>lastUpdated}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>lastUpdatedBy}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>Permit_Status}" wrapping="true" design="Bold"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Link text="{= ${VersionHistory>permitAlterationReferenceNumber} ? ${VersionHistory>permitAlterationReferenceNumber} : ${VersionHistory>permitReferenceNumber}}"
+							press=".onPressVersionDetail(${VersionHistory>appId})"/>
+							<Text text="{parts: ['VersionHistory>requestType'], formatter: '.formatter.formatWorkType'}"/>
+							<Text text="{parts: ['VersionHistory>workCategory'], formatter: '.formatter.formatWorkCategory'}"/>
+							<VBox>
+								<Text text="{ parts: ['VersionHistory>proposedStartDate', 'VersionHistory>requestType'], formatter: '.formatter.VersionProposeDate'} -"/>
+								<Text text="{ parts: ['VersionHistory>proposedEndDate', 'VersionHistory>requestType'], formatter: '.formatter.VersionProposeDate'}"/>							
+							</VBox>
+							<Text text="{path:'VersionHistory>lastUpdated', formatter:'.formatter.DateFormatMoment'}"/>
+							<Text text="{VersionHistory>lastUpdatedBy}"/>
+							<Text text="{VersionHistory>permitStatus}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</VBox>
+	</VBox>
+</core:FragmentDefinition>

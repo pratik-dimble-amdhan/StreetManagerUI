@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog showHeader="true" title="{i18n>revertJointing}">
+	  <Text text="{i18n>revertJointingText}" class="sapUiSmallMarginTop sapUiSmallMarginBottom sapUiSmallMarginBegin sapUiSmallMarginEnd"></Text>
+		<beginButton>
+			<Button text="{i18n>cancel}" press="onPressCancelRevertJointing"/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>confirm}" press="onPressConfirmRevertJointing"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

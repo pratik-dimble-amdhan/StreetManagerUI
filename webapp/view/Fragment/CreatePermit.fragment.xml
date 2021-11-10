@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core"
+	xmlns:u="sap.ui.unified">
+	<Dialog showHeader="true" title="{i18n>createnewpermit}">
+		<content>
+			<f:SimpleForm editable="false">
+				<f:content>
+					<VBox>
+						<Label text="{i18n>PermitType}"/>
+						<ComboBox id="idCreatePermitBox" width="100%" selectedKey="{SearchModel>/createpermitselectedKey}" placeholder="{i18n>please_select}"
+							selectionChange="onSelectcreatepermit" class="sapUiTinyMarginTop">
+							<core:ListItem key="CreatePermit" text="{i18n>CreatePermit}"/>
+							<core:ListItem key="FaultPermit" text="{i18n>FaultPermit}"/>
+						</ComboBox>
+					</VBox>
+				</f:content>
+			</f:SimpleForm>
+		</content>
+		<buttons>
+			<Button text="{i18n>BtnCancel}" type="Ghost" press="oncreateCancel"/>
+			<Button text="{i18n>BtnConfirm}" type="Ghost" press="onPressCreateConfirm"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

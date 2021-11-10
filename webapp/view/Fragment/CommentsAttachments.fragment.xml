@@ -1,0 +1,96 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<VBox class="sapUiSmallMargin InspectionformBorder" width="100%">
+		<VBox class="sapUiSmallMargin">
+			<Toolbar>
+				<Label text="{i18n>workComments}" design="Bold"/>
+				<HBox visible="{= ${oModel>/isPrivateFault} ? false : ${ parts: ['i18n>PM-Editor'], formatter:'.formatter.checkRoles'} ? true : false}">
+					<Button id="commentsBtn" text="{i18n>addWorkComment}" press=".onPressAddComments(false)" class="sapUiSmallMarginBegin"/>
+				</HBox>
+				<ToolbarSpacer/>
+				<Link text="{i18n>jumpToInternal}" press=".jumpTo('PermitInternalNotes')" class="sapUiSmallMarginBegin"/>
+				<Link text="{i18n>jumpToAttachments}" press=".jumpTo('PermitAttachments')" class="sapUiSmallMarginBegin"/>
+			</Toolbar>
+			<Table class="sapUiTinyMarginTop" items="{CommentsAttachments>/comments/external}">
+				<columns>
+					<Column>
+						<Label text="{i18n>commentDate}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>commentBy}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>commentTopic}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column width="60%">
+						<Label text="{i18n>commentDetail}" wrapping="true" design="Bold"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{path:'CommentsAttachments>createDate', formatter:'.formatter.DateFormatMoment'}"/>
+							<Text text="{CommentsAttachments>userDisplayName}"/>
+							<Text text="{CommentsAttachments>commentTopic}"/>
+							<Text text="{CommentsAttachments>commentText}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			<Toolbar id="PermitInternalNotes" class="sapUiSmallMarginTop">
+				<Label text="{i18n>Internalnotes}" design="Bold"/>
+				<Button text="{i18n>addInternalNote}" press=".onPressAddComments(true)" class="sapUiSmallMarginBegin"
+				visible="{ parts: ['i18n>PM-Editor'], formatter:'.formatter.checkRoles'}"/>
+			</Toolbar>
+			<Table class="sapUiTinyMarginTop" items="{CommentsAttachments>/comments/internal}">
+				<columns>
+					<Column>
+						<Label text="{i18n>commentDate}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>commentBy}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column width="60%">
+						<Label text="{i18n>commentDetail}" wrapping="true" design="Bold"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{path:'CommentsAttachments>createDate', formatter:'.formatter.DateFormatMoment'}"/>
+							<Text text="{CommentsAttachments>userDisplayName}"/>
+							<Text text="{CommentsAttachments>commentText}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			<Toolbar id="PermitAttachments" class="sapUiSmallMarginTop">
+				<Label text="{i18n>btnAttachments}" design="Bold"/>
+				<HBox visible="{ parts: ['i18n>PM-Editor'], formatter:'.formatter.checkRoles'}">
+					<Button id="attachBtn" text="{i18n>TaskAddAttachments}" visible="false" press=".onPressAddAttachments" class="sapUiSmallMarginBegin"/>
+				</HBox>
+			</Toolbar>
+			<Table class="sapUiTinyMarginTop" items="{CommentsAttachments>/attachments}">
+				<columns>
+					<Column>
+						<Label text="{i18n>attachmentDate}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>attachmentBy}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column width="60%">
+						<Label text="{i18n>attachment}" wrapping="true" design="Bold"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{path:'CommentsAttachments>createDate', formatter:'.formatter.DateFormatMoment'}"/>
+							<Text text="{CommentsAttachments>userDisplayName}"/>
+							<Link text="{CommentsAttachments>filename}" href="{CommentsAttachments>link}" target="_blank"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</VBox>
+	</VBox>
+</core:FragmentDefinition>

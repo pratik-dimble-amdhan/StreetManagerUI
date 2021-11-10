@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core"
+	xmlns:u="sap.ui.unified">
+	<!--<Dialog showHeader="true" title="Add new attachment" resizable="false" draggable="false" showHeader="false" horizontalScrolling="false"-->
+	<!--	contentWidth="850px">-->
+	<Dialog showHeader="true" title="{i18n>TaskAddAttachments}">
+		<content>
+			<VBox>
+				<UploadCollection id="uploadCollection" class="sapUiTinyMargin" instantUpload="false" items="{AttachmentsModel>/attachments}"
+					fileType="doc,docx,pdf,jpeg,jpg,png,bmp,tiff" maximumFileSize="10" fileSizeExceed="onFileSizeExceed">
+					<UploadCollectionItem ariaLabelForPicture="{AttachmentsModel>mProperties/ariaLabelForPicture}"
+						fileName="{AttachmentsModel>mProperties/fileName}" deletePress=".onDeleteItemPress"/>
+				</UploadCollection>
+			</VBox>
+		</content>
+		<buttons>
+			<Button text="{i18n>uploadFiles}" type="Ghost" press="updateAttachments"/>
+			<Button text="{i18n>BtnCancel}" type="Ghost" press="onCloseAttachDialog"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

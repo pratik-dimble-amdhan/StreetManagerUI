@@ -1,0 +1,17 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog showHeader="true" title="Add works comments">
+		<content>
+			<f:SimpleForm id="idAddWorksCommentsForm" editable="true" layout="ResponsiveGridLayout" labelSpanL="5" emptySpanL="0" columnsL="1">
+				<!--<VBox>-->
+				<TextArea id="idAddWorkCommentTextarea" value="{InsDialogModel>/InspectionWorkComment}" liveChange="handleLiveChangeWorksComment"/>
+				<!--</VBox>-->
+			</f:SimpleForm>
+		</content>
+		<beginButton>
+			<Button text="Cancel" type="Ghost" press="onPressCancelWorkComment"/>
+		</beginButton>
+		<endButton>
+			<Button id="idCommentSaveBtn" text="Save" type="Ghost" press="onSaveWorkComment" enabled="false"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

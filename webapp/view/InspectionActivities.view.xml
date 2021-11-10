@@ -1,0 +1,233 @@
+<mvc:View height="100%" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout" 
+	controllerName="project1.controller.InspectionActivities" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Shell id="shell">
+		<App>
+			<pages>
+				<Page>
+					<customHeader>
+						<Bar class="pageHeaderBGcolor">
+							<contentLeft>
+								<core:Icon src="sap-icon://nav-back" size="20px" color="#ffffff" press=".onNavBack(false)"/>
+								<core:Icon src="sap-icon://home" size="20px" color="#ffffff" press="onHome">
+									<core:layoutData>
+										<FlexItemData growFactor="1"/>
+									</core:layoutData>
+								</core:Icon>
+							</contentLeft>
+							<contentMiddle>
+								<Title text="{i18n>Ukpn_Title}" level="H2" class="titleColor"/>
+							</contentMiddle>
+							<contentRight>
+								<Text class="titleColor" text="{UserProfileModel>/givenName} {UserProfileModel>/surname} &#13; {UserProfileModel>/assignedRoles}"/>
+							</contentRight>
+						</Bar>
+					</customHeader>
+					<subHeader>
+						<Toolbar class="smallHeader">
+							<Title text="{i18n>InspectionActivities}" level="H1" textAlign="Left" class="secondTitle"/>
+						</Toolbar>
+					</subHeader>
+					<l:VerticalLayout id="idVlActivitiesSearch" class="idVlActivitiesSearch sapUiContentPadding" width="100%">
+						<l:content>
+							<l:Grid defaultSpan="XL4 L4 M6 S12">
+								<HBox alignItems="Center">
+									<Label class="sapUiSmallMarginBegin" text="{i18n>activityType}" width="120px"/>
+									<ComboBox width="100%" id="idSearchfor" selectedKey="{SearchModel>/activityType}" change=".clearData(false)"
+										class="sapUiSmallMarginBegin sapUiSmallMarginEnd" >
+										<core:ListItem key="Task" text="{i18n>task}"/>
+										<core:ListItem key="Task_comment" text="{i18n>taskComment}"/>
+										<core:ListItem key="Inspection" text="{i18n>Inspections}"/>
+									</ComboBox>
+								</HBox>
+							</l:Grid>
+							<l:Grid defaultSpan="XL4 L4 M6 S12">
+								<HBox alignItems="Center" visible="{= ${SearchModel>/activityType} !== 'Inspection' }">
+									<Label class="sapUiSmallMarginBegin" text="{i18n>Tasktype}" width="120px"/>
+									<MultiComboBox width="100%" id="idTaskType" selectedKeys="{SearchModel>/filters/taskType}" selectionFinish="handleUserInput"
+										items="{SearchModel>/taskTypeList}" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+										<core:ListItem key="{SearchModel>inspectionTaskTypeId}" text="{SearchModel>taskType}"/>
+									</MultiComboBox>
+								</HBox>
+								<HBox alignItems="Center">
+									<Label class="sapUiSmallMarginBegin" text="{i18n>inpType}" width="120px"/>
+									<MultiComboBox width="100%" id="idInspectionType" selectedKeys="{SearchModel>/filters/inspectionType}" selectionFinish="handleUserInput"
+										items="{SearchModel>/InspectionType}" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+										<core:ListItem key="{SearchModel>key}" text="{SearchModel>displayText}"/>
+									</MultiComboBox>
+								</HBox>
+								<HBox alignItems="Center" visible="{= ${SearchModel>/activityType} === 'Inspection'}">
+									<Label class="sapUiSmallMarginBegin" text="{i18n>inpOutcome}" width="120px"/>
+									<MultiComboBox width="100%" id="idInsoutcome" selectedKeys="{SearchModel>/filters/inspectionOutcome}" selectionFinish="handleUserInput"
+										items="{SearchModel>/InspectionOutcomes}" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+										<core:ListItem key="{SearchModel>key}" text="{SearchModel>displayText}"/>
+									</MultiComboBox>
+								</HBox>
+								<HBox alignItems="Center" visible="{= ${SearchModel>/activityType} === 'Inspection'}">
+									<Label class="sapUiSmallMarginBegin" text="{i18n>inpCat}" width="120px"/>
+									<MultiComboBox width="100%" id="idInCategory" selectedKeys="{SearchModel>/filters/inspectionCategory}" selectionFinish="handleUserInput"
+										items="{SearchModel>/InspectionCategories}" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+										<core:ListItem key="{SearchModel>key}" text="{SearchModel>displayText}"/>
+									</MultiComboBox>
+								</HBox>
+							</l:Grid>
+							<l:Grid visible="{= ${SearchModel>/activityType} !== 'Inspection'}"
+							defaultSpan="XL4 L4 M6 S12">
+								<HBox alignItems="Center">
+									<Label class="sapUiSmallMarginBegin" text="{i18n>Coordinator}" width="120px"/>
+									<MultiComboBox width="100%" id="idCoordinator" selectedKeys="{SearchModel>/filters/coordinator}" selectionFinish="handleUserInput"
+										items="{SearchModel>/inspectionCoordinator}" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+										<core:ListItem key="{SearchModel>complianceTeam}" text="{SearchModel>complianceTeam}"/>
+									</MultiComboBox>
+								</HBox>
+								<HBox alignItems="Center">
+									<Label class="sapUiSmallMarginBegin" text="{i18n>Workinggroup}" width="120px"/>
+									<MultiComboBox width="100%" id="idWorkingGroup" selectedKeys="{SearchModel>/filters/workingGroup}" selectionFinish="handleUserInput"
+										items="{SuggestModel>/}" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+										<core:ListItem key="{SuggestModel>workingGroupId}" text="{SuggestModel>groupName}"/>
+									</MultiComboBox>
+								</HBox>
+								<HBox alignItems="Center">
+									<Label class="sapUiSmallMarginBegin" text="{i18n>status}" width="120px"/>
+									<MultiComboBox width="100%" id="idStatus" selectedKeys="{SearchModel>/filters/status}" selectionFinish="handleUserInput"
+										items="{SearchModel>/TaskStatus}" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+										<core:ListItem key="{SearchModel>key}" text="{SearchModel>value}"/>
+									</MultiComboBox>
+								</HBox>
+							</l:Grid>
+							<l:Grid visible="{= ${SearchModel>/activityType} !== 'Task_comment'}"
+							defaultSpan="XL4 L4 M6 S12">
+								<HBox alignItems="Center" visible="{= ${SearchModel>/activityType} === 'Inspection'}">
+									<Label class="sapUiSmallMarginBegin" text="{i18n>Coordinator}" width="120px"/>
+									<MultiComboBox width="100%" id="idCoordinator2" selectedKeys="{SearchModel>/filters/coordinator}" selectionFinish="handleUserInput"
+										items="{SearchModel>/inspectionCoordinator}" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+										<core:ListItem key="{SearchModel>complianceTeam}" text="{SearchModel>complianceTeam}"/>
+									</MultiComboBox>
+								</HBox>
+								<HBox alignItems="Center">
+									<Label class="sapUiSmallMarginBegin" text="{i18n>authority}" width="120px"/>
+									<MultiComboBox width="100%" id="idAuthority" selectedKeys="{SearchModel>/filters/authority}" selectionFinish="handleUserInput"
+										items="{SearchModel>/highwayAuthority}" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+										<core:ListItem key="{SearchModel>swaCode}" text="{SearchModel>name}"/>
+									</MultiComboBox>
+								</HBox>
+								<HBox alignItems="Center">
+									<Label class="sapUiSmallMarginBegin" text="{i18n>DNO}" width="120px"/>
+									<MultiComboBox width="100%" id="idDNO" selectedKeys="{SearchModel>/filters/dno}" selectionFinish="handleUserInput"
+										items="{SearchModel>/DNO}" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+										<core:ListItem key="{SearchModel>dno}" text="{SearchModel>dno}"/>
+									</MultiComboBox>
+								</HBox>
+							</l:Grid>
+							<l:Grid defaultSpan="XL4 L4 M6 S12">
+								<HBox alignItems="Center">
+									<Label class="sapUiSmallMarginBegin" text="{i18n>received}" width="120px"/>
+									<DateRangeSelection id="idRecevied" change="handleUserInput" dateValue="{SearchModel>/filters/received/rangeFrom}"
+									secondDateValue="{SearchModel>/filters/received/rangeTo}" class="sapUiSmallMarginBegin sapUiSmallMarginEnd"/>
+								</HBox>
+								<HBox alignItems="Center" visible="{= ${SearchModel>/activityType} === 'Task'}">
+									<Label class="sapUiSmallMarginBegin" text="{i18n>dueDate}" width="120px"/>
+									<DatePicker id="idDueDate" change="handleUserInput" dateValue="{SearchModel>/filters/dueDate}"
+									class="sapUiSmallMarginBegin sapUiSmallMarginEnd"/>
+								</HBox>
+							</l:Grid>
+							<Toolbar>
+								<ToolbarSpacer/>
+								<Button type="Ghost" text="{i18n>clearFilters}" press=".clearData(true)" enabled="{SearchModel>/searchButton}"/>
+								<Button type="Emphasized" text="{i18n>Search}" press="getApplicationSearch" enabled="{SearchModel>/searchButton}"/>
+							</Toolbar>
+						</l:content>
+					</l:VerticalLayout>
+					<VBox id="idSearchTable" visible="false">
+						<Table id="idSearchViewTable" items="{SearchModel>/SearchArray}" mode="None"
+							alternateRowColors="true" sticky="HeaderToolbar,ColumnHeaders">
+							<headerToolbar>
+								<OverflowToolbar>
+									<content>
+										<Text text="{parts:['i18n>showingResults', 'SearchModel>/SearchArray/length'], 
+										formatter: 'jQuery.sap.formatMessage'}"/>
+										<ToolbarSpacer/>
+										<Button enabled="{= ${SearchModel>/SearchArray/length}  &gt; 0 }" id="idExport" text="{i18n>export}" icon="sap-icon://excel-attachment" class="sapUiMediumMarginEnd" press="onExport"/>
+									</content>
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+								<Column visible="{= ${SearchModel>/activityType} !== 'Inspection'}">
+									<Text text="{i18n>Tasktype}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>inpType}"/>
+								</Column>
+								<Column>
+									<Toolbar width="100%" style="Clear">
+										<Text text="{i18n>received}"/>
+										<core:Icon press=".onPressSort($event, 'received', 'date')" src="sap-icon://sort" class="sortingIcon" />
+									</Toolbar>
+								</Column>
+								<Column visible="{= ${SearchModel>/activityType} === 'Task'}">
+									<Toolbar width="100%" style="Clear">
+										<Text text="{i18n>dueDate}"/>
+										<core:Icon press=".onPressSort($event, 'dueDate', 'date')" src="sap-icon://sort" class="sortingIcon" />
+									</Toolbar>
+								</Column>
+								<Column visible="{= ${SearchModel>/activityType} === 'Inspection'}">
+									<Text text="{i18n>inpOutcome}"/>
+								</Column>
+								<Column visible="{= ${SearchModel>/activityType} === 'Inspection'}">
+									<Text text="{i18n>inpCat}"/>
+								</Column>
+								<Column visible="{= ${SearchModel>/activityType} !== 'Inspection'}">
+									<Text text="{i18n>Coordinator}"/>
+								</Column>
+								<Column visible="{= ${SearchModel>/activityType} !== 'Inspection'}">
+									<Text text="{i18n>Workinggroup}"/>
+								</Column>
+								<Column visible="{= ${SearchModel>/activityType} !== 'Task_comment'}">
+									<Text text="{i18n>authority}"/>
+								</Column>
+								<Column width="50px" visible="{= ${SearchModel>/activityType} !== 'Task_comment'}">
+									<Text text="{i18n>DNO}"/>
+								</Column>
+								<Column width="90px" visible="{= ${SearchModel>/activityType} !== 'Inspection'}">
+									<Text text="{i18n>status}"/>
+								</Column>
+								<Column width="100px" visible="{= ${SearchModel>/activityType} === 'Task_comment'}">
+									<Text text="{i18n>markRead}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Link text="{SearchModel>taskType}" press="onPressInspectionDetail"/>
+										<HBox>
+											<Text visible="{= ${SearchModel>/activityType} !== 'Inspection'}"
+											 text="{SearchModel>inspectionType}"/>
+											<Link visible="{= ${SearchModel>/activityType} === 'Inspection'}"
+											 text="{SearchModel>inspectionType}" press="onPressInspectionDetail"/>
+										</HBox>
+										<Text text="{path:'SearchModel>received', formatter:'.formatter.DateFormatMoment'}"/>
+										<HBox>
+											<Text visible="{= !${path:'SearchModel>dueDate', formatter:'.formatter.overDueDate'} }" text="{path:'SearchModel>dueDate', formatter:'.formatter.DateFormatMoment'}"/>
+											<Text class="redText" visible="{path:'SearchModel>dueDate', formatter:'.formatter.overDueDate'}" text="{path:'SearchModel>dueDate', formatter:'.formatter.DateFormatMoment'}"/>
+										</HBox>
+										<Text text="{SearchModel>inspectionOutcome}"/>
+										<Text text="{SearchModel>inspectionCategory}"/>
+										<Text text="{SearchModel>coordinator}"/>
+										<Text text="{SearchModel>workingGroup}"/>
+										<Text text="{SearchModel>authority}"/>
+										<Text text="{SearchModel>dno}"/>
+										<Text text="{SearchModel>status}"/>
+										<Link text="{i18n>markRead}" press="onPressClearActivity"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+						<HBox justifyContent="Center"
+							visible="{= ${SearchModel>/SearchArray/length} &lt; ${SearchModel>/totalElements} }">
+							<Button text="{i18n>loadMore}" press=".loadPaginationItems"/>
+						</HBox>
+					</VBox>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>

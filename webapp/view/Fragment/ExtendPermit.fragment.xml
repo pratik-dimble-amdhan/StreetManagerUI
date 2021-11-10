@@ -1,0 +1,21 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog showHeader="true" title="{i18n>extendPermit}">
+		<content>
+			<f:SimpleForm editable="false" layout="ResponsiveGridLayout">
+				<Label text="{i18n>newProposedEndDate}"></Label>
+				<DatePicker id="idExtendPermitDate" displayFormat="d MMM y" placeholder="{i18n>selectDate}" change="onChangeDate"></DatePicker>
+				<Label text="{i18n>comments}"></Label>
+				<TextArea  id="idExtendPermitComment" height="90px" maxLength="500" value="{ExtendPermitModel>/extendPermitComment}"
+					liveChange="onChangeComment" showExceededText="false"/>
+				<Label></Label>
+				<Text text="{i18n>maxCharacter}"></Text>
+			</f:SimpleForm>
+		</content>
+		<beginButton>
+			<Button text="{i18n>cancel}" press="onPressCancelExtend"/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>confirm}" press="onPressConfirmExtend"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

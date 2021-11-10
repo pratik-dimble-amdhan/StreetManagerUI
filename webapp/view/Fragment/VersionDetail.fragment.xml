@@ -1,0 +1,10 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog showHeader="false" stretch="true" contentWidth="100%" contentHeight="100%">
+		<content height="100%">
+			<core:Fragment fragmentName="SAP.UKPN.UI.PermitApplication.view.Fragment.PermitDetails" type="XML"/>
+		</content>
+		<endButton>
+			<Button text="{i18n>BtnClose}" press="onVersionDetailClose"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

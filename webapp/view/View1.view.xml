@@ -1,0 +1,101 @@
+<mvc:View
+    controllerName="project1.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+>
+	<Shell id="shell">
+		<App id="app">
+        	<pages>
+		<Page>
+					<customHeader>
+						<Bar class="pageHeaderBGcolor">
+							<contentMiddle>
+								<Title text="Street Manager Hub" level="H2" class="titleColor"/>
+							</contentMiddle>
+							<contentRight>
+								<Text textAlign="Right" class="titleColor" />
+								
+							</contentRight>
+						</Bar>
+					</customHeader>
+					<subHeader>
+						<Toolbar class="smallHeader">
+						</Toolbar>
+					</subHeader>
+					<content>
+						<HBox justifyContent="Center">
+							<VBox class="sapUiMediumMarginEnd tileContainer" >
+								<Title text="publicPermits" level="H2" class="sapUiSmallMargin"/>
+								<GenericTile id="createFault" class="sapUiTinyMarginBegin sapUiSmallMarginTop tileLayout" header="Create Fault Permit" press="press">
+									<TileContent>
+										<ImageContent src="sap-icon://add-equipment"/>
+									</TileContent>
+								</GenericTile>
+								<GenericTile id="createPlanned" class="sapUiTinyMarginBegin sapUiSmallMarginTop tileLayout" header="Create Planned Permit" press="press">
+									<TileContent>
+										<ImageContent src="sap-icon://add-equipment"/>
+									</TileContent>		
+								</GenericTile>
+							</VBox>
+							<VBox class="sapUiMediumMarginEnd tileContainer" >
+								<Title text="{i18n>privatePermits}" level="H2" class="sapUiSmallMargin"/>
+								<GenericTile id="FaultPrivate" class="sapUiTinyMarginBegin sapUiSmallMarginTop tileLayout" header="{i18n>CreatePrivateFaultPermit}"
+									press="press">
+									<TileContent>
+										<ImageContent src="sap-icon://key-user-settings"/>
+									</TileContent>	
+								</GenericTile>
+								<GenericTile id="PlannedPrivate" class="sapUiTinyMarginBegin sapUiSmallMarginTop tileLayout" header="{i18n>CreatePrivatePlannedPermit}"
+									press="press" >
+									<TileContent>
+										<ImageContent src="sap-icon://key-user-settings"/>
+									</TileContent>	
+								</GenericTile>
+							</VBox>
+							<VBox class="sapUiMediumMarginEnd tileContainer" >
+								<Title text="{i18n>Search}" level="H2" class="sapUiSmallMargin"/>
+								<GenericTile id="searchPermits" class="sapUiTinyMarginBegin sapUiSmallMarginTop tileLayout" header="Search Permits" press="press">
+									<TileContent>
+										<ImageContent src="sap-icon://search"/>
+									</TileContent>
+								</GenericTile>
+								<GenericTile id="searchInspections" class="sapUiTinyMarginBegin sapUiSmallMarginTop tileLayout" header="Search Inspections" press="press"
+								>
+									<TileContent>
+										<ImageContent src="sap-icon://search"/>
+									</TileContent>
+								</GenericTile>
+							</VBox>
+							<VBox class="tileContainer" >
+								<Title text="{i18n>Inspections}" level="H2" class="sapUiSmallMargin"/>
+								<GenericTile id="createInspection" class="sapUiTinyMarginBegin sapUiSmallMarginTop tileLayout" header="Create Inspection Record"
+									press="press">
+									<TileContent>
+										<ImageContent src="sap-icon://inspection"/>
+									</TileContent>	
+								</GenericTile>
+								<GenericTile id="InspectionActivities" class="sapUiTinyMarginBegin sapUiSmallMarginTop tileLayout" header="{i18n>InspectionActivities}"
+									press="press">
+									<TileContent>
+										<ImageContent src="sap-icon://detail-view"/>
+									</TileContent>	
+								</GenericTile>
+							</VBox>
+							<VBox class="sapUiMediumMarginBeginEnd tileContainer">
+								<Title text="{i18n>reports}" level="H2" class="sapUiSmallMargin"/>
+								<GenericTile id="reports" class="sapUiTinyMarginBegin sapUiSmallMarginTop tileLayout" header="{i18n>reports}" press="press">
+									<TileContent>
+										<ImageContent src="sap-icon://activity-items"/>
+									</TileContent>
+								</GenericTile>
+							</VBox>
+						</HBox>
+					</content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>
+
+

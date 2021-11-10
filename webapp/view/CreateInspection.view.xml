@@ -1,0 +1,206 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+	controllerName="project1.controller.CreateInspection" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Shell id="shell">
+		<App>
+			<pages>
+				<Page title="{i18n>inspection}">
+					<customHeader>
+						<Bar class="pageHeaderBGcolor">
+							<contentLeft>
+								<core:Icon src="sap-icon://nav-back" size="20px" color="#ffffff" press=".onNavBack(true)"/>
+								<core:Icon src="sap-icon://home" size="20px" color="#ffffff" press="onHome">
+									<core:layoutData>
+										<FlexItemData growFactor="1"/>
+									</core:layoutData>
+								</core:Icon>
+							</contentLeft>
+							<contentMiddle>
+								<Title text="{i18n>Ukpn_Title}" level="H2" class="titleColor"/>
+							</contentMiddle>
+							<contentRight>
+								<Text textAlign="Right" class="titleColor" text="{UserProfileModel>/givenName} {UserProfileModel>/surname} &#13; {UserProfileModel>/assignedRoles}"/>
+								<core:Icon size="30px" src="sap-icon://customer"/>
+							</contentRight>
+						</Bar>
+					</customHeader>
+					<subHeader>
+						<Toolbar class="smallHeader">
+							<Title text="{i18n>inspection}" level="H1" textAlign="Left" class="secondTitle"/>
+							<ToolbarSpacer/>
+						</Toolbar>
+					</subHeader>
+					<Toolbar height="20px"></Toolbar>
+					<Toolbar>
+						<Text text="{i18n>inspection_details}"></Text>
+					</Toolbar>
+					<content>
+						<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="2" labelSpanL="2" labelSpanM="2" labelSpanS="12"
+							adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+							singleContainerFullSize="false">
+							<f:content>
+								<Label text="{i18n>related_permit_number}"></Label>
+								<Input id="idRelatedPermitNumber" liveChange="onChangePermitNumber" value="{CreateInsModel>/permitNumber}"
+									enabled="{CreateInsModel>/section81ChkBox}">
+									<layoutData>
+										<l:GridData span="XL3 L3 M6 S12"/>
+									</layoutData>
+								</Input>
+								<Button id="idPermitGetDetails" text="{i18n>get_details}" press="onPressGetDetails" enabled="{CreateInsModel>/section81ChkBox}">
+									<layoutData>
+										<l:GridData span="XL3 L2 M6 S12"/>
+									</layoutData>
+								</Button>
+								<Label/>
+								<CheckBox id="idCheckBox" text="{i18n>unattributable_section81}" select="onSelectSection81"/>
+								<!--<Label></Label>-->
+								<Label visible="{CreateInsModel>/showFields}" text="{i18n>Permit_Number}"></Label>
+								<Text text="{CreateInsModel>/permitNumber}" visible="{CreateInsModel>/showFields}"></Text>
+								<Label text="{i18n>Position}"></Label>
+								<Text text="{CreateInsModel>/position}" visible="{CreateInsModel>/showFields}"></Text>
+								<Label visible="{CreateInsModel>/showFields}" text="{i18n>Location}"></Label>
+								<Text text="{CreateInsModel>/location}" visible="{CreateInsModel>/showFields}"></Text>
+								<!--<Label text="{i18n>Street}" visible="{CreateInsModel>/showFields}"></Label>-->
+								<!--<Text text="{CreateInsModel>/street}" visible="{CreateInsModel>/showFields}"></Text>-->
+								<Label text="{i18n>Street}" visible="{CreateInsModel>/showFields}"></Label>
+								<Text text="{CreateInsModel>/street}" visible="{CreateInsModel>/showFields}"></Text>
+								<Label text="{i18n>authority}" visible="{CreateInsModel>/showFields}"></Label>
+								<Text text="{CreateInsModel>/Authority}" visible="{CreateInsModel>/showFields}"></Text>
+								<Label text="{i18n>Workstype}" visible="{CreateInsModel>/showFields}"></Label>
+								<Text text="{parts: ['CreateInsModel>/workType'], formatter: '.formatter.formatWorkType'}" visible="{CreateInsModel>/showFields}"></Text>								
+								<Label visible="{CreateInsModel>/showFields}" text="{i18n>Description}"></Label>
+								<Text text="{CreateInsModel>/description}" visible="{CreateInsModel>/showFields}"></Text>
+								<Label visible="{CreateInsModel>/showFields}" text="{i18n>Worksstatus}"></Label>
+								<Text text="{CreateInsModel>/workStatus}" visible="{CreateInsModel>/showFields}"></Text>
+								<Label visible="{CreateInsModel>/showFields}" text="{i18n>Duration}"></Label>
+								<Text text="{CreateInsModel>/duration}" visible="{CreateInsModel>/showFields}"></Text>
+								<Label visible="{CreateInsModel>/showFields}" text="{i18n>Traffic_management_type}"></Label>
+								<Text text="{CreateInsModel>/traaficManagementType}" visible="{CreateInsModel>/showFields}"></Text>
+								<Label visible="{CreateInsModel>/showFields}" text="{i18n>Footway_closure}"></Label>
+								<Text text="{CreateInsModel>/closeFootway}" visible="{CreateInsModel>/showFields}"></Text>
+								<Label visible="{CreateInsModel>/showFields}" text="{i18n>site_Number}"></Label>
+								<Text text="{CreateInsModel>/siteNumber}" visible="{CreateInsModel>/showFields}"></Text>
+								<Label text="{i18n>Workinggroup}"></Label>
+								<Input id="idInput" placeholder="{i18n>search_working_groups}" showSuggestion="true" suggest="handleSuggest"
+									suggestionItems="{SuggestModel>/}" liveChange="onChangeWorkingGroup" suggestionItemSelected="onsuggestionItemSelected">
+									<suggestionItems>
+										<core:Item key="{SuggestModel>workingGroupId}" text="{SuggestModel>groupName}"/>
+									</suggestionItems>
+									<layoutData>
+										<l:GridData span="XL3 L4 M4 S12"/>
+									</layoutData>
+								</Input>
+								<Button text="{i18n>set_as_primary_contractor}" press="onPressPrimaryContractor" enabled="{CreateInsModel>/PrimarySecondryBtns}">
+									<layoutData>
+										<l:GridData span="XL3 L3 M3 S12"/>
+									</layoutData>
+								</Button>
+								<Button id="idSecondaryContractor" text="{i18n>set_as_secondary_contractor}" press="onPressSecondaryContractor"
+									enabled="{CreateInsModel>/PrimarySecondryBtns}">
+									<layoutData>
+										<l:GridData span="XL3 L3 M3 S12"/>
+									</layoutData>
+								</Button>
+								<Label text="{i18n>Inspectioncoordinator}"></Label>
+								<ComboBox id="idInspectionCoordinator" items="{CreateInsModel>/inspectionCoordinator}" placeholder="{i18n>please_select}"
+									selectionChange="onSelectInspectionCoordinator">
+									<core:ListItem key="{CreateInsModel>complianceTeam}" text="{CreateInsModel>complianceTeam}"/>
+									<layoutData>
+										<l:GridData span="XL3 L4 M4 S12"/>
+									</layoutData>
+								</ComboBox>
+								<!--<Label text="{i18n>InspectionID}"></Label>-->
+								<!--<Input liveChange="onChangeInspectionId" id="idInternalId" value="{CreateInsModel>/internalId}">-->
+								<!--	<layoutData>-->
+								<!--		<l:GridData span="XL3 L4 M4 S12"/>-->
+								<!--	</layoutData>-->
+								<!--</Input>-->
+								<Label text="{i18n>Inspectiondateandtime}"></Label>
+								<DateTimePicker displayFormat="dd MMM y, HH:mm:ss" id="idInspectionDateTime" value="{CreateInsModel>/InspectionDateTime}"
+									change="onSelectInspectionDate">
+									<layoutData>
+										<l:GridData span="XL3 L4 M4 S12"/>
+									</layoutData>
+								</DateTimePicker>
+								<Label text="{i18n>Inspector}"></Label>
+								<Input liveChange="onChangeInspector" id="idInspectorName" value="{CreateInsModel>/inspectorName}">
+									<layoutData>
+										<l:GridData span="XL3 L4 M4 S12"/>
+									</layoutData>
+								</Input>
+								<Label text="{i18n>Inspectiontype}"></Label>
+								<ComboBox id="idInspectionType" items="{CreateInsModel>/type}" selectionChange="onSelectInspectionType">
+									<core:ListItem key="{CreateInsModel>key}" text="{CreateInsModel>displayText}"/>
+									<layoutData>
+										<l:GridData span="XL3 L4 M4 S12"/>
+									</layoutData>
+								</ComboBox>
+								<Label text="{i18n>Inspectioncategory}"></Label>
+								<ComboBox id="idInspectionCategory" items="{CreateInsModel>/category}" selectionChange="onSelectInspectionCategory">
+									<core:ListItem key="{CreateInsModel>key}" text="{CreateInsModel>displayText}"/>
+									<layoutData>
+										<l:GridData span="XL3 L4 M4 S12"/>
+									</layoutData>
+								</ComboBox>
+								<Label text="{i18n>Inspectionoutcome}"></Label>
+								<ComboBox id="idInspectionOutcome" items="{CreateInsModel>/outcome}" selectionChange="onSelectInspectionOutcome">
+									<core:ListItem key="{CreateInsModel>key}" text="{CreateInsModel>displayText}"/>
+									<layoutData>
+										<l:GridData span="XL3 L4 M4 S12"/>
+									</layoutData>
+								</ComboBox>
+								<Label text="{i18n>Duedateandtime}"></Label>
+								<DateTimePicker id="idDueDate" displayFormat="dd MMM y, HH:mm:ss" value="{CreateInsModel>/DueDate}" change="onSelectDueDate">
+									<layoutData>
+										<l:GridData span="XL3 L4 M4 S12"/>
+									</layoutData>
+								</DateTimePicker>
+								<Label text="{i18n>Sitecomments}"></Label>
+								<TextArea value="{CreateInsModel>/comments}">
+									<layoutData>
+										<l:GridData span="XL3 L4 M4 S12"/>
+									</layoutData>
+								</TextArea>
+								<Label text="{i18n>InspectionAttachments}"/>
+								<UploadCollection id="IdCreateInspectionupload" class="sapUiTinyMargin" instantUpload="false" items="{AttachmentsModel>/attachments}"
+									fileType="doc,docx,pdf,jpeg,jpg,png,bmp,tiff" maximumFileSize="10" fileSizeExceed="onFileSizeExceed">
+									<UploadCollectionItem ariaLabelForPicture="{AttachmentsModel>mProperties/ariaLabelForPicture}"
+										fileName="{AttachmentsModel>mProperties/fileName}" deletePress=".onDeleteItemPress"/>
+									<layoutData>
+										<l:GridData span="XL3 L4 M4 S12"/>
+									</layoutData>
+								</UploadCollection>
+								<!--<Label></Label>-->
+								<!--<Button text="{i18n>add_attachments}">-->
+								<!--	<layoutData>-->
+								<!--		<l:GridData span="XL2 L2 M2 S12"/>-->
+								<!--	</layoutData>-->
+								<!--</Button>-->
+								<Label></Label>
+								<Button text="{i18n>Add_work_comment}" press="onAddWorkComment" enabled="{CreateInsModel>/section81ChkBox}">
+									<layoutData>
+										<l:GridData span="XL2 L2 M2 S12"/>
+									</layoutData>
+								</Button>
+								<Label text="{i18n>internal_notes}"></Label>
+								<TextArea id="idIntNotes" value="{CreateInsModel>/notes}">
+									<layoutData>
+										<l:GridData span="XL3 L4 M4 S12"/>
+									</layoutData>
+								</TextArea>
+							</f:content>
+						</f:SimpleForm>
+					</content>
+					<footer >
+						<OverflowToolbar >
+							<content>
+								<ToolbarSpacer></ToolbarSpacer>
+								<Button text="{i18n>savedetails}" press=".onSaveandSendDetails('false')"/>
+								<Button text="{i18n>save_details}" press=".onSaveandSendDetails('true')" type="Emphasized"/>
+							</content>
+						</OverflowToolbar>
+					</footer>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>

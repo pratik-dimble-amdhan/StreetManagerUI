@@ -1,0 +1,699 @@
+{
+	"_version": "1.32.0",
+	"sap.app": {
+	  "id": "project1",
+	  "type": "application",
+	  "i18n": "i18n/i18n.properties",
+	  "applicationVersion": {
+		"version": "1.0.0"
+	  },
+	  "title": "{{appTitle}}",
+	  "description": "{{appDescription}}",
+	  "resources": "resources.json",
+	  "ach": "ach"
+	},
+	"sap.ui": {
+	  "technology": "UI5",
+	  "icons": {
+		"icon": "sap-icon://task",
+		"favIcon": "",
+		"phone": "",
+		"phone@2": "",
+		"tablet": "",
+		"tablet@2": ""
+	  },
+	  "deviceTypes": {
+		"desktop": true,
+		"tablet": true,
+		"phone": true
+	  }
+	},
+  
+	"sap.ui5": {
+	  "flexEnabled": false,
+	  "rootView": {
+		"viewName": "project1.view.View1",
+		"type": "XML",
+		"async": true,
+		"id": "View1"
+	  },
+	  "dependencies": {
+			  "minUI5Version": "1.95.0",
+		"libs": {
+		  "sap.ui.core": {},
+		  "sap.m": {},
+		  "sap.ui.layout": {},
+		  "sap.f": {}
+		}
+	  },
+	  "contentDensities": {
+		"compact": true,
+		"cozy": true
+	  },
+	  "models": {
+		"i18n": {
+		  "type": "sap.ui.model.resource.ResourceModel",
+		  "settings": {
+			"bundleName": "project1.i18n.i18n"
+		  }
+		}
+	  },
+  
+	  "config": {
+			  "timeout": {
+				  "short": "10000",
+				  "medium": "50000",
+				  "long": "300000"
+			  },
+			  "urls": {
+				  "path": "api/v1/",
+				  "relpath": "",
+				  "CreateApplicationTrafficFiles": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications/$/traffic-files/",
+					  "createApplicationTrafficFile": {
+						  "method": "POST"
+					  }
+				  },
+				  "CreateApplicationFiles": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications/$/work-files/",
+					  "createApplicationFile": {
+						  "method": "POST"
+					  }
+				  },
+				  "ApplicationFiles": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications/$/files/$/",
+					  "deleteApplicationFile": {
+						  "method": "DELETE"
+					  },
+					  "getApplicationFile": {
+						  "method": "GET"
+					  }
+				  },
+				  "ApplicationActivities": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications/$/pending-activities/$/",
+					  "getActivities": {
+						  "method": "GET"
+					  },
+					  "clearActivity": {
+						  "method": "PATCH"
+					  }
+				  },
+				  "SiteFiles": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications/$/sites/$/files/",
+					  "createSiteFile": {
+						  "method": "POST"
+					  },
+					  "getSiteFiles": {
+						  "method": "GET"
+					  }
+				  },
+				  "DeleteSiteFiles": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications/$/sites/$/files/$/",
+					  "deleteSiteFile": {
+						  "method": "DELETE"
+					  }
+				  },
+				  "PersonResponsibleSearch": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/users/search?q=$/",
+					  "PersonResponsible": {
+						  "method": "GET"
+					  }
+				  },
+				  "UpdateSite": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications/$/sites/$/",
+					  "updateSite": {
+						  "method": "PUT"
+					  },
+					  "getEtag": {
+						  "method": "HEAD"
+					  }
+				  },
+				  "CalculateWorkCategory": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/works/category",
+					  "WorkCategory": {
+						  "method": "GET"
+					  }
+				  },
+				  "InspectionsTasktypes": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/inspections/task-types",
+					  "Tasktypes": {
+						  "method": "GET"
+					  }
+				  },
+				  "InspectionTaskUsers": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/users",
+					  "Users": {
+						  "method": "GET"
+					  }
+				  },
+				  "CreateInspectionTask": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/inspections/$/tasks/$/",
+					  "CreateTask": {
+						  "method": "POST"
+					  },
+					  "getTask": {
+						  "method": "GET"
+					  },
+					  "updateTask": {
+						  "method": "PUT"
+					  }
+				  },
+				  "InspectionTaskFiles": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/inspections/$/tasks/$/files/",
+					  "createInspectionTaskFile": {
+						  "method": "POST"
+					  },
+					  "getInspectionTaskFiles": {
+						  "method": "GET"
+					  }
+				  },
+				  "StaticData": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/static-data/$/",
+					  "getData": {
+						  "method": "GET"
+					  }
+				  },
+				  "StaticDataMapping": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/static-data-mapping/$/",
+					  "getData": {
+						  "method": "GET"
+					  }
+				  },
+				  "InspectionTaskStatus": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/static-data/inspection-task-status/",
+					  "getTaskStatus": {
+						  "method": "GET"
+					  }
+				  },
+				  "InspectionTypes": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/static-data/inspection-types",
+					  "InspectionType": {
+						  "method": "GET"
+					  }
+				  },
+				  "InspectionCategory": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/static-data/inspection-categories",
+					  "getInspectionCategory": {
+						  "method": "GET"
+					  }
+				  },
+				  "InspectionOutcome": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/static-data/inspection-outcomes",
+					  "getInspectionOutCome": {
+						  "method": "GET"
+					  }
+				  },
+				  "InspectionCoordinator": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/inspections/coordinators",
+					  "getInspectionCoordinator": {
+						  "method": "GET"
+					  }
+				  },
+				  "RelatedPermitNumberDetail": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications/$/",
+					  "getRelatedPermitNumberDetail": {
+						  "method": "GET"
+					  }
+				  },
+				  "SaveCreateInspectionComment": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications/$/comments",
+					  "CreateInspectionComment": {
+						  "method": "POST"
+					  },
+					  "getcommentstoHighwayAuthority": {
+						  "method": "GET"
+					  }
+				  },
+				  "SaveCreateInspectionNotes": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/inspections/$/notes",
+					  "CreateInspectionNotes": {
+						  "method": "POST"
+					  }
+				  },
+				  "WorkingGroup": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/working-groups",
+					  "getWorkingGroup": {
+						  "method": "GET"
+					  }
+				  },
+				  "Inspection": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/inspections",
+					  "createInspection": {
+						  "method": "POST"
+					  },
+					  "searchInspections": {
+						  "method": "GET"
+					  }
+				  },
+				  "ApplicationSearchDetails": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications",
+					  "ApplicationSearch": {
+						  "method": "GET"
+					  }
+				  },
+				  "DuedateCalculation": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/inspections/due-date-calculation",
+					  "getDuedateCalculation": {
+						  "method": "GET"
+					  }
+				  },
+				  "InspectionFiles": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/inspections/$/files/",
+					  "createInspectionFile": {
+						  "method": "POST"
+					  },
+					  "getInspectionFile": {
+						  "method": "GET"
+					  }
+				  },
+				  "InspectionsDNODetails": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/operational-zones",
+					  "InspectionsDNO": {
+						  "method": "GET"
+					  }
+				  },
+				  "StartStopPermit": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications/$/",
+					  "sendStartStopPermit": {
+						  "method": "PUT"
+					  }
+				  },
+				  "Contractors": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/contractors",
+					  "getContractors": {
+						  "method": "GET"
+					  }
+				  },
+				  "WorkIdentifier": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/works-identifier",
+					  "getWorkIdentifier": {
+						  "method": "GET"
+					  }
+				  },
+				  "CollaborationType": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/static-data/collaborations",
+					  "getCollaborationType": {
+						  "method": "GET"
+					  }
+				  },
+				  "Applications": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications/$/",
+					  "getApplication": {
+						  "method": "GET"
+					  },
+					  "DiscardDraft": {
+						  "method": "DELETE"
+					  },
+					  "createApplication": {
+						  "method": "POST"
+					  },
+					  "updateApplication": {
+						  "method": "PUT"
+					  }
+				  },
+				  "AppHistory": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications/$/work-history",
+					  "GetHistory": {
+						  "method": "GET"
+					  }
+				  },
+				  "VersionHistory": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications/$/version-history",
+					  "GetHistory": {
+						  "method": "GET"
+					  }
+				  },
+				  "InspectionUnits": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications/$/inspection-units",
+					  "GetUnits": {
+						  "method": "GET"
+					  }
+				  },
+				  "SitesHistory": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications/$/sites-history",
+					  "GetHistory": {
+						  "method": "GET"
+					  }
+				  },
+				  "SiteVersionHistory": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications/$/sites/$/versions",
+					  "GetHistory": {
+						  "method": "GET"
+					  }
+				  },
+				  "submitApplication": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications/$/submission",
+					  "submitPermit": {
+						  "method": "POST"
+					  }
+				  },
+				  "SapKeyDetails": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/sap-work-details/$/",
+					  "getSapKeyDetails": {
+						  "method": "GET"
+					  }
+				  },
+				  "userProfile": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/users/my-profile",
+					  "getUserProfile": {
+						  "method": "GET"
+					  }
+				  },
+				  "calculateDays": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/calculate-days",
+					  "getCalculatedDays": {
+						  "method": "GET"
+					  }
+				  },
+				  "highwayAuthority": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/highway-authorities/",
+					  "getHighwayAuthority": {
+						  "method": "GET"
+					  }
+				  },
+				  "ActionPermit": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications/$/",
+					  "sendActionPermit": {
+						  "method": "PUT"
+					  }
+				  },
+				  "alterPermit": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications/$/alterations",
+					  "createAlterPermit": {
+						  "method": "POST"
+					  }
+				  },
+				  "updatePermit": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications/$/alterations/$/",
+					  "updateAlterPermit": {
+						  "method": "PUT"
+					  },
+					  "discardAlterDraft": {
+						  "method": "DELETE"
+					  }
+				  },
+				  "submitPermit": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications/$/alterations/$/submission",
+					  "submitAlterPermit": {
+						  "method": "POST"
+					  }
+				  },
+				  "updateJointingDate": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/applications/$/actual-jointing-date",
+					  "updateJointingDate": {
+						  "method": "PATCH"
+					  }
+				  },
+				  "Activities": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/static-data/activities",
+					  "getActivities": {
+						  "method": "GET"
+					  }
+				  },
+				  "TrafficManagement": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/static-data/traffic-management",
+					  "getTrafficManagement": {
+						  "method": "GET"
+					  }
+				  },
+				  "LocationType": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/static-data/locations",
+					  "getLocationType": {
+						  "method": "GET"
+					  }
+				  },
+				  "Permitconditions": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/permits/options",
+					  "getPermitconditions": {
+						  "method": "GET"
+					  }
+				  },
+				  "FootwayClosure": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/static-data/footway-closure",
+					  "getFootwayClosure": {
+						  "method": "GET"
+					  }
+				  },
+				  "WRPflag": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/organisations-map/?wrpFlag=true",
+					  "getWRPflag": {
+						  "method": "GET"
+					  }
+				  },
+				  "InspectionContractor": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/inspections/$/tasks",
+					  "getInspectionContractor": {
+						  "method": "GET"
+					  }
+				  },
+				  "AuthorityContact": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/highway-authorities/contacts",
+					  "getAuthorityContact": {
+						  "method": "GET"
+					  }
+				  },
+				  "DepartmentIdentifier": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/departments",
+					  "getDepartmentIdentifier": {
+						  "method": "GET"
+					  }
+				  },
+				  "ManualInspection": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/inspections/$/manual",
+					  "updateManualInspection": {
+						  "method": "PUT"
+					  }
+				  },
+				  "InspectionDetails": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/inspections/$/",
+					  "getInspectionDetails": {
+						  "method": "GET"
+					  }
+				  },
+				  "WorkReference": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/works",
+					  "checkWorkReference": {
+						  "method": "HEAD"
+					  }
+				  },
+				  "InspectionActivities": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/pending-activities/inspection",
+					  "getActivities": {
+						  "method": "POST"
+					  }
+				  },
+				  "InspectionActivitiesClear": {
+					  "path": "https://streetmanager-api.cfapps.eu10.hana.ondemand.com/api/v1/pending-activities/$/clear/$/",
+					  "clearActivity": {
+						  "method": "PATCH"
+					  }
+				  }
+			  }
+		  },
+	  "resources": {
+		  "css": [{
+		  "uri": "css/style.css"
+		  }]
+	  },
+	  "routing": {
+		"config": {
+		  "routerClass": "sap.m.routing.Router",
+		  "viewType": "XML",
+		  "async": true,
+		  "viewPath": "project1.view",
+		  "controlAggregation": "pages",
+		  "controlId": "app",
+		  "clearControlAggregation": false
+		},
+		"routes": [
+		  {
+			"name": "RouteView1",
+			"pattern": "RouteView1",
+			"target": ["TargetView1"]
+		  },
+		  {
+				  "name": "FaultPermit",
+				  "pattern": "FaultPermit/{mode}/{NAME1}/{PARAM1}",
+				  "target": [
+					  "FaultPermit"
+				  ]
+			  },
+			  {
+				  "pattern": "",
+				  "name": "RouteHome",
+				  "target": [
+					  "TargetHome"
+				  ]
+			  }, {
+				  "name": "NoAuth",
+				  "pattern": "NoAuth/",
+				  "target": [
+					  "TargetApp"
+				  ]
+			  },{
+				  "name": "SapRequest",
+				  "pattern": "SapRequest/{sapkey}",
+				  "target": [
+					  "TargetApp"
+				  ]
+			  }, {
+				  "name": "PlannedPermit",
+				  "pattern": "PlannedPermit/{mode}/{NAME1}/{PARAM1}",
+				  "target": [
+					  "LocationDetails"
+				  ]
+			  }, {
+				  "pattern": "PermitSubmit",
+				  "name": "PermitSubmit",
+				  "target": [
+					  "PermitSubmit"
+				  ]
+			  }, {
+				  "name": "FaultPermit",
+				  "pattern": "FaultPermit/{mode}/{NAME1}/{PARAM1}",
+				  "target": [
+					  "FaultPermit"
+				  ]
+			  }, {
+				  "name": "EditFaultPermit",
+				  "pattern": "EditFaultPermit/:ApplicationId:",
+				  "target": [
+					  "FaultPermit"
+				  ]
+			  }, {
+				  "pattern": "RegisterPermit/{state}",
+				  "name": "RegisterPermit",
+				  "target": [
+					  "RegisterPermit"
+				  ]
+			  }, {
+				  "pattern": "NoticeRequest",
+				  "name": "NoticeRequest",
+				  "target": [
+					  "NoticeRequest"
+				  ]
+			  }, {
+				  "pattern": "Inspection/{state}/{mode}",
+				  "name": "Inspection",
+				  "target": [
+					  "Inspection"
+				  ]
+			  }, {
+				  "pattern": "RegisterSubmit",
+				  "name": "RegisterSubmit",
+				  "target": [
+					  "RegisterSubmit"
+				  ]
+			  }, {
+				  "pattern": "Search/:tab:",
+				  "name": "Search",
+				  "target": [
+					  "Search"
+				  ]
+			  }, {
+				  "pattern": "InspectionActivities/",
+				  "name": "InspectionActivities",
+				  "target": [
+					  "InspectionActivities"
+				  ]
+			  },{
+				  "pattern": "CreateInspection/{state}",
+				  "name": "CreateInspection",
+				  "target": [
+					  "CreateInspection"
+				  ]
+			  }, {
+				  "pattern": "PermitHistory/{tab}/{NAME1}/{PARAM1}",
+				  "name": "PermitHistory",
+				  "target": [
+					  "PermitHistory"
+				  ]
+			  }, {
+				  "pattern": "PlannedPrivate/{mode}/{NAME1}/{PARAM1}",
+				  "name": "PlannedPrivate",
+				  "target": [
+					  "PlannedPrivate"
+				  ]
+			  }, {
+				  "name": "FaultPrivate",
+				  "pattern": "FaultPrivate/{mode}/{NAME1}/{PARAM1}",
+				  "target": [
+					  "FaultPrivate"
+				  ]
+			  }
+		],
+		"targets": {
+		  "TargetView1": {
+			"viewType": "XML",
+			"transition": "slide",
+			"clearControlAggregation": false,
+			"viewId": "View1",
+			"viewName": "View1"
+		  },
+		  "FaultPermit": {
+					  "viewType": "XML",
+					  "viewName": "FaultPermit"
+				  },
+				  "TargetHome": {
+					  "viewType": "XML",
+					  "transition": "slide",
+					  "clearControlAggregation": false,
+					  "viewName": "View1"
+				  },
+				  "PermitSubmit": {
+					  "viewType": "XML",
+					  "viewName": "PermitSubmit"
+				  },
+				  "LocationDetails": {
+					  "viewType": "XML",
+					  "viewName": "LocationDetails"
+				  },
+				  "RegisterPermit": {
+					  "viewType": "XML",
+					  "viewName": "RegisterPermit"
+				  },
+				  "NoticeRequest": {
+					  "viewType": "XML",
+					  "viewName": "NoticeRequest"
+				  },
+				  "Inspection": {
+					  "viewType": "XML",
+					  "viewName": "Inspection"
+				  },
+				  "RegisterSubmit": {
+					  "viewType": "XML",
+					  "viewName": "RegisterSubmit"
+				  },
+				  "Search": {
+					  "viewType": "XML",
+					  "viewName": "Search"
+				  },
+				  "InspectionActivities": {
+					  "viewType": "XML",
+					  "viewName": "InspectionActivities"
+				  },
+				  "CreateInspection": {
+					  "viewType": "XML",
+					  "viewName": "CreateInspection"
+				  },
+				  "PermitHistory": {
+					  "viewType": "XML",
+					  "viewName": "PermitHistory"
+				  },
+				  "TargetApp": {
+					  "viewType": "XML",
+					  "viewName": "App"
+				  },
+				  "PlannedPrivate": {
+					  "viewType": "XML",
+					  "viewName": "PlannedPrivate"
+				  },
+				  "FaultPrivate": {
+					  "viewType": "XML",
+					  "viewName": "FaultPrivate"
+				  }
+		}
+	  }
+	}
+  }
+  

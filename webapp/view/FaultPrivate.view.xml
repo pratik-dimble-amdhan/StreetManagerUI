@@ -1,0 +1,488 @@
+<mvc:View height="100%" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+	xmlns:tnt="sap.tnt" controllerName="project1.controller.FaultPrivate" displayBlock="true" xmlns="sap.m"
+	xmlns:semantic="sap.m.semantic" xmlns:ui="sap.ca.ui" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page">
+					<customHeader>
+						<Bar class="pageHeaderBGcolor">
+							<contentLeft>
+								<core:Icon src="sap-icon://nav-back" size="20px" color="#ffffff" press=".onNavBack(true)"/>
+								<core:Icon src="sap-icon://home" size="20px" color="#ffffff" press=".onHome('home')">
+									<core:layoutData>
+										<FlexItemData growFactor="1"/>
+									</core:layoutData>
+								</core:Icon>
+							</contentLeft>
+							<contentMiddle>
+								<Title text="{i18n>Ukpn_Title}" level="H2" class="titleColor"/>
+							</contentMiddle>
+							<contentRight>
+								<Text textAlign="Right" class="titleColor" text="{UserProfileModel>/givenName} {UserProfileModel>/surname} &#13; {UserProfileModel>/assignedRoles}"/>
+								<core:Icon size="30px" src="sap-icon://customer"/>
+							</contentRight>
+						</Bar>
+					</customHeader>
+					<subHeader>
+						<Toolbar class="smallHeader">
+							<Title
+								text="{= ${oModel>/ApplicationDetails/workReferenceNumber} ? ${i18n>Create_Private_Immediate_Permit} + ' - ' + ${oModel>/ApplicationDetails/workReferenceNumber} : ${oModel>/isApplicationId} ? ${i18n>Create_Private_Immediate_Permit} + ' - ' + ${oModel>/isApplicationId/workId} : ${i18n>Create_Private_Immediate_Permit} }"
+								id="idTitle" level="H2" textAlign="Left" class="secondTitle"/>
+							<ToolbarSpacer/>
+						</Toolbar>
+					</subHeader>
+					<content>
+						<Toolbar height="20%">
+							<ToolbarSpacer/>
+							<VBox alignContent="Center" justifyContent="Center" alignItems="Center" class="vbooxStep1">
+								<Image id="idFaultStep1" src="images/1.png" width="40px" alt="Location" class="clickBorder" press="handleNav"/>
+								<Text text="{i18n>Location_details}"/>
+							</VBox>
+							<ToolbarSpacer class="custToolbar"/>
+							<VBox alignContent="Center" justifyContent="Center" alignItems="Center" class="vbooxStep2">
+								<Image id="idFaultStep2" src="images/2.png" width="40px" alt="Work" press="handleNav"/>
+								<Text text="{i18n>work_details}"/>
+							</VBox>
+							<ToolbarSpacer class="custToolbar"/>
+							<VBox alignContent="Center" justifyContent="Center" alignItems="Center" class="vbooxStep3">
+								<Image id="idFaultStep3" src="images/3.png" width="40px" alt="Summary" press="handleNav"/>
+								<Text text="Summary"/>
+							</VBox>
+							<ToolbarSpacer/>
+						</Toolbar>
+						<!--<Wizard id="CreateFaultsApplicationWizard" complete="wizardCompletedHandler" showNextButton="true" class="CustomWizard">-->
+						<!--<st:WizardStep id="LocDetStep" title="Location details" validated="true">-->
+						<NavContainer id="navCon" width="98%" class="navContainerControl sapUiTinyMargin">
+							<Page id="idFaultp1" showHeader="false" navButtonTooltip="LocationDetails">
+								<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="2" labelSpanS="12"
+									adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+									singleContainerFullSize="false">
+									<Label text="{i18n>Request_id}" textAlign="Begin"></Label>
+									<Text text="{oModel>/requestId}" id="RefNo"></Text>
+									<Label text="{i18n>SAP_Work_Order_Number}"></Label>
+									<Text text="{oModel>/workno}"></Text>
+									<Label text="{i18n>SAP_Work_Order_Operation_Number}" textAlign="Begin"></Label>
+									<Text text="{oModel>/workoperationno}"></Text>
+									<Label text="Incident/Project Number" textAlign="Begin"></Label>
+									<Input id="idIncidentprojectnumber" value="{oModel>/IncidentProjectNumber}" change="handleChangeIncidentProjectNo" maxLength="15"/>
+									<Label text="{i18n>Works_identifier}" textAlign="Begin"></Label>
+									<ComboBox id="idWorkIdentifier" items="{oModel>/workIdentifier}" selectedKey="{oModel>/ApplicationDetails/worksIdentifier}"
+										selectionChange="onWorkIdentifier" placeholder="Please Select">
+										<core:ListItem key="{oModel>worksIdentifierId}" text="{oModel>description}"/>
+									</ComboBox>
+									<Label text="{i18n>Activity_Type}"/>
+									<ComboBox id="idComboActivity" items="{oModel>/activities}" selectedKey="{oModel>/ApplicationDetails/activityType}"
+										placeholder="Please Select" selectionChange="onActivityType">
+										<core:ListItem key="{oModel>key}" text="{oModel>displayText}"/>
+									</ComboBox>
+									<Label text="{i18n>Work_Category}"/>
+									<ComboBox id="idWorkCategory" selectedKey="{oModel>/workCategory}" selectionChange="onSelectWorkCategory" placeholder="Please Select">
+										<core:ListItem key="immediate_urgent" text="Urgent"/>
+										<core:ListItem key="immediate_emergency" text="Emergency"/>
+									</ComboBox>
+									<Label text="DNO"/>
+									<SegmentedButton id="idSegDno" items="{oModel>/operationalZone}" width="150px" selectedItem="none" selectionChange="onSelectDNO">
+										<items>
+											<SegmentedButtonItem text="{oModel>dno}" key="{oModel>dno}"/>
+										</items>
+									</SegmentedButton>
+									<Label/>
+									<Text text="Please complete all details to continue" textAlign="Left"/>
+								</f:SimpleForm>
+								<l:VerticalLayout id="WorkLocation" class="sapUiContentPadding" width="100%" visible="false">
+									<l:content>
+										<Toolbar class="borderTop">
+											<Title text="{i18n>Work_location}" level="H2" textAlign="Left"/>
+										</Toolbar>
+										<HBox justifyContent="Center">
+											<Button id="idPlotMap" type="Emphasized" text="{i18n>plotMap}" press="OnSearchLocation" class="sapUiTinyMarginBegin sapUiTinyMarginEnd"/>
+										</HBox>
+									</l:content>
+								</l:VerticalLayout>
+								<l:VerticalLayout id="SelectedLocationDetails" class="sapUiContentPadding" width="100%" visible="false">
+									<l:content>
+										<Toolbar class="borderTop">
+											<Title text="{i18n>Selectedlocationdetails}" level="H2" textAlign="Left"/>
+										</Toolbar>
+										<VBox class="sapUiSmallMargin">
+											<f:SimpleForm id="SelectedLocation" editable="true" layout="ResponsiveGridLayout" labelSpanL="5" emptySpanL="0" columnsL="1">
+												<f:content>
+													<Label text="{i18n>Selectedlocation}"/>
+													<Text text="{oModel>/selectedLocation}"/>
+													<Label text="USRN"/>
+													<Input id="Usrn" value="{oModel>/USRN}" type="Text" placeholder="Type USRN here and press enter to lookup..." 
+													submit="handlesubmitUSRN" enabled="{path: 'i18n>environment', formatter:'.formatter.checkDevUrl'}"/>
+													<!--<Label text="Road categories"/>-->
+													<!--<Text text="{oModel>/roadCategory}"/>-->
+													<Label text="{i18n>Location_description}"/>
+													<TextArea id="idLocDescription" value="{oModel>/LocationDescription}"  change="handleChangeLocationDesc"/>
+													<Label text="Operational Zone"/>
+													<ComboBox id="idOperationalZone" items="{oModel>/operational}" selectedKey="{oModel>/ApplicationDetails/operationalZone}"
+														selectionChange="onOperationZoneSelection" placeholder="Please Select">
+														<core:ListItem key="{oModel>id}" text="{oModel>description}"/>
+													</ComboBox>
+												</f:content>
+											</f:SimpleForm>
+										</VBox>
+										<Toolbar width="100%" height="1px" design="Solid"></Toolbar>
+										<Toolbar width="100%" height="8px"></Toolbar>
+										<f:SimpleForm id="HighwayAuthority" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="2" labelSpanS="12"
+										adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+										singleContainerFullSize="false">
+											<Label text="Highway Authority"/>
+											<ComboBox id="idHighwayAuthBox" items="{oModel>/highwayAuthority}" selectedKey="{oModel>/ApplicationDetails/highwayAuthority}"
+												placeholder="Please Select" selectionChange="handleHighwayAuthority">
+												<core:ListItem key="{oModel>swaCode}" text="{oModel>name}"/>
+											</ComboBox>
+											<Label text="Works Start Date and Time" textAlign="Begin"></Label>
+											<DateTimePicker id="DTP1" dateValue="{oModel>/StartDate}" displayFormat="d MMM y, HH:mm:ss" change="StartDateChange"/>
+											<Label text="Estimated Works End Date" textAlign="Begin"></Label>
+											<DateTimePicker id="idEstimatedEnddate" dateValue="{oModel>/endDate}" displayFormat="d MMM y, HH:mm:ss" change="endDateChange"/>
+											<Label/>
+											<MessageStrip visible="{oModel>/FaultWorkStartTimeFlag}" text="{i18n>FaultWorkStartTime}" type="Error" showIcon="true"
+												showCloseButton="false" class="sapUiSmallMarginBottom"/>
+											<Label text="{i18n>workingDays}" textAlign="Begin"></Label>
+											<Text text="{oModel>/workingDays}"/>
+											<Label/>
+											<Label text="{i18n>calendarDays}" textAlign="Begin"></Label>
+											<Text text="{oModel>/calendarDays}"/>
+											<Label/>
+										</f:SimpleForm>
+										<Toolbar width="100%" height="8px"></Toolbar>
+										<Toolbar width="100%" height="8px"></Toolbar>
+										<MessageStrip id="specailDesignation" text="Notification - Special designations" type="Error" visible="false" showIcon="true"
+											showCloseButton="false" class="sapUiSmallMarginBottom"/>
+										<MessageStrip visible="{oModel>/LaneRentalFlag}" text="Lane rental notification" type="Error" showIcon="true" showCloseButton="false"
+											class="sapUiSmallMarginBottom"/>
+										<Table id="idDesignationList" items="{oModel>/specialDesignation}">
+											<columns>
+												<Column>
+													<Text text="{i18n>periodApplied}"/>
+												</Column>
+												<Column>
+													<Text text="{i18n>specialDesignation}"/>
+												</Column>
+												<Column>
+													<Text text="{i18n>Eastings}"/>
+												</Column>
+												<Column>
+													<Text text="{i18n>Northings}"/>
+												</Column>												
+												<Column>
+													<Text text="{i18n>Description}"/>
+												</Column>
+												<Column>
+													<Text text="{i18n>Location}"/>
+												</Column>
+												<Column>
+													<Text text="{i18n>startTime}"/>
+												</Column>
+												<Column>
+													<Text text="{i18n>endTime}"/>
+												</Column>
+												<Column width="120px">
+													<VBox width="120px">
+														<Text text="{i18n>selectAll}"/>
+														<SegmentedButton id="allDesignationSelector" selectedItem="none" selectionChange="onSelectAllDesignation">
+															<items>
+																<SegmentedButtonItem key="yes" text="Yes" enabled="false"/>
+																<SegmentedButtonItem key="no" text="No" enabled="false"/>
+															</items>
+														</SegmentedButton>
+													</VBox>
+												</Column>
+											</columns>
+											<items>
+												<ColumnListItem>
+													<cells>
+														<Text text="{= ${spDesigDataModel>/periods}[${oModel>special_desig_periodicity_code}].displayText }"/>
+														<Text text="{= ${spDesigDataModel>/types}[${oModel>street_special_desig_code}].displayText }"/>
+														<VBox>
+															<Text text="{ parts: [ 'oModel>asd_coordinate_geometry', 'oModel>whole_road'], formatter: '.formatter.setEastings' }"/>
+														</VBox>
+														<VBox>
+															<Text text="{ parts: [ 'oModel>asd_coordinate_geometry', 'oModel>whole_road'], formatter: '.formatter.setNorthings' }"/>
+														</VBox>														
+														<Text
+															text="{= ${oModel>special_desig_description} &amp;&amp; ${oModel>special_desig_description} !== '' ? ${oModel>special_desig_description} : 'N/A' }"/>
+														<Text
+															text="{= ${oModel>special_desig_location_text} &amp;&amp; ${oModel>special_desig_location_text} !== '' ? ${oModel>special_desig_location_text} : 'N/A' }"/>
+														<!--<Text-->
+														<!--	text="{= ${oModel>special_desig_start_time} &amp;&amp; ${oModel>special_desig_start_time} !== '' ? ${oModel>special_desig_start_time} : 'N/A' }"/>-->
+														<!--<Text-->
+														<!--	text="{= ${oModel>special_desig_end_time} &amp;&amp; ${oModel>special_desig_end_time} !== '' ? ${oModel>special_desig_end_time} : 'N/A' }"/>-->
+														<Text text="{ parts: ['oModel>special_desig_start_time'], formatter: '.formatter.setStartEndTime' }"/>
+														<Text text="{ parts: ['oModel>special_desig_end_time'], formatter: '.formatter.setStartEndTime' }"/>
+														<SegmentedButton selectedItem="none" selectionChange="onSelectDesignation">
+															<items>
+																<SegmentedButtonItem key="yes" text="Yes" enabled="false"/>
+																<SegmentedButtonItem key="no" text="No" enabled="false"/>
+															</items>
+														</SegmentedButton>
+													</cells>
+												</ColumnListItem>
+											</items>
+										</Table>
+									</l:content>
+								</l:VerticalLayout>
+							</Page>
+							<!--</st:WizardStep>-->
+							<!--<st:WizardStep id="WorkDetStep" title="Work details" validated="true">-->
+							<Page id="idFaultp2" showHeader="false" navButtonTooltip="WorkDetails">
+								<Toolbar class="borderTop">
+									<Title text="{i18n>Contractors}" level="H2" textAlign="Left" class="Contractor"/>
+								</Toolbar>
+								<f:SimpleForm id="SimpleFormToolbar" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="2"
+									labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="2" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1"
+									singleContainerFullSize="false" ariaLabelledBy="Title1">
+									<f:content>
+										<Label text="{i18n>Primary_contractor}"/>
+										<ComboBox id="idPermitPrimaryComBox" items="{oModel>/primaryContractor}" selectedKey="{oModel>/ApplicationDetails/primaryContractorId}"
+											selectionChange="onSelectPrimary" placeholder="Please Select">
+											<core:ListItem key="{oModel>id}" text="{oModel>name}"/>
+										</ComboBox>
+										<Label text="{i18n>Secondary_contractor}"/>
+										<ComboBox id="idSecondaryContractor" items="{oModel>/secondaryContractor}" selectedKey="{oModel>/ApplicationDetails/secondaryContractorId}"
+											placeholder="Please Select" selectionChange="onSelectSecondary">
+											<core:ListItem key="{oModel>id}" text="{oModel>name}"/>
+										</ComboBox>
+									</f:content>
+								</f:SimpleForm>
+								<Toolbar class="borderTop">
+									<Title text="{i18n>Work_type}" level="H2" textAlign="Left" class="Contractor"/>
+								</Toolbar>
+								<f:SimpleForm id="idWorktypeFormEdit" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="2"
+									labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+									singleContainerFullSize="false">
+									<f:content>
+										<Label text="{i18n>Work_startdate_enddate}"/>
+										<Text text="{path:'oModel>/StartDate', formatter:'.formatter.DateFormat'}"/>
+										<Label text="{i18n>estimated_enddate}"/>
+										<Text text="{path:'oModel>/endDate', formatter:'.formatter.DateFormat'}"/>
+										<Label text="{i18n>Footway_closure_Fault}"/>
+										<ComboBox id="idFootwayClosure" items="{oModel>/footwayclosure}" selectedKey="{oModel>/ApplicationDetails/closeFootway}"
+											placeholder="Please Select" selectionChange="onFootwayClosure">
+											<core:ListItem key="{oModel>key}" text="{oModel>displayText}"/>
+										</ComboBox>
+										<Label text="Excavation Required"/>
+										<SegmentedButton id="idSegmntBtnExcavation" selectedKey="{oModel>/ApplicationDetails/excavationFlag}" width="100px" selectedItem="none"
+											selectionChange="onSelectExcavationRequired">
+											<items>
+												<SegmentedButtonItem text="Yes" key="yes"/>
+												<SegmentedButtonItem text="No" key="no"/>
+											</items>
+										</SegmentedButton>
+									</f:content>
+								</f:SimpleForm>
+								<Toolbar class="borderTop">
+									<Title text="{i18n>Additional_work_details}" level="H2" textAlign="Left" class="Contractor"/>
+								</Toolbar>
+								<f:SimpleForm id="idWorktypeFormAdditnlwork" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="2" labelSpanM="2"
+									labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+									singleContainerFullSize="false">
+									<f:content>
+										<Label/>
+										<Button id="idAddAnotherBtn" text="ADD ANOTHER CONTRACTOR" type="Ghost" press="onAddOtherContractor"
+											class="CalculateWorkOrderShape CalculateWorkOrderValue">
+											<layoutData>
+												<l:GridData span="XL12 L3 M6 S12"/>
+											</layoutData>
+										</Button>
+										<Label text="Other Contractor" visible="false" id="idOtherContractorLbl"></Label>
+										<ComboBox id="idOtherContractorBox" visible="false" selectionChange="onSelectOtherContractor" placeholder="Search Contractors"
+											items="{oModel>/otherContractor}" selectedKey="{oModel>/ApplicationDetails/otherContractorId}">
+											<core:ListItem key="{oModel>id}" text="{oModel>name}"/>
+											<layoutData>
+												<l:GridData span="XL6 L9 M6 S12"/>
+											</layoutData>
+										</ComboBox>
+										<Button id="idOtherContractorBtn" press="onDeleteContractor" visible="false" icon="sap-icon://delete">
+											<layoutData>
+												<l:GridData span="XL6 L1 M2 S3"/>
+											</layoutData>
+										</Button>
+										<Label text="{i18n>Works_description}"/>
+										<TextArea id="idWorksDescription" value="{oModel>/Worksdescription}" change="handleLiveChangeWorksdescription"
+										maxLength="{parts:['oModel>/ApplicationDetails/worksIdentifier'], formatter: '.formatter.calculateWorkDescLimit'}"
+										placeholder="{parts:['oModel>/ApplicationDetails/worksIdentifier'], formatter: '.formatter.calculateWorkDescLimitText'}"/>
+										<Label text="{i18n>Person_responsible}"/>
+										<Input id="idPersonresponsible" showSuggestion="true" showTableSuggestionValueHelp="false" suggest="handlechangePersonresponsible"
+											suggestionItemSelected="onPersonSelection" suggestionRows="{oModel>/personResponsible}" change="onPersonSelection">
+											<suggestionColumns>
+												<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+													<Label text="User Name"/>
+												</Column>
+												<Column hAlign="Center" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+													<Label text="Phone Number"/>
+												</Column>
+												<Column hAlign="Center" popinDisplay="Inline" demandPopin="false" minScreenWidth="Tablet">
+													<Label text="Office Location"/>
+												</Column>
+												<Column hAlign="End" popinDisplay="Inline" demandPopin="true">
+													<Label text="Users Role"/>
+												</Column>
+											</suggestionColumns>
+											<suggestionRows>
+												<ColumnListItem>
+													<cells>
+														<Label text="{oModel>givenName}"/>
+														<Label text="{oModel>telephone}"/>
+														<Label text="{oModel>city}"/>
+														<Label text="{oModel>assignedRoles}"/>
+													</cells>
+												</ColumnListItem>
+											</suggestionRows>
+											<layoutData>
+												<l:GridData span="XL6 L8 M6 S12"/>
+											</layoutData>
+										</Input>
+										<Button text="{i18n>iamresponsible}" press="onPressiamResponsible">
+											<layoutData>
+												<l:GridData span="XL6 L2 M6 S12"/>
+											</layoutData>
+										</Button>
+										<Label text="{i18n>Group_responsible}"/>
+										<Input id="idGroupresponsible" showSuggestion="true" suggestionItems="{SuggestModel>/}" suggestionItemSelected="onsuggestionGroupSelected">
+											<suggestionItems>
+												<core:Item key="{SuggestModel>workingGroupId}" text="{SuggestModel>groupName}"/>
+											</suggestionItems>
+										</Input>
+										<Label text="{i18n>Person_responsible_contact_details}"/>
+										<Input id="idPersonReponsibleContact" value="{oModel>/PersonresponsContactdetails}"/>
+									</f:content>
+								</f:SimpleForm>
+							</Page>
+							<!--</st:WizardStep>-->
+							<!--<st:WizardStep id="SummaryStep" title="Summary" validated="true" activate="onSummaryStep">-->
+							<Page id="idFaultp3" showHeader="false" navButtonTooltip="Summary">
+								<Toolbar class="borderTopSummarystep">
+									<Title text="{i18n>Permit_Application_Summary}" level="H2" textAlign="Left" class="PermitAppSummary"/>
+									<ToolbarSpacer/>
+									<Title visible="{SummaryModel>/PrintMode}" text="{oModel>/isApplicationId}"/>
+								</Toolbar>
+								<HBox alignContent="SpaceAround" alignItems="Start" class="sapUiMediumMarginBegin">
+									<Label text="{i18n>Requestor} : "/>
+									<Text id="idRequestor" text=" {UserProfileModel>/email}" class="sapUiSmallMarginBegin"/>
+								</HBox>
+								<l:Grid containerQuery="true" defaultSpan="XL6 L6 M6 S12">
+									<VBox>
+										<f:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="6" labelSpanL="6" labelSpanM="6" labelSpanS="6"
+										adjustLabelSpan="true" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+										singleContainerFullSize="false">
+											<f:toolbar>
+												<Toolbar >
+													<Title text="Permit reference numbers" level="H4" titleStyle="H4"/>
+												</Toolbar>
+											</f:toolbar>
+											<f:content>
+												<Label textDirection = "RTL" visible="{SummaryModel>/PrintMode}" text="{i18n>Permitreferencenumber}"/>
+												<Text visible="{SummaryModel>/PrintMode}" text="{SummaryModel>/PermitReferenceNo}"/>
+												<Label textDirection = "RTL" text="{i18n>Request_id}"/>
+												<Text text="{SummaryModel>/requestId}"/>
+												<Label textDirection = "RTL" text="SAP Work Order Number"/>
+												<Text text="{SummaryModel>/SAPWorkOrderNo}"/>
+												<Label textDirection = "RTL" text="SAP Work Order Operations Number"/>
+												<Text text="{SummaryModel>/SAPWorkOrderOperationsNo}"/>
+											</f:content>
+										</f:SimpleForm>
+										<f:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="6" labelSpanL="6" labelSpanM="6" labelSpanS="12"
+											adjustLabelSpan="true" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2"
+											singleContainerFullSize="false">
+											<f:toolbar>
+												<Toolbar>
+													<Title text="{i18n>Worklocationdetails}" level="H4" titleStyle="H4"/>
+													<ToolbarSpacer/>
+													<Button text="Edit" press="onPressEditWorkLocationDetails"/>
+												</Toolbar>
+											</f:toolbar>
+											<f:content>
+												<Label text="Works Start and Time"/>
+												<Text text="{path:'SummaryModel>/workstartandtime', formatter:'.formatter.DateFormat'}"/>
+												<Label text="Estimated End Date"/>
+												<Text text="{path:'oModel>/endDate', formatter:'.formatter.DateFormat'}"/>
+												<Label text="Incident/Project Number"/>
+												<Text text="{SummaryModel>/IncidentProjectNo}"/>
+												<Label text="Works identifier"/>
+												<Text text="{SummaryModel>/WorksIdentifier}"/>
+												<Label text="Selected location"/>
+												<Text text="{SummaryModel>/selectedLocation}"/>
+												<Label text="USRN"/>
+												<Text text="{SummaryModel>/USRN}"/>
+												<Label text="Operational zone"/>
+												<Text text="{SummaryModel>/Operationalzone}"/>
+												<Label text="Highway Authority"/>
+												<Text text="{SummaryModel>/HighwayAuthority}"/>
+											</f:content>
+										</f:SimpleForm>
+									</VBox>
+									<VBox>
+										<f:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="2" labelSpanS="12"
+											adjustLabelSpan="true" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2"
+											singleContainerFullSize="false">
+											<f:toolbar>
+												<Toolbar >
+													<Title text="{i18n>work_details}" level="H4" titleStyle="H4"/>
+													<ToolbarSpacer/>
+													<Button text="Edit" press="onPressEditWorkDetails"/>
+												</Toolbar>
+											</f:toolbar>
+											<f:content>
+												<Label text="{i18n>Primary_contractor}"/>
+												<Text text="{SummaryModel>/Primarycontractor}"/>
+												<Label text="{i18n>Secondary_contractor}"/>
+												<Text text="{SummaryModel>/Secondarycontractor}"/>
+												<Label text="{i18n>Other_contractor}"/>
+												<Text text="{SummaryModel>/Othercontractor}"/>
+												<Label text="{i18n>Work_Type}"/>
+												<Text text="{SummaryModel>/WorkType}"/>
+												<Toolbar ariaLabelledBy="Title3" class="SummaryToolbar">
+													<Title text="Work Type: {SummaryModel>/WorkType}" level="H4" titleStyle="H4"/>
+													<ToolbarSpacer/>
+													<Link id="idFaultWorkDetwrkTypeLink" text="View Details" press="onPressSummaryWorktype"/>
+												</Toolbar>
+												<Label text="{i18n>Work_startdate_enddate}" visible="{SummaryModel>/WorkTypevisible}"/>
+												<Text text="{path:'SummaryModel>/workstartandtime', formatter:'.formatter.DateFormat'}" visible="{SummaryModel>/WorkTypevisible}"/>
+												<Label text="{i18n>Footway_closure_Fault}" visible="{SummaryModel>/WorkTypevisible}"/>
+												<Text text="{SummaryModel>/FootwayClosure}" visible="{SummaryModel>/WorkTypevisible}"/>
+												<Label text="{i18n>Excavation_type}" visible="{SummaryModel>/WorkTypevisible}"/>
+												<Text text="{= ${SummaryModel>/Excavationrequired} ? 'True' : 'False' }" visible="{SummaryModel>/WorkTypevisible}"/>
+												<Label text="{i18n>Works_description}"/>
+												<Text text="{SummaryModel>/Worksdescription}"/>
+												<Label text="{i18n>Person_responsible}"/>
+												<Text id="idPersonResponsible" text="{SummaryModel>/Personresponsible}"/>
+												<Label text="{i18n>Group_responsible}"/>
+												<Text text="{SummaryModel>/Groupresponsible}"/>
+											</f:content>
+										</f:SimpleForm>
+									</VBox>
+								</l:Grid>
+							</Page>
+						</NavContainer>
+						<!--</st:WizardStep>-->
+						<!--</Wizard>-->
+					</content>
+					<footer>
+						<OverflowToolbar>
+							<content>
+								<!--<Button id="messagePopoverBtn" icon="sap-icon://message-popup" type="Emphasized" text="{=${message>/}.length}"-->
+								<!--	visible="{=!!${message>/}.length}" press="onMessagesButtonPress"/>-->
+								<Button id="messagePopoverBtn" icon="sap-icon://message-popup" type="{=${oModel>/Notifications}.length===0 ? 'Emphasized' : 'Reject'}"
+									text="{=${oModel>/Notifications}.length}" press="onMessagesButtonPress"/>
+								<ToolbarSpacer/>
+								<Button id="idFaultDiscard" text="{i18n>discard}" press="onPressDiscard" type="Accept" visible="false"/>
+								<Button id="idFaultBackBtn" text="{i18n>BtnBACK}" press="onBackNav" type="Ghost" visible="false"/>
+								<Button id="idFaultCancelBtn" text="{i18n>BtnCancel}" press=".onHome('cancel')" type="Reject"/>
+								<Button id="idBtnSave" text="{i18n>BtnSave}" press=".onSavePress(false)" type="Ghost"/>
+								<Button id="idFaultsaveAndContinue" text="{i18n>BtnSavecont}" type="Accept" press="onSaveContinueButton" enabled="true"/>
+								<Button id="idFaultsubmitPermit" text="{i18n>BtnSubmitpermit}" type="Accept" press="onSubmitPermit" visible="false"/>
+								<Button id="idFaultSavePermit" text="{i18n>BtnSavepermit}" type="Accept" press="onSubmitPermit" visible="false"/>
+								<Button id="idFaultCloseBtn" text="{i18n>BtnClose}" press=".onHome('close')" type="Reject" visible="false"/>
+							</content>
+						</OverflowToolbar>
+					</footer>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>

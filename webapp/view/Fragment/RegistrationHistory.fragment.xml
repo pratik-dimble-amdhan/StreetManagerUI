@@ -1,0 +1,46 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<VBox class="sapUiSmallMargin InspectionformBorder" width="100%">
+		<VBox class="sapUiSmallMargin">
+			<Text text="{ parts: [ 'i18n>totalInspections', 'SitesHistory>/totalInspections' ], 
+                    formatter: 'jQuery.sap.formatMessage'}"/>
+			<Table class="sapUiTinyMarginTop" items="{SitesHistory>/sites}">
+				<columns>
+					<Column>
+						<Label text="{i18n>siteNum}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>siteDesc}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>dimension}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>reinstatementDate}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>state}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>siteVersion}" wrapping="true" design="Bold"/>
+					</Column>
+					<Column width="50px">
+						<Label text=""/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{SitesHistory>siteNumber}"/>
+							<Text text="{SitesHistory>siteDescription}"/>
+							<Text text="{SitesHistory>dimension}"/>
+							<Text text="{path:'SitesHistory>reinstatementDate', formatter:'.formatter.DateFormatMomentwithoutTime'}"/>
+							<Text text="{SitesHistory>state}"/>
+							<Text text="{SitesHistory>version}"/>
+							<Link text="{i18n>view}" press=".onPressSiteDetail(${SitesHistory>siteId})"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</VBox>
+	</VBox>
+</core:FragmentDefinition>

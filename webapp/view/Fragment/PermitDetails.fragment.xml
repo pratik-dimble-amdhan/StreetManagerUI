@@ -1,0 +1,176 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<VBox class="sapUiSmallMargin InspectionformBorder" width="98%">
+		<Toolbar class="borderTopSummarystep" visible="{ parts: ['i18n>PM-Editor'], formatter:'.formatter.checkRoles'}">
+			<ToolbarSpacer/>
+			<Button id="editBtn" text="{i18n>EditPermit}" visible="false" press="onPressEditPermit"/>
+		</Toolbar>
+		<l:Grid containerQuery="true" defaultSpan="XL6 L6 M6 S12">
+			<VBox>
+				<f:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="6" labelSpanL="6" labelSpanM="6" labelSpanS="6"
+					adjustLabelSpan="true" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+					singleContainerFullSize="false">
+					<f:toolbar>
+						<Toolbar >
+							<Title text="{i18n>Permitreferencenumbers}" level="H4" titleStyle="H4"/>
+						</Toolbar>
+					</f:toolbar>
+					<f:content>
+						<Label textDirection = "RTL" text="{i18n>UKPN_Works_Reference_Number}"/>
+						<Text text="{PermitDetails>/workReferenceNumber}"/>
+						<Label textDirection = "RTL" text="{i18n>Licence_number}" visible="{= ${oModel>/isPrivatePlanned} ? true : false}"/>
+						<Text text="{PermitDetails>/licenseNumber}" visible="{= ${oModel>/isPrivatePlanned} ? true : false}"/>
+						<Label textDirection = "RTL" text="{i18n>SAP_Work_Order_Number}"/>
+						<Text text="{PermitDetails>/workOrderNumber}"/>
+						<Label textDirection = "RTL" text="{i18n>SAP_Work_Order_Operation_Number}"/>
+						<Text text="{PermitDetails>/workOrderOperationNumber}"/>
+					</f:content>
+				</f:SimpleForm>
+				<f:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="6" labelSpanL="6" labelSpanM="3" labelSpanS="12"
+					adjustLabelSpan="true" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+					singleContainerFullSize="false">
+					<f:toolbar>
+						<Toolbar>
+							<Title text="{i18n>Worklocationdetails}" level="H4" titleStyle="H4"/>
+						</Toolbar>
+					</f:toolbar>
+					<f:content>
+						<Label text="{i18n>Selectedlocation}"/>
+						<Text
+							text="{parts:['PermitDetails>/locationDescription','PermitDetails>/street','PermitDetails>/area','PermitDetails>/town'], formatter:'.FormatSelectedlocation'}"/>
+						<Label text="{i18n>USRN}"/>
+						<Text text="{PermitDetails>/usrn}"/>
+						<Label text="{i18n>Roadcategories}" visible="{= ${oModel>/isPrivateFault} ? false : true}"/>
+						<Text text="{PermitDetails>/roadCategory}" visible="{= ${oModel>/isPrivateFault} ? false : true}"/>
+						<Label text="{i18n>Operationalzone}"/>
+						<Text text="{PermitDetails>/operationalZoneDescription}"/>
+						<Label text="{i18n>Highwayauthority}"/>
+						<Text text="{PermitDetails>/highwayAuthorityTxt}"/>
+						<Toolbar ariaLabelledBy="Title3" class="SummaryToolbar" visible="{= ${oModel>/isPrivateFault} ? false : true}">
+							<Title text="Special Designations" level="H3"/>
+							<ToolbarSpacer/>
+						</Toolbar>
+						<List items="{PermitDetails>/specialDesignations}" class="SplDesignation ColorchangeList">
+							<CustomListItem>
+								<Text
+									text="{= ${PermitDetails>special_desig_location_text} === null ? ${PermitDetails>special_desig_description} : ${PermitDetails>special_desig_location_text} }"/>
+							</CustomListItem>
+						</List>
+						<Label text="{i18n>Position_of_works}" visible="{= ${oModel>/isPrivateFault} ? false : true}"/>
+						<List items="{PermitDetails>/positionOfWorks}" class="ColorchangeList">
+							<CustomListItem>
+								<Text text="{ parts: ['PermitDetails>'], formatter: '.formatter.formatPosition'}"/>
+							</CustomListItem>
+						</List>
+					</f:content>
+				</f:SimpleForm>
+				<layoutData>
+					<l:GridData span="XL6 L6 M6 S12"/>
+				</layoutData>
+				<f:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="6" labelSpanL="6" labelSpanM="3" labelSpanS="12"
+					adjustLabelSpan="true" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+					singleContainerFullSize="false">
+					<f:toolbar>
+						<Toolbar>
+							<Title text="{i18n>assesmentDetails}" level="H4" titleStyle="H4"/>
+						</Toolbar>
+					</f:toolbar>
+					<f:content>
+						<Label text="{i18n>assesmentDecision}"/>
+						<Text text="{ parts: ['PermitDetails>/assessmentStatus'], formatter: '.formatter.formatAssesmentStatus'}"/>
+						<Label text="{i18n>refusalReason}"/>
+						<Text text="{ parts: ['PermitDetails>/reasonsForRefusal'], formatter: '.formatter.parseRefusalReasons'}"/>
+						<Label text="{i18n>assesmentComments}" />
+						<Text text="{PermitDetails>/assessmentComments}"/>
+						<Label text="{i18n>modificationRequestComments}"/>
+						<Text text="{PermitDetails>/pendingChangeDetails}"/>
+						<Label text="{i18n>discountApplied}"/>
+						<Text text="{= ${PermitDetails>/assessmentDiscount} ? ${PermitDetails>/assessmentDiscount} + '%' : ''}"/>
+					</f:content>
+				</f:SimpleForm>
+				<layoutData>
+					<l:GridData span="XL6 L6 M6 S12"/>
+				</layoutData>
+			</VBox>
+			<VBox>
+				<f:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="6" labelSpanL="6" labelSpanM="3" labelSpanS="12"
+					adjustLabelSpan="true" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+					singleContainerFullSize="false">
+					<f:toolbar>
+						<Toolbar >
+							<Title text="{i18n>Workdetails}" level="H4" titleStyle="H4"/>
+							<ToolbarSpacer/>
+							<!--<Button text="{i18n>BtnEdit}" press="onPressEditWorkDetails"/>-->
+						</Toolbar>
+					</f:toolbar>
+					<f:content>
+						<Label text="{i18n>Primary_contractor}"/>
+						<Text text="{PermitDetails>/primaryContractorTxt}"/>
+						<Label text="{i18n>Secondary_contractor}"/>
+						<Text text="{PermitDetails>/secondaryContractorTxt}"/>
+						<Label text="{i18n>Other_contractor}"/>
+						<Text text="{PermitDetails>/otherContractorTxt}"/>
+						<Label text="{i18n>Work_Type}"/>
+						<Text text="{PermitDetails>/workType}"/>
+						<Toolbar ariaLabelledBy="Title3" class="SummaryToolbar">
+							<Title text="Work Type: {PermitDetails>/workType}" level="H3"/>
+							<ToolbarSpacer/>
+							<!--<Link id="idWorkDetwrkTypeLink" text="View Details" press="onPressSummaryWorktype"/>-->
+						</Toolbar>
+						<!--++++++++++++++-->
+						<Label text="{i18n>Work_date_range}"/>
+						<Text text="{parts:['PermitDetails>/proposedStartDate','PermitDetails>/proposedEndDate'], formatter:'.formatWorkdateRange'}"/>
+						<!--<Text text="{PermitDetails>/proposedEndDate}"/>-->
+						<Label text="{i18n>authEndDate}"/>
+						<Text text="{path:'PermitDetails>/reasonablePeriodEndDate', formatter:'.DateFormat'}"/>
+						<Label text="{i18n>actualStartdateAndTime}"/>
+						<Text
+							text="{= ${PermitDetails>/actualStartDate} ? ${path:'PermitDetails>/actualStartDate', formatter:'.formatter.DateFormatMoment'} : 'N/A'}"/>
+						<Label text="{i18n>actualStopdateAndTime}"/>
+						<Text
+							text="{= ${PermitDetails>/actualEndDate} ? ${path:'PermitDetails>/actualEndDate', formatter:'.formatter.DateFormatMoment'} : 'N/A'}"/>
+						<Label text="{i18n>Jointing_date}"/>
+						<Text text="{path:'PermitDetails>/jointingStartDate', formatter:'.DateFormat'}"/>
+						<Label text="{i18n>Actual_Jointing_date}"/>
+						<Text text="{path:'PermitDetails>/actualJointingStartDate', formatter:'.DateFormat'}"/>
+						<Label text="{i18n>Traffic_management_type}" visible="{= ${oModel>/isPrivateFault} ? false : true}"/>
+						<Text text="{PermitDetails>/trafficManagementTypeValue}" visible="{= ${oModel>/isPrivateFault} ? false : true}"/>
+						<Label text="{i18n>Footway_closure}"/>
+						<Text text="{PermitDetails>/closeFootwayValue}"/>
+						<Label text="{i18n>Excavation_required}"/>
+						<Text text="{= ${PermitDetails>/excavationFlag} ? 'True' : 'False' }"/>
+						<Label text="{i18n>Collaboration_type}" visible="{= ${oModel>/isPrivateFault} ? false : true}"/>
+						<Text text="{PermitDetails>/collaborationTypeTxt}" visible="{= ${oModel>/isPrivateFault} ? false : true}"/>
+						<Label text="{i18n>WRP}" visible="{= ${oModel>/isPrivateFault} ? false : true}"/>
+						<Text text="{= ${PermitDetails>/wrpFlag} ? 'True' : 'False' }" visible="{= ${oModel>/isPrivateFault} ? false : true}"/>
+						<Label text="{i18n>WRP_authority}" visible="{= ${oModel>/isPrivateFault} ? false : true}"/>
+						<Text text="{PermitDetails>/wrpAuthority}" visible="{= ${oModel>/isPrivateFault} ? false : true}"/>
+						<Label text="{i18n>Department_identifier}" visible="{= ${oModel>/isPrivateFault} ? false : true}"/>
+						<Text text="{PermitDetails>/departmentIdentifierName}" visible="{= ${oModel>/isPrivateFault} ? false : true}"/>
+						<Label text="{i18n>Works_identifier}"/>
+						<Text text="{PermitDetails>/worksIdentifierTxt}"/>
+						<Label text="{i18n>Works_description}"/>
+						<Text text="{PermitDetails>/workDescription}"/>
+						<Label text="{i18n>Person_responsible}"/>
+						<Text text="{PermitDetails>/personResponsible}"/>
+						<Label text="{i18n>Person_responsible_contact_details}"/>
+						<Text text="{PermitDetails>/personResponsiblePhone}"/>
+						<Label text="{i18n>Group_responsible}" visible="{= ${oModel>/isFaultPermit} ? true : false}"/>
+						<Text text="{PermitDetails>/groupName}" visible="{= ${oModel>/isFaultPermit} ? true : false}"/>
+						<Toolbar ariaLabelledBy="Title3" class="SummaryToolbar" visible="{= ${oModel>/isPrivateFault} ? false : true}">
+							<Title text="{i18n>PermitConditions}" level="H3"/>
+							<ToolbarSpacer/>
+						</Toolbar>
+						<List items="{PermitDetails>/conditions}" class="SplDesignation ColorchangeList">
+							<CustomListItem>
+								<Text text="{PermitDetails>condition} - {PermitDetails>comment}"/>
+							</CustomListItem>
+						</List>
+					</f:content>
+				</f:SimpleForm>
+				<layoutData>
+					<l:GridData span="XL6 L6 M6 S12"/>
+				</layoutData>
+			</VBox>
+		</l:Grid>
+	</VBox>
+</core:FragmentDefinition>

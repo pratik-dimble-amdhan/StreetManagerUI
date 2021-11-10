@@ -1,0 +1,40 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	controllerName="project1.controller.RegisterSubmit" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Shell id="shell">
+		<App>
+			<pages>
+				<Page title="Title">
+					<customHeader>
+						<Bar class="pageHeaderBGcolor">
+							<contentMiddle>
+								<Title text="{i18n>Ukpn_Title}" level="H2" class="titleColor"/>
+							</contentMiddle>
+							<contentRight>
+								<Text textAlign="Right" class="titleColor" text="{UserProfileModel>/givenName} {UserProfileModel>/surname} &#13; {UserProfileModel>/assignedRoles}"/>
+								<core:Icon size="30px" src="sap-icon://customer"/>
+							</contentRight>
+						</Bar>
+					</customHeader>
+					<subHeader>
+						<Toolbar>
+							<Title text="{i18n>Register_Permit}" level="H2" textAlign="Left"/>
+							<!--<ToolbarSpacer/>-->
+						</Toolbar>
+					</subHeader>
+					<content>
+						<MessageStrip text="Permit {RegModel>/workReferenceNumber} registered" type="Success" showIcon="true"></MessageStrip>
+					</content>
+					<footer>
+						<OverflowToolbar id="idPermitFooter">
+							<content>
+								<ToolbarSpacer/>
+								<Button text="{i18n>Search_permit}" type="Ghost" press="onSearchPermit"></Button>
+								<Button text="{i18n>home}" type="Ghost" press="onBackHome"></Button>
+							</content>
+						</OverflowToolbar>
+					</footer>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>

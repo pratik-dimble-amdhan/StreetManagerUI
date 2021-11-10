@@ -1,0 +1,73 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+	controllerName="project1.controller.PermitSubmit" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Shell id="shell">
+		<App>
+			<pages>
+				<Page id="page1">
+					<customHeader>
+						<Bar class="pageHeaderBGcolor">
+							<contentMiddle>
+								<Title text="{i18n>Ukpn_Title}" level="H2" class="titleColor"/>
+							</contentMiddle>
+							<contentRight>
+								<Text textAlign="Right" class="titleColor" text="{UserProfileModel>/givenName} {UserProfileModel>/surname} &#13; {UserProfileModel>/assignedRoles}"/>
+								<core:Icon size="30px" src="sap-icon://customer"/>
+							</contentRight>
+						</Bar>
+					</customHeader>
+					<subHeader>
+						<Toolbar class="smallHeader">
+							<Title text="{i18n>BtnSubmitpermit}" level="H1" textAlign="Left" class="secondTitle"/>
+						</Toolbar>
+					</subHeader>
+					<content>
+						<Toolbar>
+							<Title id="idTitle"
+								text="{= ${oModel>/isNavigationFault} ? ${i18n>Create_Immediate_Permit} : ${oModel>/isPrivateFault} ? ${i18n>Create_Private_Immediate_Permit} : ${oModel>/isPrivatePlanned} ? ${i18n>private_planned} : ${i18n>CreatePlannedPermit} }"
+								level="H2" textAlign="Left"/>
+							<ToolbarSpacer/>
+							<Button text="Print Summary" press="onPrint"/>
+							<Button text="Export Summary" press="onExport"/>
+						</Toolbar>
+						<MessageStrip text="{oModel>/permitReferenceNumber}" id="idSuccess" visible="{= ${oModel>/isErrorFault} === false}" type="Success"
+							showIcon="true"></MessageStrip>
+						<MessageStrip text="Permit Submission Failed" id="idError" visible="{oModel>/isErrorFault}" type="Error" showIcon="true"></MessageStrip>
+						<f:SimpleForm id="idBoxSuccess" editable="false" layout="ResponsiveGridLayout" labelSpanL="3" emptySpanL="4" columnsL="1">
+							<Label text="{i18n>Job_reference}"></Label>
+							<Text text="{oModel>/IncidentProjectNumber}"></Text>
+							<Label text="{i18n>Permit_start_end_date}"></Label>
+							<Text
+								text="{path:'oModel>/StartDate', formatter:'.formatter.DateFormatwithoutTime'} - {path:'oModel>/endDate', formatter:'.formatter.DateFormatwithoutTime'}"></Text>
+						</f:SimpleForm>
+						<!--<l:VerticalLayout >-->
+						<Panel id="idBoxError">
+							<VBox>
+								<Text text="{= 'Request ID [' + ${oModel>/isApplicationId} + '] has failed to submit. The application has been saved' }"></Text>
+								<Text text="Please contact the Streetworks team for assistance on 08000 280709"></Text>
+							</VBox>
+						</Panel>
+					</content>
+					<footer>
+						<OverflowToolbar id="idPermitFooter">
+							<content>
+								<ToolbarSpacer></ToolbarSpacer>
+								<Button text="{i18n>Reporting}" id="idReporting" press="onReportPress"
+									visible="{= ${oModel>/isNavigationFault} ? true : ${oModel>/isPrivateFault} ? true : false}" type="Ghost"></Button>
+								<Button text="{i18n>Search_permit}" press="onSearchPermit" id="idSearchPermit" type="Ghost"
+									visible="{= ${oModel>/isNavigationFault} ? true : ${oModel>/isPrivateFault} ? true : false}"></Button>
+								<Button text="{i18n>home}" type="Ghost" press="onBackHome"></Button>
+								<Button text="{i18n>Create_new_permit}" id="idPermitSubmit" type="Ghost"
+									visible="{= ${oModel>/isNavigationFault} ? false : ${oModel>/isPrivateFault} ? false : ${oModel>/isPrivatePlanned} ? false: true}"
+									press="onCreatePermit"></Button>
+								<Button text="{i18n>Create_new_fault_permit}" id="idFaultSubmit"
+									visible="{= ${oModel>/isPrivateFault} ? false : ${oModel>/isNavigationFault} ? true : false}" press="onCreatePermit" type="Ghost"></Button>
+								<Button text="{i18n>CreateNewPrivateFaultPermit}" id="idPrivateFaultSubmit" visible="{oModel>/isPrivateFault}" press="onCreatePrivateFault"
+									type="Ghost"></Button>
+							</content>
+						</OverflowToolbar>
+					</footer>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>
