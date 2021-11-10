@@ -21,3 +21,65 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+.DS_Store
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+### VS Code ###
+.vscode/
+
+### Multi Tar apps (SCP CF)
+**/.mta/**
+**/node_modules/.**
+**/node_modules/**
+*.mtar
+*.jar
+mta-op-*
+/bin/
+api/bin/
+cf-cli
+
+/mta_archives/
+fioriHtmlRunner.html
+.*/fioriHtmlRunner.html
+visual_ext_index.html
+/webapp/visual_ext_index.html
+extended_runnable_file.html
+.*/extended_runnable_file.html
+sap-ui-cachebuster-info.json
+mock_preview_sapui5.html
+.*/mock_preview_sapui5.html
+UIAdaptation_index.html
+changes_preview.js
+AppVariant_index.html
+AppVariantPreviewPayload.zip
+mergedManifestDescriptor.json
+APIExternalProducer.js
+.*/APIExternalProducer.js
